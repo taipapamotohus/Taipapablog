@@ -1,0 +1,95 @@
+#+HUGO_BASE_DIR: ./
+
+* Home
+  :PROPERTIES:
+  :EXPORT_HUGO_SECTION: home
+  :END:
+
+** COMMENT About
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: about
+   :EXPORT_HUGO_TYPE: about
+   :EXPORT_HUGO_AUTO_SET_LASTMOD: t
+   :EXPORT_HUGO_WEIGHT: 4
+   :EXPORT_HUGO_WIDGET: about
+   :EXPORT_HUGO_ACTIVE: t
+   :END:
+
+*** *このサイトについて*
+ フリーソフトで学会発表用のスライドを作ったり，論文を書いたりするのに役に立ちそうなことを，自分のためにまとめておく備忘録みたいなもの．最近とみに衰えてきた記憶力の補助になればいいな．．．(^^;;;
+
+    Emacsのorg-mode絡みの話が多くなりそう．．．
+
+    殆どは先人の方々からの受け売りなので，できるだけ情報元も併記する．
+
+*** *環境*
+    MacBook Pro late 2016, Sierra
+
+    GNU Emacs 26.1, texlive2018
+
+     -----
+
+     # [[/files/petercheng_resume.pdf][Click here for a pdf version of my resume]]
+
+     #  #+INCLUDE: "../../../resume/resume.org" :lines "35-"
+
+* Posts
+  :PROPERTIES:
+  :EXPORT_HUGO_SECTION: post
+  :EXPORT_HUGO_WEIGHT: 1
+  :END:
+** Emacsのインストール                                               :emacs:
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: Emacs_Install
+   :EXPORT_DATE: 2018-08-14
+   :EXPORT_HUGO_AUTO_SET_LASTMOD: t
+   :EXPORT_HUGO_DRAFT: false
+   :EXPORT_AUTHOR: "taipapa"
+   :EXPORT_HUGO_TYPE: post
+   :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/Paris.jpg") (caption . "stay hungry, stay foolish"))
+   :END:
+   様々な方法があるが，Macを使用しているものとして，ここでは[[https://brew.sh/index_ja][Homebrew]]を使ってサクッとインストール．Homebrew自体のインストールはそちらのサイトを参照．
+
+   Emacsで日本語を書いてると，M-xしたときに悲しいことになるので，[[https://ja.wikipedia.org/wiki/インプット_メソッド_エディタ][Imput Method Editor (IME)]]用のパッチを当てる．既にパッチの当たっているYAMAMOTO Mitsuharu版のMac Port用のemacs-macがよい．railwaycatさんがHomebrewでインストールできるようにしてくれているので，これを使わせていただく（[[https://github.com/railwaycat/homebrew-emacsmacport][Emacs Mac Port]]）．ありがたや～．
+
+   #+begin_src shell
+     brew tap railwaycat/emacsmacport
+     brew install emacs-mac --with-modern-icon --with-imagemagick
+     ln -s /usr/local/opt/emacs-mac/Emacs.app /Applications
+   #+end_src
+
+  --with-modern-iconを指定すると、新しいアイコンになる。
+
+  なお，他のoptionは以下のように打てば分かる．
+  #+begin_src sh
+  brew tap railwaycat/emacsmacport
+  brew info emacs-mac
+  #+end_src
+
+** Emacsの設定（その１）Preludeの導入                        :emacs:prelude:
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: Prelude_install
+   :EXPORT_DATE: 2018-08-15
+   :EXPORT_HUGO_AUTO_SET_LASTMOD: t
+   :EXPORT_HUGO_DRAFT: false
+   :EXPORT_AUTHOR: "taipapa"
+   :EXPORT_HUGO_TYPE: post
+    :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/Istanbul.jpg") (caption . "stay hungry, stay foolish"))
+   :END:
+   昔はいろいろイチからinit.elを設定したものだけど，今は最初からほぼ全部やってくれる設定集がある．
+*** Preludeとは
+    - Emacs初期設定集の一種．他にもいろいろあるようだが，これしか使ったことがないので．．．
+    - [[https://github.com/bbatsov/prelude][Prelude]] Githubはこちら
+*** Preludeのインストール
+    - 上記のGithubのFast Forwardに書いてあるように，macOSで既にgitとcurlとEmacsをインストールしていれば，下記のコマンドを打てば，Preludeがインストールされる．念のために，古い.emacs.dはどこかに退避させておく．
+      #+begin_src shell
+      curl -L https://git.io/epre | sh
+      #+end_src
+    - インストール終了後にEmacsを再起動すると，勝手にどんどん各種パッケージをダウンロードしてインストールしてくれる．auctexなどもインストールされるので，LaTeXも使えるようになる．最強！
+    - prelude-modules.elを見て必要なmodulesがロードされるようにコメントアウトを外す．
+      #+begin_src lisp
+        (require 'prelude-helm) ;; Interface for narrowing and search
+        (require 'prelude-helm-everywhere) ;; Enable Helm everywhere
+      #+end_src
+      このあたりは外している．
+    - 個人の設定は，~/.emacs.d/personal/init.elに書き込む．これは，org-modeを使って設定するのが良い．まずorg-modeについての記事を書いたあとにinit.orgについて書く予定．
