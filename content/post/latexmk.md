@@ -1,9 +1,9 @@
 +++
-title = "texファイルが変更されると，自動的にcompileしてskimでのpdfも自動で更新されるようにする．"
+title = "LaTeXをインストールし，texファイルが変更されると，自動的にcompileしてskimでのpdfも自動で更新されるようにする"
 author = ["taipapa"]
 date = 2018-08-19
-lastmod = 2018-08-19T21:32:46+09:00
-tags = ["emac", "latex", "skim", "pdf", "beamer"]
+lastmod = 2018-08-24T23:56:21+09:00
+tags = ["emacs", "latex", "pdf", "skim", "beamer", "auctex"]
 type = "post"
 draft = false
 weight = 1
@@ -12,14 +12,34 @@ weight = 1
   caption = "琵琶湖"
 +++
 
-Emacsでbeamerを使って，スライド原稿などを作成していると，C-c C-cするたびにtex文書がcompileされてpdf原稿が出来上がるのを待たなければならず，この待ち時間が結構辛い．そこで，tex ファイルの変更が保存されるたびに自動で裏でlatexmkがcompileしてくれるようにする．latexmkを使う．
+## TeX Live 2018のインストール {#tex-live-2018のインストール}
+
+-   参考サイト１：[TeX Wiki TeX Live](https://texwiki.texjp.org/?TeX%20Live)
+-   参考サイト２：[TeX Wiki TeX LiveMac](https://texwiki.texjp.org/?TeX%20Live%2FMac)
+-   参考サイト３：[The MacTeX-2018 Distribution](http://www.tug.org/mactex/)
+-   上記サイトを参考にTeX Live 2018もしくはMacTeX-2018をインストールする．
+-   これでスライド作成ソフトであるbeamerも一緒にインストールされる．
+-   beamerに固有の設定は特に必要なし．
+
+
+## auctexのインストールと設定 {#auctexのインストールと設定}
+
+-   latex文書を扱うなら，Emacsのパッケージであるauctexが最強（according to 独断と偏見）
+-   preludeをインストールした時点で，auctexもインストールされる．
+-   auctexの設定などについては以下を参照（手抜き..... (^^;;; ）
+    -   [AUCTEX – Sophisticated document creation](https://www.gnu.org/software/auctex/)
+    -   [TeX Wiki AUCTeX](https://texwiki.texjp.org/?AUCTeX)
+    -   [Emacs/AUCTeX](https://mytexpert.osdn.jp/index.php?Emacs/AUCTeX)
+    -   [AUCTeX の設定と便利な機能](https://skalldan.wordpress.com/2011/07/20/auctex-の設定と便利な機能/)
+-   しかし，org-modeを使うようになってからは直接latex文書を打つことはめっきり少なくなってしまった．それでも，学会発表用のスライドなどはlatexを直接打って，beamer文書を作成し，pdf原稿に変換している．
 
 
 ## latexmk {#latexmk}
 
+-   Emacsでbeamerを使って，スライド原稿などを作成していると，C-c C-cするたびにtex文書がcompileされてpdf原稿が出来上がるのを待たなければならず，この待ち時間が結構辛い．そこで，tex ファイルの変更が保存されるたびに自動で裏でlatexmkがcompileしてくれるようにする．latexmkを使う．
 -   参考サイト：[TeX Wiki Latexmk](https://texwiki.texjp.org/?Latexmk)
 -   texlive2018, MacTeXに入っているので，これらを入れていれば別途インストールする必要なし．
--   ~/.latexmkrcの中に以下のように記述する
+-   ~/.latexmkrcの中に以下のように記述する（ちなみに私はxelatexを使用している）
 
     ```lisp
     $pdflatex = 'xelatex -interaction=nonstopmode -synctex=1 %O %S';

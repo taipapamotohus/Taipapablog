@@ -5,7 +5,8 @@
   :EXPORT_HUGO_SECTION: home
   :END:
 
-** COMMENT About
+** DONE About
+   CLOSED: [2018-08-23 Thu 22:14]
    :PROPERTIES:
    :EXPORT_FILE_NAME: about
    :EXPORT_HUGO_TYPE: about
@@ -16,16 +17,16 @@
    :END:
 
 *** *このサイトについて*
- フリーソフトで学会発表用のスライドを作ったり，論文を書いたりするのに役に立ちそうなことを，自分のためにまとめておく備忘録みたいなもの．最近とみに衰えてきた記憶力の補助になればいいな．．．(^^;;;  :smile:
+ フリーソフトで学会発表用のスライドを作ったり，論文を書いたりするのに役に立ちそうなことを，自分のためにまとめておく備忘録みたいなもの．最近とみに衰えてきた記憶力の補助になればいいな．．．  :smile:
 
-    Emacsのorg-mode絡みの話が多くなりそう．．．
+    Emacsのorg-modeやLaTeX絡みの話が多くなりそう．．．
 
     殆どは先人の方々からの受け売りなので，できるだけ情報元も併記する．
 
 *** *環境*
     MacBook Pro late 2016, Sierra
 
-    GNU Emacs 26.1, texlive2018
+    GNU Emacs 26.1, TeX Live 2018 (MacTeX-2018)
 
      -----
 
@@ -38,7 +39,7 @@
   :EXPORT_HUGO_SECTION: post
   :EXPORT_HUGO_WEIGHT: 1
   :END:
-** Emacsのインストール                                               :emacs:homebrew:
+** Emacsのインストール                                      :emacs:homebrew:
    :PROPERTIES:
    :EXPORT_FILE_NAME: Emacs_Install
    :EXPORT_DATE: 2018-08-14
@@ -95,7 +96,7 @@
     - preludeのdefaultの設定は，ほぼ満足すべきものだが，ひとつだけ，prelude-auto-saveが邪魔である．これは，他のbufferに移動したり，他のアプリを使用したりするたびに自動で保存される機能であるが，非常に鬱陶しい．M-x customize からprelude-auto-saveを検索し，offにする．custom.elに書き込まれる．
     - 個人の設定は，~/.emacs.d/personal/init.elに書き込む．これは，org-modeを使って設定するのが良い．まずorg-modeについての記事を書いたあとにinit.orgについて書く予定．
 
-** Emacsの設定（その2）設定ファイル（init.el）をorg-modeで管理する       :emacs:init_org:init_el:
+** Emacsの設定（その2）設定ファイル（init.el）をorg-modeで管理する :emacs:init_org:init_el:
    :PROPERTIES:
    :EXPORT_FILE_NAME: init_org
    :EXPORT_DATE: 2018-08-17
@@ -261,7 +262,7 @@
       #+end_src
     - これで日本語入力中であっても，M-xなどでミニバッファ入力時に自動的に英語入力モードになってくれる．
     - ついでに行った日本語か英語かでカーソルの色が変わる設定はわりに有用だが，ときに色が変わらないことあり．
-** texファイルが変更されると，自動的にcompileしてskimでのpdfも自動で更新されるようにする． :emac:latex:pdf:skim:pdf:beamer:
+** LaTeXをインストールし，texファイルが変更されると，自動的にcompileしてskimでのpdfも自動で更新されるようにする  :emacs:latex:pdf:skim:beamer:auctex:
    :PROPERTIES:
    :EXPORT_FILE_NAME: latexmk
    :EXPORT_DATE: 2018-08-19
@@ -271,11 +272,27 @@
    :EXPORT_HUGO_TYPE: post
    :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/琵琶湖.jpg") (caption . "琵琶湖"))
    :END:
-   Emacsでbeamerを使って，スライド原稿などを作成していると，C-c C-cするたびにtex文書がcompileされてpdf原稿が出来上がるのを待たなければならず，この待ち時間が結構辛い．そこで，tex ファイルの変更が保存されるたびに自動で裏でlatexmkがcompileしてくれるようにする．latexmkを使う．
+*** TeX Live 2018のインストール
+    - 参考サイト１：[[https://texwiki.texjp.org/?TeX%20Live][TeX Wiki TeX Live]]
+    - 参考サイト２：[[https://texwiki.texjp.org/?TeX%20Live%2FMac][TeX Wiki TeX LiveMac]]
+    - 参考サイト３：[[http://www.tug.org/mactex/][The MacTeX-2018 Distribution]]
+    - 上記サイトを参考にTeX Live 2018もしくはMacTeX-2018をインストールする．
+    - これでスライド作成ソフトであるbeamerも一緒にインストールされる．
+    - beamerに固有の設定は特に必要なし．
+*** auctexのインストールと設定
+    - latex文書を扱うなら，Emacsのパッケージであるauctexが最強（according to 独断と偏見）
+    - preludeをインストールした時点で，auctexもインストールされる．
+    - auctexの設定などについては以下を参照（手抜き..... (^^;;; ）
+      + [[https://www.gnu.org/software/auctex/][AUCTEX – Sophisticated document creation]]
+      + [[https://texwiki.texjp.org/?AUCTeX][TeX Wiki AUCTeX]]
+      + [[https://mytexpert.osdn.jp/index.php?Emacs/AUCTeX][Emacs/AUCTeX]]
+      + [[https://skalldan.wordpress.com/2011/07/20/auctex-の設定と便利な機能/][AUCTeX の設定と便利な機能]]
+    - しかし，org-modeを使うようになってからは直接latex文書を打つことはめっきり少なくなってしまった．それでも，学会発表用のスライドなどはlatexを直接打って，beamer文書を作成し，pdf原稿に変換している．
 ***  latexmk
+    - Emacsでbeamerを使って，スライド原稿などを作成していると，C-c C-cするたびにtex文書がcompileされてpdf原稿が出来上がるのを待たなければならず，この待ち時間が結構辛い．そこで，tex ファイルの変更が保存されるたびに自動で裏でlatexmkがcompileしてくれるようにする．latexmkを使う．
     - 参考サイト：[[https://texwiki.texjp.org/?Latexmk][TeX Wiki Latexmk]]
     - texlive2018, MacTeXに入っているので，これらを入れていれば別途インストールする必要なし．
-    - ~/.latexmkrcの中に以下のように記述する
+    - ~/.latexmkrcの中に以下のように記述する（ちなみに私はxelatexを使用している）
       #+begin_src lisp
         $pdflatex = 'xelatex -interaction=nonstopmode -synctex=1 %O %S';
         $pdf_mode = 1;
@@ -290,3 +307,115 @@
       latexmk -pvc -pdf -view=none document.tex
       #+END_SRC
     - これで，texファイルへの変更を保存すると自動でコンパイルされて，設定にもよるが，skimで開いているpdfファイルも更新される．
+** beamerでスライド原稿用pdfを作成する :latex:latexmk:beamer:texlive:mactex:emacs:
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: beamer
+   :EXPORT_DATE: 2018-08-24
+   :EXPORT_HUGO_AUTO_SET_LASTMOD: t
+   :EXPORT_HUGO_DRAFT: false
+   :EXPORT_AUTHOR: "taipapa"
+   :EXPORT_HUGO_TYPE: post
+   :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/Kojidai.jpg") (caption . "Kojidai"))
+   :END:
+*** beamerによるスライド原稿の作成
+    - 基本的には，通常のLaTeX文書と同じである．実際のスライド原稿を見てもらうほうが早いであろう．以下のtexファイルを作成し，beamer_test.texと名付け，保存する．Editorは何でも良いが，やはり，Emacsが便利である．
+    - 下記のファイルには多少コメントを付けた．フォントの指定は自明．themeは山のようにあるので，ググって好きなものを使う．
+    - なお， \usefonttheme{professionalfonts} を入れているのは，これを入れないと，beamer は数式フォントとして sans に指定されたフォントを使うように内部で変更するからで，これを入れるとこの変更を無効にできる．数式がヒラギノになると間抜けである．昔，TeX QAで教えてもらった．参考：[[https://oku.edu.mie-u.ac.jp/tex/mod/forum/discuss.php?d=729][beamerでの数式フォントの変更]]
+    - また，いろいろ余分なパッケージも読み込んでいるが，必要なときに書き込めば良く，不要なら削除する．
+    #+begin_src lisp
+      % -*-coding:utf-8-*-
+      \documentclass[svgnames, table, 14pt]{beamer}
+      \usepackage{zxjatype}
+      \usepackage[hiragino-dx]{zxjafont}
+
+      % ヒラギノ角ゴ Proを使う
+      \setjamainfont[Scale=0.95,BoldFont=ヒラギノ角ゴ Pro W6]{ヒラギノ角ゴ Pro W3}
+      \setjasansfont[Scale=0.95,BoldFont=ヒラギノ角ゴ Pro W6]{ヒラギノ角ゴ Pro W3}
+
+      % themeを指定する
+      \usetheme{Darmstadt}
+
+      \usefonttheme[onlylarge]{structurebold}
+      \setbeamerfont*{frametitle}{size=\large,series=\bfseries}
+      \setbeamertemplate{navigation symbols}{}
+
+      \usepackage[english]{babel}
+      \usepackage[latin1]{inputenc}
+      \usepackage{times}
+      \usepackage[T1]{fontenc}
+      \usepackage{hyperref}
+
+      % Setup TikZ
+      \usepackage{tikz}
+      \usetikzlibrary{arrows}
+      \tikzstyle{block}=[draw opacity=0.7,line width=1.4cm]
+      % Figure position
+      \usepackage[absolute,overlay]{textpos}
+      % math
+      \usepackage{mathabx}
+
+      \usefonttheme{professionalfonts}
+
+      % Author, Title, etc.
+      \title[hoge/fugaによる相補的な治療における高難度症例の治療と成績]
+      {hoge/fugaによる相補的な治療における高難度症例の治療と成績}
+      \author[taipapa]
+      {taipapa, 織田信長, 豊臣秀吉, 徳川家康}
+      \institute[hogefuga University]
+      {hogefuga大学大学院 hogefuga研究科　hogefuga分野}
+
+
+      \date[日本hogefuga外科学会 第??回学術総会　\hspace{2.4cm} 201X年X月XX日]
+      {\scriptsize{Symposium-02「とっーても難しいhogeとfuga」
+      \\ \vspace{0.15cm} 筆頭演者はhogefuga外科学会へ過去3年間のCOI自己申告を
+      完了しています．\\本演題の発表に関して開示すべきCOIはありません
+      }}
+
+      % 学会名，日付，スライド番号を挿入
+      \setbeamertemplate{footline}
+      {\color{gray} %
+      \hspace{.075cm}
+      \insertshortdate%
+      \hspace{4cm}
+      \insertframenumber{} / \inserttotalframenumber%
+      }
+
+      \begin{document}
+
+      \begin{frame}
+      \titlepage
+      \end{frame}
+
+      \section{Introduction}
+
+      \begin{frame}{背景と目的}
+      \begin{block}{}
+      \begin{itemize}
+      \item hogeとfugaを比較してみると，一方で難易度の高い症例で
+      も他方では容易に行える場合も多い.
+      \item 当施設では，一方に片寄ることなく，hogeとfugaを相補的に
+      用いることにより合併症の減少を目指す方針をとっている．
+      \item そこで，自験例から高難度のhogefuga症例についての
+      方針と成績を主にhogefuga surgeonの立場から検討した.
+      \end{itemize}
+      \end{block}
+      \end{frame}
+      \end{document}
+    #+end_src
+    - ターミナルで，cdして上記のbeamer_test.texのあるdirectoryに移動し，shellで以下のように打ち込む．前回のポスト（[[../latexmk][LaTeXをインストールし，texファイルが変更されると，自動的にcompileしてskimでのpdfも自動で更新されるようにする]]を参考　
+      #+begin_src shell
+        latexmk -pvc -pdf -view=none beamer_test.tex
+      #+end_src
+    - これで下記のようなpdfが出来上がるはず．
+
+          #+attr_html: :width 100% :target _self
+         [[./static/img/beamer_tex.jpg]]
+
+          #+attr_html: :width 100% :target _self
+         [[./static/img/beamer_tex2.jpg]]
+    - 画像の貼り付けが必要なら，必要な箇所で，
+      #+begin_src shell
+        \includegraphics[width=2in]{/Data/hoge/fuga/......./hoge_fuga.pdf}
+      #+end_src
+      と打てばよい．
+** COMMENT beamerで動画が走るスライド原稿を作る
