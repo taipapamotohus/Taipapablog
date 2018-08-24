@@ -2,7 +2,7 @@
 title = "Emacsの設定（その2）設定ファイル（init.el）をorg-modeで管理する"
 author = ["taipapa"]
 date = 2018-08-17
-lastmod = 2018-08-24T23:56:21+09:00
+lastmod = 2018-08-25T00:45:37+09:00
 tags = ["emacs", "init-org", "init-el"]
 type = "post"
 draft = false
