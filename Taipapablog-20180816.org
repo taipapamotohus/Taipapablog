@@ -307,7 +307,7 @@
       latexmk -pvc -pdf -view=none document.tex
       #+END_SRC
     - これで，texファイルへの変更を保存すると自動でコンパイルされて，設定にもよるが，skimで開いているpdfファイルも更新される．
-** beamerでスライド原稿用pdfを作成する :latex:latexmk:beamer:texlive:mactex:emacs:
+** beamerでスライド原稿用pdfを作成する       :latex:latexmk:beamer:texlive:mactex:emacs:
    :PROPERTIES:
    :EXPORT_FILE_NAME: beamer
    :EXPORT_DATE: 2018-08-24
