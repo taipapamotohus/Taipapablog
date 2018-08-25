@@ -284,10 +284,10 @@ enableGitInfo = false
   url = "#tags"
   weight = 3
 
-# [[menu.main]]
-#   name = "Search"
-#   url = "#search"
-#   weight = 4
+[[menu.main]]
+  name = "Search"
+  url = "#search"
+  weight = 4
 
 
 
