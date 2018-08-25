@@ -2,7 +2,7 @@
 title = "beamerでスライド原稿用pdfを作成する（その2）動画が走るスライド原稿を作る"
 author = ["taipapa"]
 date = 2018-08-25
-lastmod = 2018-08-25T20:50:17+09:00
+lastmod = 2018-08-25T20:52:15+09:00
 tags = ["beamer", "movie", "latex", "pdf"]
 type = "post"
 draft = false
@@ -25,7 +25,7 @@ weight = 1
 
     An annotation is considered as an object with a location on a page. The type of the object is given by the value of the key `/Subtype', for instance, `/Text', `/Link', `/Sound', `/Movie', etc. (See [1, p. 615] for the list of all annotation types.) The location is given by an array object associated to the key `/Rect'. DVIPDFM(x) provides the following special command for annotations............
 
-     The following example shows a movie annotation that enables us to run the movie  file ‘mymovie.avi’ inside a PDF viewer program.
+     The following example shows a movie annotation that enables us to run the movie file ‘mymovie.avi’ inside a PDF viewer program.
 
      \special{pdf:ann bbox 0 0 360 180 <<
      /Subtype /Movie /Border [1 0 0]
