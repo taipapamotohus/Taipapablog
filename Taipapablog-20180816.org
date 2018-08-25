@@ -451,7 +451,24 @@
 
 *** beamerで動画が走るスライド原稿を作る
     - 前述した ，[[https://oku.edu.mie-u.ac.jp/tex/mod/forum/discuss.php?d=399#p2100][TeX QA]] に経緯は投稿してあるので，詳細はそちらを読んでいただきたい．
-    - 読んでいただければおわかりのように，非常にダサいベタ書きである．
+    - 参考にしたのは，Adobeのpdfのマニュアル（DVI specials for PDF generation） https://www.tug.org/TUGboat/tb30-1/tb94cho.pdf の以下の部分
+      #+begin_example
+      3 Annotations
+
+      An annotation is considered as an object with a location on a page. The type of the object is given by the value of the key `/Subtype', for instance, `/Text', `/Link', `/Sound', `/Movie', etc. (See [1, p. 615] for the list of all annotation types.) The location is given by an array object associated to the key `/Rect'. DVIPDFM(x) provides the following special command for annotations............
+
+       The following example shows a movie annotation that enables us to run the movie  le ‘mymovie.avi’ inside a PDF viewer program.
+
+       \special{pdf:ann bbox 0 0 360 180 <<
+       /Subtype /Movie /Border [1 0 0]
+       /T (My Movie) /Movie <<
+       /F (mymovie.avi) /Aspect [720 360]
+       /Poster true >>
+       /A << /ShowControls false >> >>}
+      #+end_example
+    - アスペクト比やコントロールバーの有無，リピートするかどうかなども指示できる（下記参照）
+    - mymovie.aviのところに動かしたい動画を記入（パスも効く）
+    - 私の作成したものは読んでいただければおわかりのように，非常にダサいベタ書きである．
     - 最近の書き方は以下の通りで，もっぱら，mov形式の画像を使用している．コンテナがaviやwmvだと動かないが，Mac以外でどうなるのかは不明．そういえば，Windowsで試したことはなかった.....
       #+begin_src shell
         {
@@ -470,5 +487,6 @@
         }
       #+end_src
     - \usebackgroundtemplateの部分には動画のキャプチャー画像を貼り付けておく．なにもないと，動画が動き出す前の画面が空白になってしまう．
+    - 動画の大きさはbboxで，かぶせる静止画の大きさはscaleで調整する．
     - プレゼンテーションにskimを使うと動画が動かないので注意．
-    - Adobe Acrobat Readerでプレゼンすれば，動画は動くし，音もでる．早送りなども可能．
+    - Adobe Acrobat Readerでプレゼンすれば，動画は動くし，音もでる．コントロールバーにより早送りなども可能．
