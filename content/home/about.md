@@ -1,11 +1,11 @@
 +++
 title = "About"
 author = ["細田弘吉"]
-date = 2018-08-23T22:14:00+09:00
-lastmod = 2018-08-25T00:45:36+09:00
+lastmod = 2018-08-25T01:37:44+09:00
 type = "about"
 draft = false
 weight = 4
+widget = "about"
 +++
 
 ## **このサイトについて** {#このサイトについて}

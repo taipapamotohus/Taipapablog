@@ -2,7 +2,7 @@
 title = "Emacsの設定（その3）ようやくinit.orgの記述: 日本語の設定，inline-patchの設定など"
 author = ["taipapa"]
 date = 2018-08-18
-lastmod = 2018-08-25T00:45:37+09:00
+lastmod = 2018-08-25T16:40:46+09:00
 tags = ["emacs", "prelude", "init-el"]
 type = "post"
 draft = false
@@ -67,9 +67,8 @@ weight = 1
 ## Inline-patchの設定 {#inline-patchの設定}
 
 -   ついで，最も重要なinline-patchの設定
--   参考：<http://keisanbutsuriya.hateblo.jp/entry/2016/04/10/115945>
--   参考：<http://keisanbutsuriya.hateblo.jp/entry/2016/04/10/115945>
--   参考：<http://suzuki.tdiary.net/20160103.html>
+-   参考：[Macに最新バージョンのEmacsをインストール](http://keisanbutsuriya.hateblo.jp/entry/2016/04/10/115945)
+-   参考：[El Capitan での日本語入力時に Emacs 内のカーソル色を変更する](http://suzuki.tdiary.net/20160103.html)
 -   init.orgに以下のように書き込む．
 
     ```lisp
@@ -112,4 +111,4 @@ weight = 1
                 'my-mac-selected-keyboard-input-source-chage-function))
     ```
 -   これで日本語入力中であっても，M-xなどでミニバッファ入力時に自動的に英語入力モードになってくれる．
--   ついでに行った日本語か英語かでカーソルの色が変わる設定はわりに有用だが，ときに色が変わらないことあり．
+-   ついでに行った日本語か英語かでカーソルの色が変わる設定はわりに有用だが，ときに色が変わらないことがあるが，気にしないことにしている．

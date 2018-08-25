@@ -1,8 +1,8 @@
 +++
-title = "beamerでスライド原稿用pdfを作成する"
+title = "beamerでスライド原稿用pdfを作成する（その１）"
 author = ["taipapa"]
 date = 2018-08-24
-lastmod = 2018-08-25T00:45:37+09:00
+lastmod = 2018-08-25T16:40:46+09:00
 tags = ["latex", "latexmk", "beamer", "texlive", "mactex", "emacs"]
 type = "post"
 draft = false
@@ -14,9 +14,9 @@ weight = 1
 
 ## beamerによるスライド原稿の作成 {#beamerによるスライド原稿の作成}
 
--   基本的には，通常のLaTeX文書と同じである．実際のスライド原稿を見てもらうほうが早いであろう．以下のtexファイルを作成し，beamer\_test.texと名付け，保存する．Editorは何でも良いが，やはり，Emacsが便利である．
+-   基本的には，通常のLaTeX文書と同じである．実際のスライド原稿を見てもらうほうが早いであろう．以下のtexファイルを作成し，beamer\_test.texと名付け，保存する．Editorは何でも良いが，やはり，Emacsのauctexを使うと補完などあり，便利である．
 -   下記のファイルには多少コメントを付けた．フォントの指定は自明．themeは山のようにあるので，ググって好きなものを使う．
--   なお， \usefonttheme{professionalfonts} を入れているのは，これを入れないと，beamer は数式フォントとして sans に指定されたフォントを使うように内部で変更するからで，これを入れるとこの変更を無効にできる．数式がヒラギノになると間抜けである．昔，TeX QAで教えてもらった．参考：[beamerでの数式フォントの変更](https://oku.edu.mie-u.ac.jp/tex/mod/forum/discuss.php?d=729)
+-   なお， \usefonttheme{professionalfonts} を入れているのは，これを入れないと，beamer は数式フォントとして sans に指定されたフォントを使うように内部で変更するからで，これを入れるとこの変更を無効にできる．数式がヒラギノになると間抜けである．昔，TeX QAで教えていただいた．参考：[beamerでの数式フォントの変更](https://oku.edu.mie-u.ac.jp/tex/mod/forum/discuss.php?d=729)
 -   また，いろいろ余分なパッケージも読み込んでいるが，必要なときに書き込めば良く，不要なら削除する．
 
 ```lisp
@@ -97,6 +97,13 @@ weight = 1
 \end{itemize}
 \end{block}
 \end{frame}
+
+\section{Results}
+\begin{frame}
+\frametitle{hogefuga症例の画像}
+\centering
+\includegraphics[width=3.5in]{hoge_fuga.pdf}
+\end{frame}
 \end{document}
 ```
 
@@ -107,13 +114,20 @@ weight = 1
     ```
 -   これで下記のようなpdfが出来上がるはず．
 
-    {{< figure src="/img/beamer_tex.jpg" width="100%" target="_self" >}}
+    {{< figure src="/img/beamer_test.jpg" width="100%" target="_self" >}}
 
-    {{< figure src="/img/beamer_tex2.jpg" width="100%" target="_self" >}}
--   画像の貼り付けが必要なら，必要な箇所で，
+    {{< figure src="/img/beamer_test2.jpg" width="100%" target="_self" >}}
+
+-   画像の貼り付けが必要なら，上の文書にもあるように必要な箇所で，
 
     ```shell
     \includegraphics[width=2in]{/Data/hoge/fuga/......./hoge_fuga.pdf}
     ```
 
-    と打てばよい．
+    などと打てばよい．以下のようなスライドが得られる．
+
+    {{< figure src="/img/beamer_test3.jpg" width="100%" target="_self" >}}
+
+-   なにもしなければ，画像は左寄せになる．中央に寄せたければ，上記の文書内にあるように，\centering を使用する．
+
+-   次回は，beamerで動画を走らせる件について書く予定．

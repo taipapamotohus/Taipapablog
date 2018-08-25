@@ -2,7 +2,7 @@
 title = "Emacsの設定（その2）設定ファイル（init.el）をorg-modeで管理する"
 author = ["taipapa"]
 date = 2018-08-17
-lastmod = 2018-08-25T00:45:37+09:00
+lastmod = 2018-08-25T16:40:46+09:00
 tags = ["emacs", "init-org", "init-el"]
 type = "post"
 draft = false
@@ -80,7 +80,7 @@ weight = 1
 
 -   上記の#+begin\_src emacs-lispと#+end\_srcの間にemacs-lispで設定内容を書く．ここからが便利にできているところ．
 -   code-blockの中にいるときに
-    -   C-c ;とする
+    -   C-c 'とする
     -   当該のcode blockだけのバッファが表示される（下図の下のバッファ）
 
         {{< figure src="/img/CodeBlock_small.jpg" width="100%" target="_self" >}}
@@ -88,5 +88,5 @@ weight = 1
     -   この中はemacs-lisp modeでsyntaxも普通に効くので，普通にコードを書く．もちろん，括弧の対応もハイライトで表示される．
     -   C-c nとする
     -   すると，インデントも綺麗に整えてくれる．
-    -   満足したら，C-c ;で元のバッファに戻る．整形は綺麗なまま反映される．素晴らしい！
+    -   満足したら，C-c 'で元のバッファに戻る．整形は綺麗なまま反映される．素晴らしい！
 -   具体的なinit.orgの内容は次回のポスト以降に記述予定

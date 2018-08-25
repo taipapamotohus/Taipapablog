@@ -2,7 +2,7 @@
 title = "LaTeXをインストールし，texファイルが変更されると，自動的にcompileしてskimでのpdfも自動で更新されるようにする"
 author = ["taipapa"]
 date = 2018-08-19
-lastmod = 2018-08-25T00:45:37+09:00
+lastmod = 2018-08-25T16:40:46+09:00
 tags = ["emacs", "latex", "pdf", "skim", "beamer", "auctex"]
 type = "post"
 draft = false
@@ -59,3 +59,11 @@ weight = 1
     latexmk -pvc -pdf -view=none document.tex
     ```
 -   これで，texファイルへの変更を保存すると自動でコンパイルされて，設定にもよるが，skimで開いているpdfファイルも更新される．
+
+
+## XeLaTeXについて {#xelatexについて}
+
+-   以下を参照されたい．特に最初にあげたZRさんの文書は必読！
+    -   [XeLaTeX で日本語する件について](http://zrbabbler.sp.land.to/xelatex.html)
+    -   [TeXWiki XeTeX](https://texwiki.texjp.org/?XeTeX)
+    -   [XeLaTeXだとかな混植が簡単にできて最高だという話](http://suzusime-log.hatenablog.jp/entry/2017/04/15/210327)

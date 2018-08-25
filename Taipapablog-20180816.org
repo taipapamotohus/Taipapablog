@@ -5,8 +5,7 @@
   :EXPORT_HUGO_SECTION: home
   :END:
 
-** DONE About
-   CLOSED: [2018-08-23 Thu 22:14]
+** COMMENT About
    :PROPERTIES:
    :EXPORT_FILE_NAME: about
    :EXPORT_HUGO_TYPE: about
@@ -150,7 +149,7 @@
 ***** Codeの記述
       - 上記の#+begin_src emacs-lispと#+end_srcの間にemacs-lispで設定内容を書く．ここからが便利にできているところ．
       - code-blockの中にいるときに
-        - C-c ;とする
+        - C-c 'とする
         - 当該のcode blockだけのバッファが表示される（下図の下のバッファ）
 
           #+attr_html: :width 100% :target _self
@@ -159,7 +158,7 @@
         - この中はemacs-lisp modeでsyntaxも普通に効くので，普通にコードを書く．もちろん，括弧の対応もハイライトで表示される．
         - C-c nとする
         - すると，インデントも綺麗に整えてくれる．
-        - 満足したら，C-c ;で元のバッファに戻る．整形は綺麗なまま反映される．素晴らしい！
+        - 満足したら，C-c 'で元のバッファに戻る．整形は綺麗なまま反映される．素晴らしい！
       - 具体的なinit.orgの内容は次回のポスト以降に記述予定
 ** Emacsの設定（その3）ようやくinit.orgの記述: 日本語の設定，inline-patchの設定など :emacs:prelude:init_el:
    :PROPERTIES:
@@ -218,9 +217,8 @@
    - この利点は，init.elの説明が実に書きやすい点にある（実際にはinit.orgに書くわけだが．．．）．org-modeはアウトライナーなので，階層構造も自由自在である．整理もしやすいし，後で順番を変えるのもCommand + arrow keyを使えば実に簡単である．
 *** Inline-patchの設定
     - ついで，最も重要なinline-patchの設定
-    - 参考：http://keisanbutsuriya.hateblo.jp/entry/2016/04/10/115945
-    - 参考：http://keisanbutsuriya.hateblo.jp/entry/2016/04/10/115945
-    - 参考：http://suzuki.tdiary.net/20160103.html
+    - 参考：[[http://keisanbutsuriya.hateblo.jp/entry/2016/04/10/115945][Macに最新バージョンのEmacsをインストール]]
+    - 参考：[[http://suzuki.tdiary.net/20160103.html][El Capitan での日本語入力時に Emacs 内のカーソル色を変更する]]
     - init.orgに以下のように書き込む．
       #+begin_src lisp
         ,* inline-patch on macosx
@@ -261,7 +259,7 @@
                     'my-mac-selected-keyboard-input-source-chage-function))
       #+end_src
     - これで日本語入力中であっても，M-xなどでミニバッファ入力時に自動的に英語入力モードになってくれる．
-    - ついでに行った日本語か英語かでカーソルの色が変わる設定はわりに有用だが，ときに色が変わらないことあり．
+    - ついでに行った日本語か英語かでカーソルの色が変わる設定はわりに有用だが，ときに色が変わらないことがあるが，気にしないことにしている．
 ** LaTeXをインストールし，texファイルが変更されると，自動的にcompileしてskimでのpdfも自動で更新されるようにする  :emacs:latex:pdf:skim:beamer:auctex:
    :PROPERTIES:
    :EXPORT_FILE_NAME: latexmk
@@ -307,7 +305,12 @@
       latexmk -pvc -pdf -view=none document.tex
       #+END_SRC
     - これで，texファイルへの変更を保存すると自動でコンパイルされて，設定にもよるが，skimで開いているpdfファイルも更新される．
-** beamerでスライド原稿用pdfを作成する       :latex:latexmk:beamer:texlive:mactex:emacs:
+*** XeLaTeXについて
+    - 以下を参照されたい．特に最初にあげたZRさんの文書は必読！
+      + [[http://zrbabbler.sp.land.to/xelatex.html][XeLaTeX で日本語する件について]]
+      + [[https://texwiki.texjp.org/?XeTeX][TeXWiki XeTeX]]
+      + [[http://suzusime-log.hatenablog.jp/entry/2017/04/15/210327][XeLaTeXだとかな混植が簡単にできて最高だという話]]
+** beamerでスライド原稿用pdfを作成する（その１） :latex:latexmk:beamer:texlive:mactex:emacs:
    :PROPERTIES:
    :EXPORT_FILE_NAME: beamer
    :EXPORT_DATE: 2018-08-24
@@ -318,9 +321,9 @@
    :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/Kojidai.jpg") (caption . "Kojidai"))
    :END:
 *** beamerによるスライド原稿の作成
-    - 基本的には，通常のLaTeX文書と同じである．実際のスライド原稿を見てもらうほうが早いであろう．以下のtexファイルを作成し，beamer_test.texと名付け，保存する．Editorは何でも良いが，やはり，Emacsが便利である．
+    - 基本的には，通常のLaTeX文書と同じである．実際のスライド原稿を見てもらうほうが早いであろう．以下のtexファイルを作成し，beamer_test.texと名付け，保存する．Editorは何でも良いが，やはり，Emacsのauctexを使うと補完などあり，便利である．
     - 下記のファイルには多少コメントを付けた．フォントの指定は自明．themeは山のようにあるので，ググって好きなものを使う．
-    - なお， \usefonttheme{professionalfonts} を入れているのは，これを入れないと，beamer は数式フォントとして sans に指定されたフォントを使うように内部で変更するからで，これを入れるとこの変更を無効にできる．数式がヒラギノになると間抜けである．昔，TeX QAで教えてもらった．参考：[[https://oku.edu.mie-u.ac.jp/tex/mod/forum/discuss.php?d=729][beamerでの数式フォントの変更]]
+    - なお， \usefonttheme{professionalfonts} を入れているのは，これを入れないと，beamer は数式フォントとして sans に指定されたフォントを使うように内部で変更するからで，これを入れるとこの変更を無効にできる．数式がヒラギノになると間抜けである．昔，TeX QAで教えていただいた．参考：[[https://oku.edu.mie-u.ac.jp/tex/mod/forum/discuss.php?d=729][beamerでの数式フォントの変更]]
     - また，いろいろ余分なパッケージも読み込んでいるが，必要なときに書き込めば良く，不要なら削除する．
     #+begin_src lisp
       % -*-coding:utf-8-*-
@@ -400,6 +403,13 @@
       \end{itemize}
       \end{block}
       \end{frame}
+
+      \section{Results}
+      \begin{frame}
+      \frametitle{hogefuga症例の画像}
+      \centering
+      \includegraphics[width=3.5in]{hoge_fuga.pdf}
+      \end{frame}
       \end{document}
     #+end_src
     - ターミナルで，cdして上記のbeamer_test.texのあるdirectoryに移動し，shellで以下のように打ち込む．前回のポスト（[[../latexmk][LaTeXをインストールし，texファイルが変更されると，自動的にcompileしてskimでのpdfも自動で更新されるようにする]]を参考　
@@ -409,13 +419,56 @@
     - これで下記のようなpdfが出来上がるはず．
 
           #+attr_html: :width 100% :target _self
-         [[./static/img/beamer_tex.jpg]]
+         [[./static/img/beamer_test.jpg]]
 
           #+attr_html: :width 100% :target _self
-         [[./static/img/beamer_tex2.jpg]]
-    - 画像の貼り付けが必要なら，必要な箇所で，
+         [[./static/img/beamer_test2.jpg]]
+
+    - 画像の貼り付けが必要なら，上の文書にもあるように必要な箇所で，
       #+begin_src shell
         \includegraphics[width=2in]{/Data/hoge/fuga/......./hoge_fuga.pdf}
       #+end_src
-      と打てばよい．
-** COMMENT beamerで動画が走るスライド原稿を作る
+      などと打てばよい．以下のようなスライドが得られる．
+
+          #+attr_html: :width 100% :target _self
+         [[./static/img/beamer_test3.jpg]]
+
+    - なにもしなければ，画像は左寄せになる．中央に寄せたければ，上記の文書内にあるように，\centering を使用する．
+
+    - 次回は，beamerで動画を走らせる件について書く予定．
+
+** beamerでスライド原稿用pdfを作成する（その2）動画が走るスライド原稿を作る :beamer:movie:latex:pdf:
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: beamer_movie
+   :EXPORT_DATE: 2018-08-25
+   :EXPORT_HUGO_AUTO_SET_LASTMOD: t
+   :EXPORT_HUGO_DRAFT: false
+   :EXPORT_AUTHOR: "taipapa"
+   :EXPORT_HUGO_TYPE: post
+   :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/Kojidai2.jpg") (caption . "Kojidai"))
+   :END:
+   実は，同じような内容について2010年に，[[https://oku.edu.mie-u.ac.jp/tex/mod/forum/discuss.php?d=399#p2100][TeX QA]] に投稿しているが，その後現在に至るまで使い続けることができており，一応，こちらでもまとめておくことにした．
+
+*** beamerで動画が走るスライド原稿を作る
+    - 前述した ，[[https://oku.edu.mie-u.ac.jp/tex/mod/forum/discuss.php?d=399#p2100][TeX QA]] に経緯は投稿してあるので，詳細はそちらを読んでいただきたい．
+    - 読んでいただければおわかりのように，非常にダサいベタ書きである．
+    - 最近の書き方は以下の通りで，もっぱら，mov形式の画像を使用している．コンテナがaviやwmvだと動かないが，Mac以外でどうなるのかは不明．そういえば，Windowsで試したことはなかった.....
+      #+begin_src shell
+        {
+            \usebackgroundtemplate{\put(20, -265){\includegraphics[scale=0.45]{/Data/.../..../Figures/hogefuga.pdf}}}
+            \begin{frame}
+            \frametitle{hogefugaの対策}
+            \special{pdf:ann bbox -10 -130 320 90 <<
+                     /Subtype /Movie /Border [0 0 1]
+                     /T (My Movie) /Movie <<
+                     /F (/Data/.../hogefuga.mov)
+                     %/Aspect [720 480]
+                     /Aspect [640 480]
+                     /Poster false >>
+                     /A << /ShowControls true /Mode /Repeat >> >>}
+            \end{frame}
+        }
+      #+end_src
+    - \usebackgroundtemplateの部分には動画のキャプチャー画像を貼り付けておく．なにもないと，動画が動き出す前の画面が空白になってしまう．
+    - プレゼンテーションにskimを使うと動画が動かないので注意．
+    - Adobe Acrobat Readerでプレゼンすれば，動画は動くし，音もでる．早送りなども可能．
