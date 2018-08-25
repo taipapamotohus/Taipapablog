@@ -2,7 +2,7 @@
 title = "beamerでスライド原稿用pdfを作成する（その１）"
 author = ["taipapa"]
 date = 2018-08-24
-lastmod = 2018-08-25T20:45:14+09:00
+lastmod = 2018-08-25T20:50:17+09:00
 tags = ["latex", "latexmk", "beamer", "texlive", "mactex", "emacs"]
 type = "post"
 draft = false

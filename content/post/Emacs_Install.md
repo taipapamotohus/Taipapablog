@@ -2,7 +2,7 @@
 title = "Emacsのインストール"
 author = ["taipapa"]
 date = 2018-08-14
-lastmod = 2018-08-25T20:45:13+09:00
+lastmod = 2018-08-25T20:50:16+09:00
 tags = ["emacs", "homebrew"]
 type = "post"
 draft = false
