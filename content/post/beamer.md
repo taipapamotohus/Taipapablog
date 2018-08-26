@@ -2,7 +2,7 @@
 title = "beamerでスライド原稿用pdfを作成する（その１）"
 author = ["taipapa"]
 date = 2018-08-24
-lastmod = 2018-08-25T20:53:47+09:00
+lastmod = 2018-08-26T15:44:41+09:00
 tags = ["latex", "latexmk", "beamer", "texlive", "mactex", "emacs"]
 type = "post"
 draft = false
@@ -19,7 +19,7 @@ weight = 1
 -   なお， \usefonttheme{professionalfonts} を入れているのは，これを入れないと，beamer は数式フォントとして sans に指定されたフォントを使うように内部で変更するからで，これを入れるとこの変更を無効にできる．数式がヒラギノになると間抜けである．昔，TeX QAで教えていただいた．参考：[beamerでの数式フォントの変更](https://oku.edu.mie-u.ac.jp/tex/mod/forum/discuss.php?d=729)
 -   また，いろいろ余分なパッケージも読み込んでいるが，必要なときに書き込めば良く，不要なら削除する．
 
-```lisp
+```tex
 % -*-coding:utf-8-*-
 \documentclass[svgnames, table, 14pt]{beamer}
 \usepackage{zxjatype}

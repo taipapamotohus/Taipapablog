@@ -325,7 +325,7 @@
     - 下記のファイルには多少コメントを付けた．フォントの指定は自明．themeは山のようにあるので，ググって好きなものを使う．
     - なお， \usefonttheme{professionalfonts} を入れているのは，これを入れないと，beamer は数式フォントとして sans に指定されたフォントを使うように内部で変更するからで，これを入れるとこの変更を無効にできる．数式がヒラギノになると間抜けである．昔，TeX QAで教えていただいた．参考：[[https://oku.edu.mie-u.ac.jp/tex/mod/forum/discuss.php?d=729][beamerでの数式フォントの変更]]
     - また，いろいろ余分なパッケージも読み込んでいるが，必要なときに書き込めば良く，不要なら削除する．
-    #+begin_src lisp
+    #+begin_src tex
       % -*-coding:utf-8-*-
       \documentclass[svgnames, table, 14pt]{beamer}
       \usepackage{zxjatype}
@@ -470,7 +470,7 @@
     - mymovie.aviのところに動かしたい動画を記入（パスも効く）
     - 私の作成したものは読んでいただければおわかりのように，非常にダサいベタ書きである．
     - 最近の書き方は以下の通りで，もっぱら，mov形式の画像を使用している．コンテナがaviやwmvだと動かないが，Mac以外でどうなるのかは不明．そういえば，Windowsで試したことはなかった.....
-      #+begin_src shell
+      #+begin_src tex
         {
             \usebackgroundtemplate{\put(20, -265){\includegraphics[scale=0.45]{/Data/.../..../Figures/hogefuga.pdf}}}
             \begin{frame}

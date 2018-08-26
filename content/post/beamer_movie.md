@@ -2,7 +2,7 @@
 title = "beamerでスライド原稿用pdfを作成する（その2）動画が走るスライド原稿を作る"
 author = ["taipapa"]
 date = 2018-08-25
-lastmod = 2018-08-25T20:53:48+09:00
+lastmod = 2018-08-26T15:44:41+09:00
 tags = ["beamer", "movie", "latex", "pdf"]
 type = "post"
 draft = false
@@ -39,7 +39,7 @@ weight = 1
 -   私の作成したものは読んでいただければおわかりのように，非常にダサいベタ書きである．
 -   最近の書き方は以下の通りで，もっぱら，mov形式の画像を使用している．コンテナがaviやwmvだと動かないが，Mac以外でどうなるのかは不明．そういえば，Windowsで試したことはなかった.....
 
-    ```shell
+    ```tex
     {
         \usebackgroundtemplate{\put(20, -265){\includegraphics[scale=0.45]{/Data/.../..../Figures/hogefuga.pdf}}}
         \begin{frame}
