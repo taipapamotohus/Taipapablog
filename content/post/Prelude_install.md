@@ -2,7 +2,7 @@
 title = "Emacsの設定（その1）Preludeの導入"
 author = ["taipapa"]
 date = 2018-08-15
-lastmod = 2018-08-26T15:44:40+09:00
+lastmod = 2018-08-27T22:12:54+09:00
 tags = ["emacs", "prelude"]
 type = "post"
 draft = false

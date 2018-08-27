@@ -2,7 +2,7 @@
 title = "Emacsの設定（その3）ようやくinit.orgの記述: 日本語の設定，inline-patchの設定など"
 author = ["taipapa"]
 date = 2018-08-18
-lastmod = 2018-08-26T15:44:41+09:00
+lastmod = 2018-08-27T22:12:54+09:00
 tags = ["emacs", "prelude", "init-el"]
 type = "post"
 draft = false
