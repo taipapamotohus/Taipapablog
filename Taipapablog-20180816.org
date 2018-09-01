@@ -38,7 +38,7 @@
   :EXPORT_HUGO_SECTION: post
   :EXPORT_HUGO_WEIGHT: 1
   :END:
-** Emacsのインストール                                      :emacs:homebrew:
+** COMMENT Emacsのインストール                                      :emacs:homebrew:
    :PROPERTIES:
    :EXPORT_FILE_NAME: Emacs_Install
    :EXPORT_DATE: 2018-08-14
@@ -66,7 +66,7 @@
     $ brew info emacs-mac
   #+end_src
 
-** Emacsの設定（その1）Preludeの導入                         :emacs:prelude:
+** COMMENT Emacsの設定（その1）Preludeの導入                         :emacs:prelude:
    :PROPERTIES:
    :EXPORT_FILE_NAME: Prelude_install
    :EXPORT_DATE: 2018-08-15
@@ -95,7 +95,7 @@
     - preludeのdefaultの設定は，ほぼ満足すべきものだが，ひとつだけ，prelude-auto-saveが邪魔である．これは，他のbufferに移動したり，他のアプリを使用したりするたびに自動で保存される機能であるが，非常に鬱陶しい．M-x customize からprelude-auto-saveを検索し，offにする．custom.elに書き込まれる．
     - 個人の設定は，~/.emacs.d/personal/init.elに書き込む．これは，org-modeを使って設定するのが良い．まずorg-modeについての記事を書いたあとにinit.orgについて書く予定．
 
-** Emacsの設定（その2）設定ファイル（init.el）をorg-modeで管理する :emacs:init_org:init_el:
+** COMMENT Emacsの設定（その2）設定ファイル（init.el）をorg-modeで管理する :emacs:init_org:init_el:
    :PROPERTIES:
    :EXPORT_FILE_NAME: init_org
    :EXPORT_DATE: 2018-08-17
@@ -160,7 +160,7 @@
         - すると，インデントも綺麗に整えてくれる．
         - 満足したら，C-c 'で元のバッファに戻る．整形は綺麗なまま反映される．素晴らしい！
       - 具体的なinit.orgの内容は次回のポスト以降に記述予定
-** Emacsの設定（その3）ようやくinit.orgの記述: 日本語の設定，inline-patchの設定など :emacs:prelude:init_el:
+** COMMENT Emacsの設定（その3）ようやくinit.orgの記述: 日本語の設定，inline-patchの設定など :emacs:prelude:init_el:
    :PROPERTIES:
    :EXPORT_FILE_NAME: Japanese_setup
    :EXPORT_DATE: 2018-08-18
@@ -260,7 +260,7 @@
       #+end_src
     - これで日本語入力中であっても，M-xなどでミニバッファ入力時に自動的に英語入力モードになってくれる．
     - ついでに行った日本語か英語かでカーソルの色が変わる設定はわりに有用だが，ときに色が変わらないことがあるが，気にしないことにしている．
-** LaTeXをインストールし，texファイルが変更されると，自動的にcompileしてskimでのpdfも自動で更新されるようにする  :emacs:latex:pdf:skim:beamer:auctex:
+** LaTeXをインストールし，texファイルが変更されると，自動的にcompileしてskimでのpdfも自動で更新されるようにする（2018年9月1日追記） :emacs:latex:pdf:skim:beamer:auctex:
    :PROPERTIES:
    :EXPORT_FILE_NAME: latexmk
    :EXPORT_DATE: 2018-08-19
@@ -277,6 +277,23 @@
     - 上記サイトを参考にTeX Live 2018もしくはMacTeX-2018をインストールする．
     - これでスライド作成ソフトであるbeamerも一緒にインストールされる．
     - beamerに固有の設定は特に必要なし．
+*** TeX Live 2018のインストール（2018年9月1日追記）
+    大事なことを２つ忘れていたので追記する．
+**** ヒラギノフォントの埋め込みなど
+     - 参考サイト：[[http://doratex.hatenablog.jp/entry/20180501/1525144736][MacTeX 2018のインストール&日本語環境構築法]]
+     - こんなところを読んでいないで，直ちに上記のサイトに飛んでいただきたい．
+     - マックユーザーにとっての最大の問題点は *「macos標準添付のヒラギノフォントなど商用フォントに関する設定ファイル群が，TeX LiveからTLContriに移動になった」* ということである．この問題に対する対応方法は，すべて上記のサイトに記載されているので，そのとおりにすれば良い．実にありがたい．
+**** インストール後のパスの修正（symbolic linkを張る）
+     - 参考サイト：[[https://texwiki.texjp.org/?TeX%20Live%2FMac][TeX Wiki TeX LiveMac]]
+     - MacTeX 2018を普通にインストールすると，/usr/local/texlive/2018/bin/x86_64-darwin/bibtexというふうにbinの下にx86_64-darwinというdirectoryが入って，tex関連のコマンドのパスが上手く通らなくなる．そこで，上記の[[https://texwiki.texjp.org/?TeX%20Live%2FMac][TeX Wiki TeX LiveMac]]に書いてあるように，/usr/local/binディレクトリの下にsymbolic linkを張る．
+       #+begin_src shell
+       $ sudo /usr/local/texlive/????/bin/*/tlmgr path add
+       #+end_src
+     - 上記でうまくいかないときは下記のように具体的なディレクトリ名を指定する．
+       #+begin_src shell
+       $ sudo /usr/local/texlive/2018/bin/x86_64-darwin/tlmgr path add
+       #+end_src
+
 *** auctexのインストールと設定
     - latex文書を扱うなら，Emacsのパッケージであるauctexが最強（according to 独断と偏見）
     - preludeをインストールした時点で，auctexもインストールされる．
@@ -310,7 +327,7 @@
       + [[http://zrbabbler.sp.land.to/xelatex.html][XeLaTeX で日本語する件について]]
       + [[https://texwiki.texjp.org/?XeTeX][TeXWiki XeTeX]]
       + [[http://suzusime-log.hatenablog.jp/entry/2017/04/15/210327][XeLaTeXだとかな混植が簡単にできて最高だという話]]
-** beamerでスライド原稿用pdfを作成する（その１） :latex:latexmk:beamer:texlive:mactex:emacs:
+** COMMENT beamerでスライド原稿用pdfを作成する（その１） :latex:latexmk:beamer:texlive:mactex:emacs:
    :PROPERTIES:
    :EXPORT_FILE_NAME: beamer
    :EXPORT_DATE: 2018-08-24
@@ -437,7 +454,7 @@
 
     - 次回は，beamerで動画を走らせる件について書く予定．
 
-** beamerでスライド原稿用pdfを作成する（その2）動画が走るスライド原稿を作る :beamer:movie:latex:pdf:
+** COMMENT beamerでスライド原稿用pdfを作成する（その2）動画が走るスライド原稿を作る :beamer:movie:latex:pdf:
    :PROPERTIES:
    :EXPORT_FILE_NAME: beamer_movie
    :EXPORT_DATE: 2018-08-25
@@ -495,7 +512,7 @@
     - 動画自体はpdfの中に埋め込まれないので，pdfの容量がむやみに大きくならないという利点がある．
     - Adobe Acrobat Readerでプレゼンすれば，動画は動くし，音もでる．コントロールバーにより早送りなども可能．
     - 最初にpdfで動画をクリックすると「セキュリティ上の問題．．．」というメッセージが表示される．この横にあるオプションボタンをクリックして，信頼するを選択すれば，動画が動くようになる．
-** beamerでスライド原稿用pdfを作成する（その3）動画が走るスライド原稿を作る（media9に関する追記） :beamer:movie:latex:pdf:
+** COMMENT beamerでスライド原稿用pdfを作成する（その3）動画が走るスライド原稿を作る（media9に関する追記） :beamer:movie:latex:pdf:
    :PROPERTIES:
    :EXPORT_FILE_NAME: beamer_movie2
    :EXPORT_DATE: 2018-08-26
@@ -551,3 +568,13 @@
     - 容量の小さな動画であれば，media9でも十分であろう．
     - 私のように，容量の大きな動画を使用するような場合は，べた書きを使用するほうが良いであろう．
     - ということで，結局，元の木阿弥に戻ることとなった．
+** COMMENT org-modeで論文を書く（その1）
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: beamer_movie2
+   :EXPORT_DATE: 2018-08-26
+   :EXPORT_HUGO_AUTO_SET_LASTMOD: t
+   :EXPORT_HUGO_DRAFT: false
+   :EXPORT_AUTHOR: "taipapa"
+   :EXPORT_HUGO_TYPE: post
+   :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/Florence-1.jpg") (caption . "Florence"))
+   :END:
