@@ -2,7 +2,7 @@
 title = "LaTeXをインストールし，texファイルが変更されると，自動的にcompileしてskimでのpdfも自動で更新されるようにする（2018年9月1日追記）"
 author = ["taipapa"]
 date = 2018-08-19
-lastmod = 2018-09-01T20:29:10+09:00
+lastmod = 2018-09-03T22:46:10+09:00
 tags = ["emacs", "latex", "pdf", "skim", "beamer", "auctex"]
 type = "post"
 draft = false
