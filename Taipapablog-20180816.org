@@ -568,7 +568,7 @@
     - 容量の小さな動画であれば，media9でも十分であろう．
     - 私のように，容量の大きな動画を使用するような場合は，べた書きを使用するほうが良いであろう．
     - ということで，結局，元の木阿弥に戻ることとなった．
-** Emacsのorg-modeで論文を書く（その1：pdfとhtmlへの出力） :org:mode:emacs:latex:html:word:pandoc:
+** COMMENT Emacsのorg-modeで論文を書く（その1：pdfとhtmlへの出力） :org:mode:emacs:latex:html:word:pandoc:
    :PROPERTIES:
    :EXPORT_FILE_NAME: org-mode_paper_1
    :EXPORT_DATE: 2018-09-01
@@ -578,7 +578,7 @@
    :EXPORT_HUGO_TYPE: post
    :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/Paris-2.jpg") (caption . "Pyramide du Louvre"))
    :END:
-   私がEmacsを使用している理由の一番大きなものはorg-modeである．あらゆる文書作成にorg-modeを用いている．org-modeを使って論文を書くことに関しては，ググってもらえばおわかりのように，ネット上に山のように情報が存在する．「屋上屋を架してどうする」と言う自分の中の声を押し殺し，あくまで備忘録ということで，あえてここにまとめておく．なお，私はGTDのツールとしてはorg-modeを全く使用していないので，その種の情報はここにはまったくないことをお断りしておく．
+   私がEmacsを使用している最大の理由はorg-modeである．あらゆる文書作成にorg-modeを用いている．もちろん，論文を書くのにも使っているが，これに関しては，ググってもらえばおわかりのように，ネット上に山のように情報が存在する．「屋上屋を架してどうする」と言う自分の中の声を押し殺し，あくまで備忘録ということで，あえてここにまとめておく．なお，私はGTDのツールとしてはorg-modeを全く使用していないので，その種の情報はここにはまったくないことをお断りしておく．
 *** 目的
     1. org-modeからlatex経由で，文献がnumberingされ文献リストも付いたpdfを出力できるようにする
     2. org-modeから，文献がnumberingされ文献リストも付いたhtmlを出力できるようにする
@@ -746,3 +746,97 @@
          [[./static/img/hogefuga_html.jpg]]
 
     - 長くなったので，ここまでとし，文献の引用の設定は次回の記事にまとめることとする．
+** Emacsのorg-modeで論文を書く（その2：BibDeskによる論文収集と整理） :reference:citation:bibdesk:bibtex:pdf:pubmed:
+    :PROPERTIES:
+   :EXPORT_FILE_NAME: org-mode_paper_2
+   :EXPORT_DATE: 2018-09-12
+   :EXPORT_HUGO_AUTO_SET_LASTMOD: t
+   :EXPORT_HUGO_DRAFT: false
+   :EXPORT_AUTHOR: "taipapa"
+   :EXPORT_HUGO_TYPE: post
+   :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/Paris-3.jpg") (caption . "Musée du Louvre"))
+   :END:
+ さて，前回はorg-modeによる論文本体の執筆に付いてまとめたわけだが，今回は論文引用の方法についてまとめる．と思ったのだが，論文を引用するためには，当然のことながら論文を収集しなければならない．そのうち膨大な数の論文の海に溺れることになる．そこで，収集した論文，つまり，pdfの整理をするソフトが必要になってくる．その引用も，書式や番号付を雑誌の規定に合わせて自動化してくれれば言うことはない．ということで，そのようなソフトについて書くことにする．有料ソフトの定番としては，EndoNoteがあるし，フリーソフトでは，[[https://www.zotero.org][zotero]]や[[https://www.mendeley.com/?switchedFrom=][Mendeley]]が有名である．私自身は，LaTeXを利用することが多い関係上，[[https://bibdesk.sourceforge.io][BibDesk]]というこれまた老舗のソフトをもっぱら利用している．ネット上でもzoteroやmendeleyについての情報は豊富だが，BibDeskについてはそれほど見られないので，まとめておくことは多少の意味があるであろうと考え，BibDeskによる論文収集を説明することにした．
+
+*** [[https://bibdesk.sourceforge.io][BibDesk]]
+    - texliveをインストールすればその中に入っているが，最新版はリンク先にあるので，そちらを落とすほうが良い．
+    - 文献をbibtexのファイルとして管理する．pdfとの関連付けができるので，書誌事項とpdfが一体化して管理できる．
+    - [[http://www.bibtex.org][bibtex]]に関しては，[[https://qiita.com/SUZUKI_Masaya/items/14f9727845e020f8e7e9][BiBTeXとは]] を参照
+    - bibtexファイルなので，当然，latexの機能を用いて，文献の引用，引用スタイルの設定，文献リストの作成，文献リストのスタイルの設定などをすべて自動化できる．これが便利！
+    - 見た目はこんな感じ
+
+     #+attr_html: :width 100% :target _self
+      [[./static/img/bibdesk.jpg]]
+
+    - 医学系の論文となると，やはり，[[https://www.ncbi.nlm.nih.gov/pubmed][PubMed]]などネットでの連携が重要である．下図のごとく，BibDeskではSearches menuからPubMedを選ぶことにより，BibDeskの中からPubMedを検索できる．
+
+   #+attr_html: :width 100% :target _self
+      [[./static/img/bibdesk-pubmed.jpg]]
+
+    - 検索欄に，例えば，"heat shock protein"と打つと，下図のように検索結果が50編ずつ並ぶが，50編以上ある場合は，Searchを繰り返しクリックすることにより，100編と150編とどんどんリストに取り込まれていく．
+
+       #+attr_html: :width 100% :target _self
+      [[./static/img/bibdesk-pubmed2.jpg]]
+
+    - 上図のごとく，検索結果欄の左端に"Import" ボタンがあるが，これをクリックするとその論文の書誌事項が取り込まれる．その際に，自分の文献リストの名前を，"hogefuga-reference.bib" など適当に決めれば良い．以後はそのリストに追加していくことになる．
+
+    - なお，PubMedの番号，つまり，Pmidが分かっていれば，それを打ち込めば一発で書誌事項を検索できる．
+
+    - リストの中から興味のある論文をクリックして選択し，グレーにハイライトさせると，下図のごとく右側のサイドパネルに，その論文のあるサイトを示すアイコンが表示される．これをクリックすれば，ブラウザーが開いてそのサイトに飛ぶ．もし，その論文がオープンアクセスであれば，あるいは，所属する組織が出版社と契約を交わしていれば，その論文のpdfを落とせる．落としたpdfをドラッグしてその論文に該当するリストのラインにドロップすれば，その書誌事項とpdfはリンクし，以降はその論文のサイドパネルにpdfのアイコンが表示され，ダブルクリックによりオープンするようになる．さらに言えば，pdfではなく，パワポやワードのファイルとして文献が存在することもある．同じようにドラッグ＆ドロップすれば，これまたリンクする．しかも一つの文献にいくつものpdfやその他のファイルをリンクできる．非常に便利である．
+
+       #+attr_html: :width 100% :target _self
+        [[./static/img/bibdesk-pubmed3.jpg]]
+
+    - また，下図のごとく，左のサイドパネルの一番上の方にある"Web BibDesk Web Group"をクリックして選択すれば，更にいろいろな文献ソースが表示される．医学系では，Google Scholarが有用なので，これをクリックすれば，BibDeskの中からGoogle Scholarを検索できるし，書誌事項も取り込める．pdfのリンクが存在すればBibDeskの中でpdfを落とすこともできる．
+
+      #+attr_html: :width 100% :target _self
+        [[./static/img/bibdesk-pubmed4.jpg]]
+
+    - 収集した文献の書誌事項はhogefuga-reference.bibにbibtex fileとしてまとめられているが，その中身は以下のような情報の集積である（下の例ではabstractなどは省略している）．
+      #+begin_src tex
+        @article{Rothwell:2018aa,
+
+          Author = {Rothwell, Peter M and Cook, Nancy R and Gaziano, J Michael and Price, Jacqueline F and Belch, Jill F F and Roncaglioni, Maria Carla and Morimoto, Takeshi and Mehta, Ziyah},
+          Date-Added = {2018-08-03 22:46:26 +0900},
+          Date-Modified = {2018-08-03 22:46:26 +0900},
+          Doi = {10.1016/S0140-6736(18)31133-4},
+          Journal = {Lancet},
+          Journal-Full = {Lancet (London, England)},
+          Month = {Jul},
+          Pmid = {30017552},
+          Pst = {aheadofprint},
+          Title = {Effects of aspirin on risks of vascular events and cancer according to bodyweight and dose: analysis of individual patient data from randomised trials},
+          Year = {2018},
+        }
+      #+end_src
+
+    - bibtexなので，前述のごとく，文献の引用，引用スタイルの設定，文献リストの作成，文献リストのスタイルの設定などをすべて自動化できる．
+
+    - Emacsのorg-modeと組み合わせて，どのように文献の引用を自動化するかについては次回の記事にまとめる．
+
+
+* COMMENT Emacsのorg-modeで論文を書く（その3：org-modeとbibtexの連携による文献引用の自動化） :reference:citation:bibdesk:bibtex:pdf:org:mode:
+    :PROPERTIES:
+   :EXPORT_FILE_NAME: org-mode_paper_3
+   :EXPORT_DATE: 2018-09-15
+   :EXPORT_HUGO_AUTO_SET_LASTMOD: t
+   :EXPORT_HUGO_DRAFT: false
+   :EXPORT_AUTHOR: "taipapa"
+   :EXPORT_HUGO_TYPE: post
+   :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/Paris-4.jpg") (caption . "Arc de triomphe de l'Étoile"))
+   :END:
+
+*** org-mode-reftex-setup
+    - 参照サイト：[[http://www.mfasold.net/blog/2009/02/using-emacs-org-mode-to-draft-papers/][Using Emacs Org-mode to Draft Papers]]
+    - RefTex-ModeというものがEmacsには含まれている．文献や引用の管理のためのパッケージである．詳細はC-h iでマニュアルを見れば分かる，と言いたいところだが，このマニュアルが膨大である．そこで，RefTeX in a Nutshellという2ページほどの要約を読めば，使うのには十分であるとマニュアル自体に書いてある（笑）．実は私はそれすらろくに読んでいないが，以下のように設定すれば，十分に使える．
+      #+begin_src lisp
+        (defun org-mode-reftex-setup ()
+          (load-library "reftex")
+          (and (buffer-file-name)
+               (file-exists-p (buffer-file-name))
+               (reftex-parse-all))
+          (define-key org-mode-map (kbd "C-c )") 'reftex-citation)
+          )
+        (add-hook 'org-mode-hook 'org-mode-reftex-setup)
+      #+end_src
+    - 上記の設定により，参照サイトの説明のように，org-modeの中でreftex-citationの機能が働くようになる．
