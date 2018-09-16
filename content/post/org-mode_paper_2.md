@@ -2,7 +2,7 @@
 title = "Emacsのorg-modeで論文を書く（その2：BibDeskによる論文収集と整理）"
 author = ["taipapa"]
 date = 2018-09-12
-lastmod = 2018-09-15T22:46:14+09:00
+lastmod = 2018-09-16T11:24:16+09:00
 tags = ["reference", "citation", "bibdesk", "bibtex", "pdf", "pubmed"]
 type = "post"
 draft = false
