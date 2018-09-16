@@ -2,7 +2,7 @@
 title = "Emacsのorg-modeで論文を書く（その2：BibDeskによる論文収集と整理）"
 author = ["taipapa"]
 date = 2018-09-12
-lastmod = 2018-09-16T11:24:16+09:00
+lastmod = 2018-09-16T21:44:45+09:00
 tags = ["reference", "citation", "bibdesk", "bibtex", "pdf", "pubmed"]
 type = "post"
 draft = false
@@ -12,7 +12,7 @@ weight = 1
   caption = "Musée du Louvre"
 +++
 
-さて，前回はorg-modeによる論文本体の執筆に付いてまとめたわけだが，今回は論文引用の方法についてまとめる．と思ったのだが，論文を引用するためには，当然のことながら論文を収集しなければならない．そのうち膨大な数の論文の海に溺れることになる．そこで，収集した論文，つまり，pdfの整理をするソフトが必要になってくる．その引用も，書式や番号付を雑誌の規定に合わせて自動化してくれれば言うことはない．ということで，そのようなソフトについて書くことにする．有料ソフトの定番としては，EndoNoteがあるし，フリーソフトでは，[zotero](https://www.zotero.org)や[Mendeley](https://www.mendeley.com/?switchedFrom=)が有名である．私自身は，LaTeXを利用することが多い関係上，[BibDesk](https://bibdesk.sourceforge.io)というこれまた老舗のソフトをもっぱら利用している．ネット上でもzoteroやmendeleyについての情報は豊富だが，BibDeskについてはそれほど見られないので，まとめておくことは多少の意味があるであろうと考え，BibDeskによる論文収集を説明することにした．
+さて，前回（[Emacsのorg-modeで論文を書く（その1：pdfとhtmlへの出力）](../org-mode_paper_1)）はorg-modeによる論文本体の執筆に付いてまとめたわけだが，今回は論文引用の方法についてまとめる．と思ったのだが，論文を引用するためには，当然のことながら論文を収集しなければならない．そのうち膨大な数の論文の海に溺れることになる．そこで，収集した論文，つまり，pdfの整理をするソフトが必要になってくる．その引用も，書式や番号付を雑誌の規定に合わせて自動化してくれれば言うことはない．ということで，そのようなソフトについて書くことにする．有料ソフトの定番としては，EndoNoteがあるし，フリーソフトでは，[zotero](https://www.zotero.org)や[Mendeley](https://www.mendeley.com/?switchedFrom=)が有名である．私自身は，LaTeXを利用することが多い関係上，[BibDesk](https://bibdesk.sourceforge.io)というこれまた老舗のソフトをもっぱら利用している．ネット上でもzoteroやmendeleyについての情報は豊富だが，BibDeskについてはそれほど見られないので，まとめておくことは多少の意味があるであろうと考え，BibDeskによる論文収集を説明することにした．
 
 
 ## [BibDesk](https://bibdesk.sourceforge.io) {#bibdesk}
@@ -34,6 +34,8 @@ weight = 1
     {{< figure src="/img/bibdesk-pubmed2.jpg" width="100%" target="_self" >}}
 
 -   上図のごとく，検索結果欄の左端に"Import" ボタンがあるが，これをクリックするとその論文の書誌事項が取り込まれる．その際に，自分の文献リストの名前を，"hogefuga-reference.bib" など適当に決めれば良い．以後はそのリストに追加していくことになる．
+
+-   また，取り込まれる際にcite-keyをBibDeskが自動的に決めてくれる．このcite-keyは次回の記事で述べる「引用の自動化」の際にreftexに使用される．
 
 -   なお，PubMedの番号，つまり，Pmidが分かっていれば，それを打ち込めば一発で書誌事項を検索できる．
 
