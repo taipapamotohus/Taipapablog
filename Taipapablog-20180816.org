@@ -1287,6 +1287,7 @@
     - 参考サイト6：[[https://github.com/emasaka/docx-normarize-nfc][docx-normarize-nfc]]
     - 上記の参考サイト4, 5, 6では，emasaka氏により，pythonを用いた方法が報告されており，[[https://github.com/emasaka/docx-normarize-nfc][docx-normarize-nfc]] としてGithubにアップされている．これはpython scriptであり，.docxファイルをZIPアーカイブとして開き、文書本体のXMLテキストを開いてNFC正規化し、ZIPアーカイブに書き戻すというものであり，これを使わせてもらうことにした．
 **** Pythonの導入
+     - 参考サイト：[[https://www.python.org][Welcome to Python.org]] （本家）ご存知いま一番アツい言語．それしか知らなくても下記のようにして使える（笑）
      - まず下準備としてpythonを入れる．
      - homebrew でpython3をインストール
         #+begin_src shell
@@ -1305,7 +1306,9 @@
 
           #+attr_html: :width 100% :target _self
           [[./static/img/word-fixed.jpg]]
-     - ようやく，これで使い物になる日本語のWord fileを作成することができた．
+     - ようやく，使い物になる日本語のWord fileを作成することができた．
+     - これで，英語でも日本語でも，pdfからWordにコピペして修正するという難行苦行から解放される．
+     - しかし，co-authorとのすり合わせやrevisionの際は，まだ，Wordでの作業が必要とされる．苦行は続くのである．．．．．
 
 
 *** COMMENT Unicode NFC正規化を行うためにucs-normalizeを使う．

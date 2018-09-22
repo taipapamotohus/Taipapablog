@@ -2,7 +2,7 @@
 title = "Emacsのorg-modeで論文を書く（その4：pandocを利用してorg-modeからword [docx]を文献付きでexportする）"
 author = ["taipapa"]
 date = 2018-09-17
-lastmod = 2018-09-22T15:28:36+09:00
+lastmod = 2018-09-22T22:47:57+09:00
 tags = ["org", "mode", "word", "export", "reference", "citation", "ox", "pandoc"]
 type = "post"
 draft = false
@@ -384,6 +384,7 @@ hogefugaによる治療は有効である．
 
 ### Pythonの導入 {#pythonの導入}
 
+-   参考サイト：[Welcome to Python.org](https://www.python.org) （本家）ご存知いま一番アツい言語．それしか知らなくても下記のようにして使える（笑）
 -   まず下準備としてpythonを入れる．
 -   homebrew でpython3をインストール
 
@@ -409,4 +410,6 @@ hogefugaによる治療は有効である．
 -   一瞬で修正は終わるので，ファイルをオープンして確かめてみると，下図のように修正されている．素晴らしい．
 
     {{< figure src="/img/word-fixed.jpg" width="100%" target="_self" >}}
--   ようやく，これで使い物になる日本語のWord fileを作成することができた．
+-   ようやく，使い物になる日本語のWord fileを作成することができた．
+-   これで，英語でも日本語でも，pdfからWordにコピペして修正するという難行苦行から解放される．
+-   しかし，co-authorとのすり合わせやrevisionの際は，まだ，Wordでの作業が必要とされる．苦行は続くのである．．．．．
