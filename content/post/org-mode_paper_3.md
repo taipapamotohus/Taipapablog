@@ -2,7 +2,7 @@
 title = "Emacsのorg-modeで論文を書く（その3：org-modeとbibtexとreftexの連携による文献引用の自動化）"
 author = ["taipapa"]
 date = 2018-09-15
-lastmod = 2018-09-16T21:44:46+09:00
+lastmod = 2018-09-17T16:39:07+09:00
 tags = ["reference", "citation", "bibtex", "reftex", "latex", "org", "mode", "automation"]
 type = "post"
 draft = false
@@ -21,6 +21,7 @@ weight = 1
 -   RefTex-ModeというものがEmacsには含まれている．文献や引用の管理のためのパッケージである．詳細はC-h iでマニュアルを見れば分かる，と言いたいところだが，このマニュアルが膨大である．そこで，RefTeX in a Nutshellという2ページほどの要約を読めば，使うのには十分であるとマニュアル自体に書いてある（笑）．実は私はそれすらろくに読んでいないが，以下のように設定すれば，十分に使える．設定方法は，以前の記事（[Emacsの設定（その2）設定ファイル（init.el）をorg-modeで管理する](../init_org)）に記載したとおり，init.orgに書き込めば良い．
 
     ```lisp
+    #+begin_src emacs-lisp
     (defun org-mode-reftex-setup ()
       (load-library "reftex")
       (and (buffer-file-name)
@@ -29,6 +30,7 @@ weight = 1
       (define-key org-mode-map (kbd "C-c )") 'reftex-citation)
       )
     (add-hook 'org-mode-hook 'org-mode-reftex-setup)
+    #+end_src
     ```
 -   上記の設定により，参照サイトの説明のように，org-modeの中でreftex-citationの機能が働くようになる．
 
@@ -120,7 +122,7 @@ weight = 1
 
 ## 文献を引用したorg-modeからのexportの実例 {#文献を引用したorg-modeからのexportの実例}
 
--   ようやく，これで準備が整ったので，実例を示す．以下のファイルを作成する．
+-   ようやく，これで準備が整ったので，実例を示す．以下のファイルを作成し，hogefuga.orgとして保存する．
 
 ```lisp
 #+LaTeX_CLASS: koma-jarticle

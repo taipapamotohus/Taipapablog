@@ -1,0 +1,23 @@
+     ,#+LaTeX_CLASS: koma-article
+        ,#+LaTeX_CLASS_OPTIONS: [12pt]
+        ,#+LATEX_HEADER: \usepackage{times}
+        ,#+LATEX_HEADER: \usepackage{geometry}
+        ,#+LATEX_HEADER: \geometry{left=1in,right=1in,top=1in,bottom=1in}
+        ,#+LaTeX_HEADER: \usepackage[sort,compress,super,comma]{natbib}
+        ,#+STARTUP:  overview
+        ,#+STARTUP:  hidestars
+        ,#+OPTIONS:   H:3 num:nil toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc DATE:nil
+        ,#+LINK_UP:
+        ,#+LINK_HOME:
+
+        ,#+TITLE: Hogefuga profiling to identify distinct changes associated with hogefuga events in hogefuga disease
+        ,#+AUTHOR: taipapa, Nobunaga Oda, Hideyoshi Toyotomi, Ieyasu Tokugawa.
+
+        ,* Introduction
+          Stroke is estimated to be ranked as the second leading cause of death and the third most common cause of permanent disability around the world.\cite{Donnan:2008ax} The proportion of ischemic stroke is more than 90% in all stroke. The underlying metabolomic pathophysiology of ischemic stroke, however, remains poorly understood.
+
+          Recently, metabolome analysis using “omics” method has developed. Mass spectrometry (MS) and nuclear magnetic resonance (NMR) spectroscopy have garnered the most use for profiling a large number of metabolites simultaneously.\cite{Lewis:2008uq} These technologies offer comprehensive information about thousands of low-molecular mass compounds (less than 2kDa) including lipids, amino acids, peptides, nucleic acids, organic acids, vitamins, thiols and carbohydrates. Metabolomics renders the metabolic profile of a system, the end points of biological events, and reflect the state of a cell or group of cells at a given time.\cite{Gerszten:2008uq} Gas-chromatography/mass-spectrometry (GC/MS) is one of the wide-spread techniques, which enables researchers to determine analyte masses with such high precision and accuracy that peptides and metabolites can be identified unambiguously even in complex fluids.\cite{Lewis:2010oq}
+
+          The profiling of low molecular weight biochemicals that serve as substrates and products in metabolic pathways is particularly relevant to cardiovascular diseases.\cite{Lewis:2008uq} At present, however, very few studies have been reported on metabolic profiling of stroke. Unlike myocardial infarction, metabolomic changes in the brain are not sufficiently reflected by blood biomarkers due to the presence of the blood-brain barrier and dilution by peripheral blood.\cite{kim2013biomarkers} In addition, most of the studies focused on acute stage of stroke.\cite{Jiang:2011uq,Jung:2011fk,Kimberly:2013mq}
+
+        ,#+BIBLIOGRAPHY: /Users/kohkichi/Documents/Kohkichi-References.bib Stroke_6-authors.bst option:-a limit:t
