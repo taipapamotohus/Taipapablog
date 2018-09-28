@@ -2,7 +2,7 @@
 title = "Emacsのorg-modeで論文を書く（その4：pandocを利用してorg-modeからword [docx]を文献付きでexportする）"
 author = ["taipapa"]
 date = 2018-09-17
-lastmod = 2018-09-22T22:47:57+09:00
+lastmod = 2018-09-29T01:17:56+09:00
 tags = ["org", "mode", "word", "export", "reference", "citation", "ox", "pandoc"]
 type = "post"
 draft = false
