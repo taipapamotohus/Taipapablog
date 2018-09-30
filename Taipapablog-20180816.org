@@ -337,6 +337,8 @@
    :EXPORT_HUGO_TYPE: post
    :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/Kojidai.jpg") (caption . "Kojidai"))
    :END:
+    前回のポスト（[[../latexmk][LaTeXをインストールし，texファイルが変更されると，自動的にcompileしてskimでのpdfも自動で更新されるようにする（2018年9月1日追記）]]）により，既にLaTeXはインストールされたので，今回は学会発表向けのスライド原稿作成についてまとめる．ようやく実質的な話になる．
+　
 *** beamerによるスライド原稿の作成
     - 基本的には，通常のLaTeX文書と同じである．実際のスライド原稿を見てもらうほうが早いであろう．以下のtexファイルを作成し，beamer_test.texと名付け，保存する．Editorは何でも良いが，やはり，Emacsのauctexを使うと補完などあり，便利である．
     - 下記のファイルには多少コメントを付けた．フォントの指定は自明．themeは山のようにあるので，ググって好きなものを使う．
@@ -974,6 +976,7 @@
    :EXPORT_HUGO_DRAFT: false
    :EXPORT_AUTHOR: "taipapa"
    :EXPORT_HUGO_TYPE: post
+   # :EXPORT_HUGO_TOC: true
    :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/BlueMosque.jpg") (caption . "Sultanahmet Camii"))
    :END:
 

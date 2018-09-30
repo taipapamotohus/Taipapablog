@@ -14,6 +14,8 @@ weight = 1
 
 前回（[Emacsのorg-modeで論文を書く（その2：BibDeskによる論文収集と整理）](../org-mode_paper_2)）は，BibDeskを用いて文献情報をbibtex ファイルとして収集する方法についてまとめた．今回は，この文献情報を利用した引用をEmacsのorg-modeでどのように自動化するかについてまとめる．早い話が，org-modeからlatexのbibtexとreftexの機能を利用するということになる．
 
+{{% toc %}}
+
 
 ## org-mode-reftex-setup {#org-mode-reftex-setup}
 

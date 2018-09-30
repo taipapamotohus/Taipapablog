@@ -2,7 +2,7 @@
 title = "Emacsのorg-modeで論文を書く（その4：pandocを利用してorg-modeからword [docx]を文献付きでexportする）"
 author = ["taipapa"]
 date = 2018-09-17
-lastmod = 2018-09-29T01:17:56+09:00
+lastmod = 2018-09-29T12:37:33+09:00
 tags = ["org", "mode", "word", "export", "reference", "citation", "ox", "pandoc"]
 type = "post"
 draft = false
@@ -16,6 +16,7 @@ weight = 1
 
 いま，一瞬，憤りのあまり意識を失いかけたが，気を取り直して続ける．実際のところ，仕事でもしばしばword文書を要求される．イチからwordで文書を書くのはやりたくないわけで，ふと，org-modeからexportできないかと調べてみた．やはり，同じようなことを考える人はいるもので，エライ人はそれを実現させるべく色々な方法を開発していた．それらの中から，自分で試してみてうまく行った方法をまとめておく．使用するのは， **pandoc** とそれをorg−modeから利用するための **ox-pandoc** である．
 
+{{% toc %}}
 
 ## ox-pandoc {#ox-pandoc}
 

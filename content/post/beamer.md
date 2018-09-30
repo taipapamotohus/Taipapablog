@@ -2,7 +2,7 @@
 title = "beamerでスライド原稿用pdfを作成する（その１）"
 author = ["taipapa"]
 date = 2018-08-24
-lastmod = 2018-08-27T22:12:55+09:00
+lastmod = 2018-09-30T14:49:51+09:00
 tags = ["latex", "latexmk", "beamer", "texlive", "mactex", "emacs"]
 type = "post"
 draft = false
@@ -11,6 +11,10 @@ weight = 1
   image = "headers/Kojidai.jpg"
   caption = "Kojidai"
 +++
+
+前回のポスト（[LaTeXをインストールし，texファイルが変更されると，自動的にcompileしてskimでのpdfも自動で更新されるようにする（2018年9月1日追記）](../latexmk)）により，既にLaTeXはインストールされたので，今回は学会発表向けのスライド原稿作成についてまとめる．ようやく実質的な話になる．
+　
+
 
 ## beamerによるスライド原稿の作成 {#beamerによるスライド原稿の作成}
 

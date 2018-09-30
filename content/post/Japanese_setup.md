@@ -14,6 +14,7 @@ weight = 1
 
 ようやく，ここからinit.orgの具体的な記述になる．
 
+{{% toc %}}
 
 ## Coding systemの設定 {#coding-systemの設定}
 
