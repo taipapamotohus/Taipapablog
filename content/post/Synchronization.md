@@ -14,6 +14,8 @@ weight = 1
 
 以前の記事（[beamerでスライド原稿用pdfを作成する（その１）](../beamer)）で，Emacsでbeamerを用いてlatexのソースを書いてコンパイルし，スライド原稿としてpdfを出力する方法をまとめた．この際に，pdfの特定の箇所がlatexのソースでどこに当たるのかがわかったり，逆に，latexのソースの特定の箇所がpdf上のどこに当たるのかがわかったりすると便利である．今回はそれについてまとめる．なお，auctexの全般的な設定については，TeXWikiの[macOS での設定例](https://texwiki.texjp.org/?AUCTeX#h32722ec) を参照していただきたい．
 
+{{% toc %}}
+
 -   参照：[Mac OS X El Capitan の AUCTeX の設定](https://ryogan.org/blog/2015/12/30/mac-os-x-el-capitan-の-auctex-の設定/)
 -   参照：[skimとの連携](https://texwiki.texjp.org/?Emacs#e9c08b3d)
 -   参照：[AUCTeX の設定と便利な機能](https://skalldan.wordpress.com/2011/07/20/auctex-の設定と便利な機能/)
