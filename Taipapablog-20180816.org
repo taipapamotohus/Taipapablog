@@ -66,7 +66,7 @@
     $ brew info emacs-mac
   #+end_src
 
-** COMMENT Emacsの設定（その1）Preludeの導入                         :emacs:prelude:
+** Emacsの設定（その1）Preludeの導入（2018年10月9日修正）        :emacs:prelude:
    :PROPERTIES:
    :EXPORT_FILE_NAME: Prelude_install
    :EXPORT_DATE: 2018-08-15
@@ -85,13 +85,15 @@
       #+begin_src shell
       $ curl -L https://git.io/epre | sh
       #+end_src
-    - インストール終了後にEmacsを再起動すると，勝手にもの凄い勢いでどんどん各種パッケージをダウンロードしてインストールしてくれる．auctexなどもインストールされるので，LaTeXも使えるようになる．素晴らしい！
+    - インストール終了後にEmacsを再起動すると，勝手にもの凄い勢いでどんどん各種パッケージをダウンロードしてインストールしてくれる．~~auctexなどもインストールされるので，LaTeXも使えるようになる．素晴らしい！~~ *（2018年10月9日修正）* デフォルトのままではこうならない．下記のように設定する必要あり．
     - prelude-modules.elを見て必要なmodulesがロードされるようにコメントアウトを外す．
       #+begin_src lisp
         (require 'prelude-helm) ;; Interface for narrowing and search
         (require 'prelude-helm-everywhere) ;; Enable Helm everywhere
+        ..................
+        (require 'prelude-latex)
       #+end_src
-      helmにすっかり慣らされてしまったのでこのあたりは外している．
+      helmにすっかり慣らされてしまったのでこのあたりは外している．prelude-latexのコメントアウトを外すことにより，次回にEmacsを立ち上げるときに *auctex* がインストールされる．
     - preludeのdefaultの設定は，ほぼ満足すべきものだが，ひとつだけ，prelude-auto-saveが邪魔である．これは，他のbufferに移動したり，他のアプリを使用したりするたびに自動で保存される機能であるが，非常に鬱陶しい．M-x customize からprelude-auto-saveを検索し，offにする．custom.elに書き込まれる．
     - 個人の設定は，~/.emacs.d/personal/init.elに書き込む．これは，org-modeを使って設定するのが良い．まずorg-modeについての記事を書いたあとにinit.orgについて書く予定．
 
@@ -1347,7 +1349,7 @@
          #+attr_html: :width 70% :target _self
          [[./static/img/word-tree.jpg]]
 
-** Emacsとskimで，latexのソースとpdfの間を行ったり来たり :latex:pdf:synchronization:tex:emacs:emacsclient:
+** COMMENT Emacsとskimで，latexのソースとpdfの間を行ったり来たり :latex:pdf:synchronization:tex:emacs:emacsclient:
    :PROPERTIES:
    :EXPORT_FILE_NAME: Synchronization
    :EXPORT_DATE: 2018-10-07
