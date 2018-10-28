@@ -2,8 +2,8 @@
 title = "RをMac OSX (Sierra)にbrewでinstallしていて，upgradeしてハマったときの対処法"
 author = ["taipapa"]
 date = 2018-10-27
-lastmod = 2018-10-28T20:08:13+09:00
-tags = ["R", "Rstudio", "homebrew", "install", "update", "error"]
+lastmod = 2018-10-28T20:16:40+09:00
+tags = ["R", "Rstudio", "bioconductor", "homebrew", "install", "update", "error"]
 type = "post"
 draft = false
 weight = 1
