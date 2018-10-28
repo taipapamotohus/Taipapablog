@@ -2,7 +2,7 @@
 title = "RをMac OSX (Sierra)にbrewでinstallしていて，upgradeしてハマったときの対処法"
 author = ["taipapa"]
 date = 2018-10-27
-lastmod = 2018-10-28T16:56:08+09:00
+lastmod = 2018-10-28T20:08:13+09:00
 tags = ["R", "Rstudio", "homebrew", "install", "update", "error"]
 type = "post"
 draft = false
@@ -14,6 +14,7 @@ weight = 1
 
 [R](https://www.r-project.org)とは，オープンソース・フリーソフトウェアの統計解析向けのプログラミング言語及びその開発実行環境である（Wikipediaより）．org-modeと同じくらい必要不可欠なRではあるが，定期的にupdateする必要がある．いや，まぁ，したほうが良い，というか，しないと新しいパッケージが試せなかったりするので，しないではいられない．しかし，updateすると，たいていどこかでハマる．そこで，今回は，ハマったときの対処法を自分のためにまとめておくことにする．ハマるのはbioconductorの方が多いような気がする．ちなみに当方の環境は，MacBook Pro (15-inch, Late 2016) macOS Sierra 10.12.6である．先日もRを3.5.1にupdateしてハマったばかりである.....(^^;;;
 
+{{% toc %}}
 
 ## gccのリンク絡みのトラブル {#gccのリンク絡みのトラブル}
 
@@ -39,7 +40,7 @@ weight = 1
 
 -   'X11/Xlib.h' file not found, #include &lt;X11/Xlib.h&gt; のようなエラーが出てコンパイルできないことがある（例えば，"Cairo" packageなど）．要するにXlib.hの在り処が分からんということである．mdfind（Mac版のlocate）で探してみると，以下のような結果が得られる．
 
-    ```shell
+    ```sh
     $ mdfind -name Xlib.h | grep X11
     /opt/X11/include/cairo/cairo-xlib.h
     /opt/X11/include/X11/Xlib.h
@@ -50,12 +51,69 @@ weight = 1
 
     そこで，目的のXlib.hは，/opt/X11/include/X11/Xlib.hと分かるので，include directoryにこれを含めるように指示すれば良い．これも，前項と同じく，Rのコンソールに入力すること！（これでどれだけ．．．以下同文）
 
-    ```shell
+    ```sh
     Sys.setenv(C_INCLUDE_PATH = "/opt/X11/include")
     ```
 
     これで，コンパイルできるようになるはずである．
 -   どこにX11/Xlib.hが入っているかは，インストールの仕方により色々であろうから，場所を確認してから上記の操作を行うようにする．
 -   なお，ネットのあちこちに，Xquartzをdowngradeすればコンパイルできる，みたいなことが書いてあったが，あれはなんなのだろうか．．．？
+
+
+## rsvgのインストール時に，xcb-shm.pcがないと怒られる． {#rsvgのインストール時に-xcb-shm-dot-pcがないと怒られる}
+
+-   こんな感じである．
+
+    ```sh
+    > biocLite("rsvg")
+    ...................................
+    Package xcb-shm was not found in the pkg-config search path.
+    Perhaps you should add the directory containing `xcb-shm.pc'
+    to the PKG_CONFIG_PATH environment variable
+    Package 'xcb-shm', required by 'cairo', not found
+    Found INCLUDE_DIR and/or LIB_DIR!
+    Using PKG_CFLAGS=-I/usr/local/Cellar/librsvg/2.40.20/lib/pkgconfig/librsvg-2.0.pc
+    Using PKG_LIBS=-L/usr/local/Cellar/librsvg/2.40.20/lib/pkgconfig -lrsvg
+    ------------------------- ANTICONF ERROR ---------------------------
+    Configuration failed because librsvg-2.0 was not found. Try installing:
+    ​* deb: librsvg2-dev (Debian, Ubuntu, etc)
+    ​* rpm: librsvg2-devel (Fedora, EPEL)
+    ​* csw: librsvg_dev, sunx11_devel (Solaris)
+    ​* brew: librsvg (OSX)
+    If librsvg-2.0 is already installed, check that 'pkg-config' is in your
+    PATH and PKG_CONFIG_PATH contains a librsvg-2.0.pc file. If pkg-config
+    is unavailable you can set INCLUDE_DIR and LIB_DIR manually via:
+    R CMD INSTALL --configure-vars='INCLUDE_DIR=... LIB_DIR=...'
+    --------------------------------------------------------------------
+    ERROR: configuration failed for package ‘rsvg’
+    ​* removing ‘/usr/local/Cellar/r/3.5.1/lib/R/library/rsvg’
+
+    The downloaded source packages are in
+    ‘/private/var/folders/rq/hj_634613dbfzs41djqt52y80000gn/T/RtmpzsGqp0/downloaded_packages’
+    Updating HTML index of packages in '.Library'
+    Making 'packages.html' ... done
+    警告メッセージ:
+    install.packages(pkgs = doing, lib = lib, ...) で:
+    installation of package ‘rsvg’ had non-zero exit status
+    ```
+
+-   要するに，xcb-shm.pcのあるディレクトリをPKG＿CONFIG＿DIRに追加しろと言ってるので，xcb-shm.pcがどこにあるかをmdfindで探してから，言われるとおり追加する．
+
+    ```sh
+    $ mdfind -name xcb-shm.pc
+    /opt/X11/lib/pkgconfig/cairo-xcb-shm.pc
+    /opt/X11/lib/pkgconfig/xcb-shm.pc
+    /usr/local/Cellar/cairo/1.14.8/lib/pkgconfig/cairo-xcb-shm.pc
+    /usr/local/Cellar/cairo/1.14.10/lib/pkgconfig/cairo-xcb-shm.pc
+    /usr/local/Cellar/cairo/1.14.12/lib/pkgconfig/cairo-xcb-shm.pc
+    ```
+
+-   上記のように，/opt/X11/lib/pkgconfig/xcb-shm.pcとなっているので，これを追加する．このときも上述のごとく，RのコンソールでSys.setenvを使う．
+
+    ```sh
+    > Sys.setenv(PKG_CONFIG_PATH = "/opt/X11/lib/pkgconfig")
+    ```
+
+-   これで，rsvgはうまくコンパイルされる．
 
 今回はいきなりのRネタになってしまった．
