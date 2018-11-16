@@ -2,7 +2,7 @@
 title = "RをMac OSX (Sierra)にbrewでinstallしていて，upgradeしてハマったときの対処法"
 author = ["taipapa"]
 date = 2018-10-27
-lastmod = 2018-10-28T20:16:40+09:00
+lastmod = 2018-11-15T22:09:50+09:00
 tags = ["R", "Rstudio", "bioconductor", "homebrew", "install", "update", "error"]
 type = "post"
 draft = false
@@ -14,7 +14,6 @@ weight = 1
 
 [R](https://www.r-project.org)とは，オープンソース・フリーソフトウェアの統計解析向けのプログラミング言語及びその開発実行環境である（Wikipediaより）．org-modeと同じくらい必要不可欠なRではあるが，定期的にupdateする必要がある．いや，まぁ，したほうが良い，というか，しないと新しいパッケージが試せなかったりするので，しないではいられない．しかし，updateすると，たいていどこかでハマる．そこで，今回は，ハマったときの対処法を自分のためにまとめておくことにする．ハマるのはbioconductorの方が多いような気がする．ちなみに当方の環境は，MacBook Pro (15-inch, Late 2016) macOS Sierra 10.12.6である．先日もRを3.5.1にupdateしてハマったばかりである.....(^^;;;
 
-{{% toc %}}
 
 ## gccのリンク絡みのトラブル {#gccのリンク絡みのトラブル}
 
