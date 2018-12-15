@@ -1649,7 +1649,7 @@
 
 今回はいきなりのRネタになってしまった．
 
-** Tufte-LaTeXとtufte-org-modeについて                 :tufte:latex:org:mode:
+** COMMENT Tufte-LaTeXとtufte-org-modeについて                 :tufte:latex:org:mode:
    :PROPERTIES:
    :EXPORT_FILE_NAME: Tufte
    :EXPORT_DATE: 2018-11-14
@@ -1808,3 +1808,74 @@
    :EXPORT_HUGO_TYPE: post
    :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/GrandPlace2.jpg") (caption . "Grand Place (daytime)"))
    :END:
+
+** Emacsのorg-modeで論文を書く（その5：htmlへのexportの際のフォントの色の変更，ハイライトなど） :emacs:orgmode:html:export:css:color:
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: html_export
+   :EXPORT_DATE: 2018-12-10
+   :EXPORT_HUGO_AUTO_SET_LASTMOD: t
+   :EXPORT_HUGO_DRAFT: false
+   :EXPORT_AUTHOR: "taipapa"
+   :EXPORT_HUGO_TYPE: post
+   :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/Parthenon.jpg") (caption . "Parthenon"))
+   :END:
+
+#+INCLUDE: /Sources/org-mode-folder/org-macros-master/org-macros.setup
+
+
+学会発表や論文作成にあたっては，当然のことながら，その分野の他の研究者の論文を読んでまとめるなどの作業を行う．そこで，論文の要旨などをorg-modeにざっとまとめておくと，pdfにもhtmlにもtextにもexport出来て便利である．pdfは印刷に向いているが，htmlは多くの論文をいっぺんに見るのに向いており，また，compileの時間もpdfより圧倒的に速い．そこで，今回は，org-modeからhtmlへexportする際の有用な小技について書いてみたい．
+
+*** [[https://github.com/fniessen/org-macros][Org Macros]]
+    フォントの色を変更する方法はいろいろあるが，ハイライトや背景の色の変更までできるこの [[https://github.com/fniessen/org-macros][Org Macros]]が一番便利である．内容は，org-modeの便利なマクロ集である．リンク先からダウンロードして，適当なところに保存し，解凍しておく．ここでは，/Users/taipapa/hoge/fuga/org-macros.setupに置くことにする．使い方は簡単で上記のwebsiteに書いてあるとおり，各org fileの先頭に以下のように記述してorg-macros.setupの場所を教えてやれば良い．
+      #+begin_src lisp
+        ,#+INCLUDE: /Users/taipapa/hoge/fuga/org-macros.setup
+      #+end_src
+      これだけである．
+    - 注意事項としては，このブログはox-hugoで書いているが，ox-hugoの場合は文書の先頭に上記を書いても効かない．各ポストのpropertyのあとに書いておけば効く．各ポストごとに設定するようになっているらしい．．．．．（全国15人？ぐらいの人にしか意味のない注意書きである）
+    - 残念ながら，LaTeXへのexportでは，この方法による色の変更などは（現在のところ）効かない．
+    いくつか使い方の例をあげておく
+      #+begin_src lisp
+        {{{color(blue, 青くなるかな？)}}}
+        ,*{{{color(blue, ボールドで青くなるかな？)}}}*
+        {{{highlight(yellow, 黄色にハイライトされるかな？)}}}
+        ,*{{{highlight(yellow, 黄色にハイライトされて文字はボールドになるかな？)}}}*
+        {{{bgcolor(cyan, 背景がシアンになるかな？)}}}
+        ,*{{{bgcolor(cyan, 背景がシアンになって文字はボールドになるかな？)}}}*
+      #+end_src
+      これが以下のように表示される．
+      + {{{color(blue, 青くなるかな？)}}}
+      + *{{{color(blue, ボールドで青くなるかな？)}}}*
+      + {{{highlight(yellow, 黄色にハイライトされるかな？)}}}
+      + *{{{highlight(yellow, 黄色にハイライトされて文字はボールドになるかな？)}}}*
+      + {{{bgcolor(cyan, 背景がシアンになるかな？)}}}
+      + *{{{bgcolor(cyan, 背景がシアンになって文字はボールドになるかな？)}}}*
+    上記以外にも多くのマクロが含まれており，そちらも人によっては有用かもしれない．少しだけ例をあげておく．以下はパネルの例．
+      #+begin_src lisp
+        {{{begin_panel}}} Panel example This is a formatted block of text… {{{end_panel}}}
+      #+end_src
+      これが，
+      {{{begin_panel}}} Panel example This is a formatted block of text… {{{end_panel}}}
+        となる．マニュアルでは以下の使い方を薦めている．
+      #+begin_src lisp
+        ,#+begin_panel
+        ,*Panel example* \\
+        This is a formatted block of text...
+        ,#+end_panel
+      #+end_src
+      #+begin_panel
+      *Panel example* \\
+       This is a formatted block of text...
+      #+end_panel
+    なお，org-modeのマクロ自体に関しては，org-modeのマニュアルの *12.5 Macro replacement* を参考にしていただきたい．
+*** [[https://stackoverflow.com/questions/21340380/exporting-org-mode-to-html-in-place-coloring][Exporting org-mode to HTML: In-place coloring]]
+     フォントの色を変える別の方法である．リンク先にある通り，
+     #+begin_src html
+この文章は， *@@html:<font color = "blue">@@青のボールド@@html:</font>@@*になって欲しい！
+     #+end_src
+     これが以下のように表示される．\\
+     この文章は， *@@html:<font color = "blue">@@青のボールド@@html:</font>@@* になって欲しい！
+     - org-modeのマニュアルの *12.9.5 Quoting HTML tags* も参考のこと
+
+     こちらは設定を必要としないが，やはり，最初に説明したマクロの方がいろいろ出来て便利である．
+
+     次回は，htmlをexportする際のCSSについてまとめてみたい．
