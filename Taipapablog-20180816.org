@@ -1823,7 +1823,7 @@
 #+INCLUDE: /Sources/org-mode-folder/org-macros-master/org-macros.setup
 
 
-学会発表や論文作成にあたっては，当然のことながら，その分野の他の研究者の論文を読んでまとめるなどの作業を行う．そこで，論文の要旨などをorg-modeにざっとまとめておくと，pdfにもhtmlにもtextにもexport出来て便利である．pdfは印刷に向いているが，htmlは多くの論文をいっぺんに見るのに向いており，また，compileの時間もpdfより圧倒的に速い．そこで，今回は，org-modeからhtmlへexportする際の有用な小技について書いてみたい．
+学会発表や論文作成にあたっては，当然のことながら，その分野の他の研究者の論文を読んでまとめるなどの作業を行う．そこで，論文の要旨などをorg-modeにざっとまとめておくと，pdfにもhtmlにもtextにもexport出来て便利である．pdfは印刷に向いているが，htmlは多くの論文をいっぺんに見るのに向いており，また，compileの時間もpdfより圧倒的に速い．また，色を変えたり，ハイライトしたりするのもhtmlなら容易である．そこで，今回は，org-modeからhtmlへexportする際の有用な小技について書いてみたい．
 
 *** [[https://github.com/fniessen/org-macros][Org Macros]]
     フォントの色を変更する方法はいろいろあるが，ハイライトや背景の色の変更までできるこの [[https://github.com/fniessen/org-macros][Org Macros]]が一番便利である．内容は，org-modeの便利なマクロ集である．リンク先からダウンロードして，適当なところに保存し，解凍しておく．ここでは，/Users/taipapa/hoge/fuga/org-macros.setupに置くことにする．使い方は簡単で上記のwebsiteに書いてあるとおり，各org fileの先頭に以下のように記述してorg-macros.setupの場所を教えてやれば良い．

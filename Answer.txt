@@ -1,0 +1,40 @@
+Hayashiさん，お尋ねありがとうございます．
+質問されたことに気がついておらず，返事が遅れました．
+私は，Hugoという静的ジェネレーターのAcademicというthemeを使ってこのブログを書いています．フォントの設定は，config.tmlの中で
+font = "default"
+としています．これは，default.tmlを指定しており，この中で，
+
+# Optional Google font URL
+google_fonts = "Montserrat:400,700|Roboto:400,400italic,700|Roboto+Mono"
+
+# Font families
+heading_font = "Montserrat"
+body_font = "Roboto"
+nav_font = "Roboto"
+mono_font = "Roboto Mono"
+
+# Font size
+font_size = "20"
+font_size_small = "16"
+
+と設定されています．ということで，本文はグーグルフォントのRobotoのようです．ただし，これは英語など欧米語の場合で日本語フォントの設定はどこにもしていません．
+一方，config.tmlの中で，
+
+hasCJKLanguage = true  # Set `true` for Chinese/Japanese/Korean languages.
+
+という設定で日本語を使えるようにしています．これで日本語の部分は日本語フォントに切り替わっているようです．よく分かりません.....(^^;;;
+
+ただ，https://material.io/design/typography/language-support.html#noto-guidanceにあるNoto guidanceを見ると，
+Noto is the default typeface for all languages not covered by Roboto. Derived from Droid, it’s designed to be visually harmonious across languages and scripts with compatible heights and stroke thicknesses.
+とありますので，日本語フォントはNotoではないかと思います．見た目から判断すると，
+
+Noto Sans JP
+
+weightは数字より，
+
+Regular (font-weight:400)
+Bold (font-weight:700)
+
+だと思います．どなたか詳しい方に私のほうが教えてもらいたいです．
+
+ま，設定してなくても，善きにはからってくれるところが，なんとも．．．（笑）
