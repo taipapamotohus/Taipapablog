@@ -2,7 +2,7 @@
 title = "Emacsのorg-modeで論文を書く（その5：htmlへのexportの際のフォントの色の変更，ハイライトなど）（12月19日追記）"
 author = ["taipapa"]
 date = 2018-12-10
-lastmod = 2018-12-19T18:06:09+09:00
+lastmod = 2018-12-19T18:27:35+09:00
 tags = ["emacs", "orgmode", "html", "export", "css", "color"]
 type = "post"
 draft = false
@@ -45,7 +45,7 @@ As you see, I use a lot of Org macros, and they all work in my "one post per sub
 #+setupfile: /Users/taipapa/hoge/fuga/org-macros.setup
 ```
 
-こんなブログにまで目を通してコメントしてくれるのには驚いた．日本語が読める人なのかとも思ったが，どうやらGoogleの翻訳を利用されているようだ．このページだと，[A Perfect Autumn Day](https://translate.google.com/translate?depth=1&sl=auto&sp=nmt4&tl=en&u=https://taipapamotohus.com/post/html%5Fexport/&xid=17259,1500004,15700019,15700124,15700149,15700186,15700190,15700201,15700237,15700242#comment-4245099680)に行くと翻訳版を見ることができる．その翻訳レベルにも今更ながら感心した．．．
+こんなブログにまで目を通してコメントしてくれるのには驚いた．親切な方である．日本語が読める人なのかとも思ったが，どうやらGoogleの翻訳を利用されているようだ．このページだと，[A Perfect Autumn Day](https://translate.google.com/translate?depth=1&sl=auto&sp=nmt4&tl=en&u=https://taipapamotohus.com/post/html%5Fexport/&xid=17259,1500004,15700019,15700124,15700149,15700186,15700190,15700201,15700237,15700242#comment-4245099680)に行くと翻訳版を見ることができる．その翻訳レベルにも今更ながら感心した．．．
 
 -   残念ながら，LaTeXへのexportでは，この方法による色の変更などは（現在のところ）効かない．
 
