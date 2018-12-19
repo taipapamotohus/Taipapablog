@@ -1,0 +1,2 @@
+Hi, Kaushal
+Thank you very much for your kind advice. I confirmed #+setupfile works well at the beginning of the document.

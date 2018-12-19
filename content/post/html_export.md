@@ -1,8 +1,8 @@
 +++
-title = "Emacsのorg-modeで論文を書く（その5：htmlへのexportの際のフォントの色の変更，ハイライトなど）"
+title = "Emacsのorg-modeで論文を書く（その5：htmlへのexportの際のフォントの色の変更，ハイライトなど）（12月19日追記）"
 author = ["taipapa"]
 date = 2018-12-10
-lastmod = 2018-12-16T19:43:34+09:00
+lastmod = 2018-12-19T18:06:09+09:00
 tags = ["emacs", "orgmode", "html", "export", "css", "color"]
 type = "post"
 draft = false
@@ -25,7 +25,28 @@ weight = 1
 
 これだけである．
 
--   注意事項としては，このブログはox-hugoで書いているが，ox-hugoの場合は文書の先頭に上記を書いても効かない．各ポストのpropertyのあとに書いておけば効く．各ポストごとに設定するようになっているらしい．．．．．（全国15人？ぐらいの人にしか意味のない注意書きである）
+-   ~~注意事項としては，このブログはox-hugoで書いているが，ox-hugoの場合は文書の先頭に上記を書いても効かない．各ポストのpropertyのあとに書いておけば効く．各ポストごとに設定するようになっているらしい．．．．．（全国15人？ぐらいの人にしか意味のない注意書きである）~~
+
+
+### 上記に関しては，ox-hugoの作者であるKaushal Modi氏から以下のような指摘を頂いた．（12月19日追記） {#上記に関しては-ox-hugoの作者であるkaushal-modi氏から以下のような指摘を頂いた-12月19日追記}
+
+<div class="panel">
+  <div></div>
+
+Can you try using #+setupfile instead of #+include? As an example, here is my blog Org source that I export using ox-hugo ( <https://gitlab.com/kaushalm>... ), and here is the setup file tha t I "include" using the more appropriate #+setupfile ( <https://gitlab.com/kaushalm>... ).
+
+As you see, I use a lot of Org macros, and they all work in my "one post per subtree" flow.
+
+</div>
+
+ということで，ox-hugoの場合は，以下のように文書の先頭に書いておけば，one-post per subtreeの投稿全てにorg-macroが効くことを確認した．
+
+```lisp
+#+setupfile: /Users/taipapa/hoge/fuga/org-macros.setup
+```
+
+こんなブログにまで目を通してコメントしてくれるのには驚いた．日本語が読める人なのかとも思ったが，どうやらGoogleの翻訳を利用されているようだ．このページだと，[A Perfect Autumn Day](https://translate.google.com/translate?depth=1&sl=auto&sp=nmt4&tl=en&u=https://taipapamotohus.com/post/html%5Fexport/&xid=17259,1500004,15700019,15700124,15700149,15700186,15700190,15700201,15700237,15700242#comment-4245099680)に行くと翻訳版を見ることができる．その翻訳レベルにも今更ながら感心した．．．
+
 -   残念ながら，LaTeXへのexportでは，この方法による色の変更などは（現在のところ）効かない．
 
 いくつか使い方の例をあげておく

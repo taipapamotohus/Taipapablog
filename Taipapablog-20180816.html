@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-12-14 Fri 22:54 -->
+<!-- 2018-12-16 Sun 22:44 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -190,6 +190,22 @@
  pre.src {background-color: #181a26; color: #eaeaea;}</style>
 <style type="text/css">
  pre.src {background-color: #181a26; color: #eaeaea;}</style>
+<style type="text/css">
+ pre.src {background-color: #181a26; color: #eaeaea;}</style>
+<style type="text/css">
+ pre.src {background-color: #181a26; color: #eaeaea;}</style>
+<style type="text/css">
+ pre.src {background-color: #181a26; color: #eaeaea;}</style>
+<style type="text/css">
+ pre.src {background-color: #181a26; color: #eaeaea;}</style>
+<style type="text/css">
+ pre.src {background-color: #181a26; color: #eaeaea;}</style>
+<style type="text/css">
+ pre.src {background-color: #181a26; color: #eaeaea;}</style>
+<style type="text/css">
+ pre.src {background-color: #181a26; color: #eaeaea;}</style>
+<style type="text/css">
+ pre.src {background-color: #181a26; color: #eaeaea;}</style>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -243,11 +259,11 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org275ce7a">1. Posts</a>
+<li><a href="#org2a311dc">1. Posts</a>
 <ul>
-<li><a href="#org7b2a6b4">1.1. Emacsのorg-modeで論文を書く（その5：htmlへのexportのいろいろ）&#xa0;&#xa0;&#xa0;<span class="tag"><span class="emacs">emacs</span>&#xa0;<span class="orgmode">orgmode</span>&#xa0;<span class="html">html</span>&#xa0;<span class="export">export</span>&#xa0;<span class="css">css</span>&#xa0;<span class="color">color</span></span></a>
+<li><a href="#orgfc11c81">1.1. Org-modeでhtml exportの際のthemeについて&#xa0;&#xa0;&#xa0;<span class="tag"><span class="emacs">emacs</span>&#xa0;<span class="orgmode">orgmode</span>&#xa0;<span class="html">html</span>&#xa0;<span class="export">export</span>&#xa0;<span class="css">css</span>&#xa0;<span class="theme">theme</span></span></a>
 <ul>
-<li><a href="#org405e47f">1.1.1. フォントの色の変更やハイライト</a></li>
+<li><a href="#org4d38100">1.1.1. ReadTheOrg</a></li>
 </ul>
 </li>
 </ul>
@@ -255,57 +271,53 @@ for the JavaScript code in this tag.
 </ul>
 </div>
 </div>
-<div id="outline-container-org275ce7a" class="outline-2">
-<h2 id="org275ce7a"><span class="section-number-2">1</span> Posts</h2>
+<div id="outline-container-org2a311dc" class="outline-2">
+<h2 id="org2a311dc"><span class="section-number-2">1</span> Posts</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org7b2a6b4" class="outline-3">
-<h3 id="org7b2a6b4"><span class="section-number-3">1.1</span> Emacsのorg-modeで論文を書く（その5：htmlへのexportのいろいろ）&#xa0;&#xa0;&#xa0;<span class="tag"><span class="emacs">emacs</span>&#xa0;<span class="orgmode">orgmode</span>&#xa0;<span class="html">html</span>&#xa0;<span class="export">export</span>&#xa0;<span class="css">css</span>&#xa0;<span class="color">color</span></span></h3>
+<div id="outline-container-orgfc11c81" class="outline-3">
+<h3 id="orgfc11c81"><span class="section-number-3">1.1</span> Org-modeでhtml exportの際のthemeについて&#xa0;&#xa0;&#xa0;<span class="tag"><span class="emacs">emacs</span>&#xa0;<span class="orgmode">orgmode</span>&#xa0;<span class="html">html</span>&#xa0;<span class="export">export</span>&#xa0;<span class="css">css</span>&#xa0;<span class="theme">theme</span></span></h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
-学会発表や論文作成にあたっては，当然のことながら，その分野の他の研究者の論文を読んでまとめるなどの作業を行う．そこで，論文の要旨などをorg-modeにざっとまとめておくと，pdfにもhtmlにもexport出来て便利である．pdfは印刷に向いているが，htmlは多くの論文をいっぺんに見るのに向いており，また，compileの時間もpdfより圧倒的に速い．そこで，今回は，org-modeからhtmlへexportする際の有用な小技について書いてみたい．
+org-modeで文書を書いてhtmlにexportすると，素のままでは，なんの愛想もない．特にいくつかの項目をまとめた要約などを並べていくときは，side columnなどがあって，すぐに行きたいところに飛べるようになっていると嬉しい．ということで，今回はorg-modeをhtmlにexportするときのthemeがテーマである．．．．．
+</p>
+
+<p>
+とにかく，たくさんのthemesが存在する．まずは以下のサイトをチェック，というか以下を読めばこのブログは読まなくても良いような．．．
+</p>
+
+<ol class="org-ol">
+<li><a href="https://qiita.com/sambatriste/items/2dc9f81cbf1e82d7429a">org-modeのHTMLテーマ</a></li>
+<li><a href="https://qiita.com/sambatriste/items/c8e70368ee5fd092096b">org-modeのHTMLテーマ第2弾</a></li>
+<li><a href="https://github.com/fniessen/org-html-themes#how-to-export-org-mode-files-into-awesome-html-in-2-minutes">How to export Org mode files into awesome HTML in 2 minutes</a></li>
+<li><a href="https://github.com/thi-ng/org-spec">org-spec</a></li>
+</ol>
+
+<p>
+私のお気に入りは，ReadTheOrg（上記の1, 3にある）とorg-spec（上記の4）である．
 </p>
 </div>
 
-<div id="outline-container-org405e47f" class="outline-4">
-<h4 id="org405e47f"><span class="section-number-4">1.1.1</span> フォントの色の変更やハイライト</h4>
+<div id="outline-container-org4d38100" class="outline-4">
+<h4 id="org4d38100"><span class="section-number-4">1.1.1</span> ReadTheOrg</h4>
 <div class="outline-text-4" id="text-1-1-1">
-</div>
-<ol class="org-ol">
-<li><a id="org17e26d6"></a><a href="https://github.com/fniessen/org-macros">Org Macros</a><br />
-<div class="outline-text-5" id="text-1-1-1-1">
-<ul class="org-ul">
-<li><p>
-フォントの色を変更する方法はいろいろあるが，ハイライトや背景の色の変更までできるこの <a href="https://github.com/fniessen/org-macros">Org Macros</a>が一番便利である．リンク先からダウンロードして，適当なところに保存し，解凍しておく．ここでは，/Users/taipapa/hoge/fuga/org-macros.setupに置くことにする．使い方は簡単で上記のwebsiteに書いてあるとおり，各org fileの先頭に以下のように記述してorg-macros.setupの場所を教えてやれば良い．
-</p>
-<div class="org-src-container">
-<pre class="src src-lisp">#+INCLUDE: /Users/taipapa/hoge/fuga/org-macros.setup
-</pre>
-</div>
 <p>
-これだけである．
-</p></li>
-<li>いくつか使い方の例をあげておく</li>
-<li><span style="color: rgb(255,0,0)">赤になるかな</span>
-<ul class="org-ul">
-<li><span style="color: red"> 赤くなるかな？</span></li>
-<li><b><span style="color: red"> ボールドで赤くなるかな？</span></b></li>
-<li><span style="background-color: yellow;"> 黄色にハイライトされるかな？</span></li>
-<li><b><span style="background-color: yellow;"> 黄色にハイライトされて文字はボールドになるかな？</span></b></li>
-<li><div style="background-color: yellow;"> 背景が黄色になるかな？</div></li>
-<li><b><div style="background-color: yellow;"> 背景が黄色になって文字はボールドになるかな？</div></b></li>
-</ul></li>
-</ul>
+これは<a href="https://docs.readthedocs.io/en/latest/">Read the Docs</a>で使われているthemeのclone．
+</p>
+
+
+<div class="figure">
+<p><img src="./static/img/ReadTheOrg.jpg" alt="ReadTheOrg.jpg" width="100%" target="_self" />
+</p>
 </div>
-</li>
-</ol>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 細田弘吉</p>
-<p class="date">Created: 2018-12-14 Fri 22:54</p>
+<p class="date">Created: 2018-12-16 Sun 22:44</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
