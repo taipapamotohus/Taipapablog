@@ -2,7 +2,7 @@
 title = "Emacsのorg-modeで論文を書く（その5：htmlへのexportの際のフォントの色の変更，ハイライトなど）（12月19日追記）"
 author = ["taipapa"]
 date = 2018-12-10
-lastmod = 2018-12-19T18:27:35+09:00
+lastmod = 2018-12-22T12:13:19+09:00
 tags = ["emacs", "orgmode", "html", "export", "css", "color"]
 type = "post"
 draft = false
@@ -13,6 +13,8 @@ weight = 1
 +++
 
 学会発表や論文作成にあたっては，当然のことながら，その分野の他の研究者の論文を読んでまとめるなどの作業を行う．そこで，論文の要旨などをorg-modeにざっとまとめておくと，pdfにもhtmlにもtextにもexport出来て便利である．pdfは印刷に向いているが，htmlは多くの論文をいっぺんに見るのに向いており，また，compileの時間もpdfより圧倒的に速い．また，色を変えたり，ハイライトしたりするのもhtmlなら容易である．そこで，今回は，org-modeからhtmlへexportする際の有用な小技について書いてみたい．
+
+{{% toc %}}
 
 
 ## [Org Macros](https://github.com/fniessen/org-macros) {#org-macros}
