@@ -2,7 +2,7 @@
 title = "Emacsでpdfを読む (pdf-tools)"
 author = ["taipapa"]
 date = 2019-01-01
-lastmod = 2019-01-03T20:23:58+09:00
+lastmod = 2019-01-04T21:27:24+09:00
 tags = ["emacs", "pdf", "pdf-tools", "org-mode"]
 type = "post"
 draft = false
@@ -40,7 +40,7 @@ Emacsでpdf文書を読もうとするとdefaultではDocViewで読む�
 -   参考６：[MORE PDF-TOOLS TWEAKS](http://pragmaticemacs.com/emacs/more-pdf-tools-tweaks/)
 -   参考７：[EVEN MORE PDF-TOOLS TWEAKS](http://pragmaticemacs.com/emacs/even-more-pdf-tools-tweaks/)
 -   参考８：[pdf-tools pretty much unusable with linum-mode enabled](https://github.com/politza/pdf-tools/issues/189)
--   参考８：[Using Emacs 44 - An Org mode and PDF-tools workflow](https://www.youtube.com/watch?v=LFO2UbzbZhA)
+-   参考９：[Using Emacs 44 - An Org mode and PDF-tools workflow](https://www.youtube.com/watch?v=LFO2UbzbZhA)
 
 ご本家のイントロに書いてあるが，DocViewのようにghostscriptで予めrenderしておくのではなく，on demandでページを作成し，メモリーに貯めておく仕組みになっている．このrenderingは，popplerという名前の特別なライブラリーによって行われるが，これはepdfinfoと呼ばれるserver programの中で走っている．こいつの仕事はEmacsからの要求を連続して読んで適切な結果，すなわち，PDFのページのPNG imageを作成することである．
 
