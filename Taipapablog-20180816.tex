@@ -1,4 +1,4 @@
-% Created 2018-12-15 Sat 00:10
+% Created 2019-01-31 Thu 22:22
 % Intended LaTeX compiler: pdflatex
 \ifdefined\kanjiskip
                                                    \documentclass[autodetect-engine,dvipdfmx,12pt,a4paper,ja=standard]{bxjsarticle}
@@ -45,44 +45,61 @@
 
 \tableofcontents
 
-\section{Posts}
-\label{sec:org713ac34}
-\subsection{Emacsのorg-modeで論文を書く（その5：htmlへのexportの際のフォントの色の変更などいろいろ）\hfill{}\textsc{emacs:orgmode:html:export:css:color}}
-\label{sec:org31add9a}
-学会発表や論文作成にあたっては，当然のことながら，その分野の他の研究者の論文を読んでまとめるなどの作業を行う．そこで，論文の要旨などをorg-modeにざっとまとめておくと，pdfにもhtmlにもexport出来て便利である．pdfは印刷に向いているが，htmlは多くの論文をいっぺんに見るのに向いており，また，compileの時間もpdfより圧倒的に速い．そこで，今回は，org-modeからhtmlへexportする際の有用な小技について書いてみたい．
 
-\subsubsection{フォントの色の変更やハイライト}
-\label{sec:org89e68a3}
+\section{Home}
+\label{sec:org85fdb33}
+
+\section{Posts}
+\label{sec:org9af93a1}
+\subsection{Emacsの長い行を折り返して見やすくするが実際の行は変えない．adaptive-wrap --- Correct indentation for wrapped lines\hfill{}\textsc{emacs:org\_mode:adaptive:wrap:indentation}}
+\label{sec:org2305e8f}
+Emacsで長い行を書いていると，デフォルトの状態ではどんどん横に伸びていく．後で読み返そうと思うと横にスクロールしないといけなくて，非常に不便である．M-qでauro-fillをやればよいと言われそうだが，そうすると改行されてしまい，これまた不便である．そこで，なんとかならないかと探してみると，ちゃんとそういうモノがあったので，まとめておく．
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+\subsubsection{adaptive-wrap}
+\label{sec:org791cf7e}
+\begin{itemize}
+\item 参照1：\href{https://elpa.gnu.org/packages/adaptive-wrap.html}{adaptive-wrap} \footnote{\url{https://elpa.gnu.org/packages/adaptive-wrap.html}} 　ご本家
+\item 参照2：\href{https://emacs.stackexchange.com/questions/14589/correct-indentation-for-wrapped-lines}{Correct indentation for wrapped lines} \footnote{\url{https://emacs.stackexchange.com/questions/14589/correct-indentation-for-wrapped-lines}}
+\item 参照3：\href{http://alainmathematics.blogspot.com/2013/07/emacs.html}{Emacsの折り返しの挙動} \footnote{\url{http://alainmathematics.blogspot.com/2013/07/emacs.html}}
+\item 参照4：\href{https://www.reddit.com/r/emacs/comments/1kw7ip/emacs_settings_loading_issue/}{.emacs settings loading issue} \footnote{\url{https://www.reddit.com/r/emacs/comments/1kw7ip/emacs_settings_loading_issue/}} 　
+\end{itemize}
+
+長い行をワープロのようにword-wrapしてくれるパッケージである．Emacsのバッファ上では折り返されているように見えるが，実際は長い横1行のままである．
+
 \begin{enumerate}
-\item \href{https://github.com/fniessen/org-macros}{Org Macros}
-\label{sec:orged7a6b9}
-\begin{itemize}
-\item フォントの色を変更する方法はいろいろあるが，ハイライトや背景の色の変更までできるこの \href{https://github.com/fniessen/org-macros}{Org Macros} \footnote{\url{https://github.com/fniessen/org-macros}} が一番便利である．内容は，org-modeの便利ななマクロ集である．リンク先からダウンロードして，適当なところに保存し，解凍しておく．ここでは，/Users/taipapa/hoge/fuga/org-macros.setupに置くことにする．使い方は簡単で上記のwebsiteに書いてあるとおり，各org fileの先頭に以下のように記述してorg-macros.setupの場所を教えてやれば良い．
+\item インストールと設定
+\label{sec:orga649958}
+例によって，use-packagを用いて以下のように，init.orgに書けばよい．
 \begin{verbatim}
-#+INCLUDE: /Users/taipapa/hoge/fuga/org-macros.setup
+#+begin_src emacs-lisp
+(use-package adaptive-wrap
+  :ensure t
+  :config
+  (setq-default adaptive-wrap-extra-indent 1)
+  (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode)
+  (global-visual-line-mode +1)
+  (add-hook 'org-mode-hook 'visual-line-mode)  ;; For
+  )
+#+end_src
 \end{verbatim}
-これだけである．
-\item 注意事項としては，このブログはox-hugoで書いているが，ox-hugoの場合は文書の先頭に上記を書いても効かない．各ポストのpropertyのあとに書いておけば効く．各ポストごとに設定するようになっているらしい．．．．．（全国15人？ぐらいの人にしか意味のない注意書きである）
-\item いくつか使い方の例をあげておく
+
+なお，最後の行を入れておかないと，org-mode fileに
+
 \begin{verbatim}
-{{{color(blue, 青くなるかな？)}}}
-*{{{color(blue, ボールドで青くなるかな？)}}}*
-{{{highlight(yellow, 黄色にハイライトされるかな？)}}}
-*{{{highlight(yellow, 黄色にハイライトされて文字はボールドになるかな？)}}}*
-{{{bgcolor(yellow, 背景が黄色になるかな？)}}}
-*{{{bgcolor(yellow, 背景が黄色になって文字はボールドになるかな？)}}}*
+#+setupfile: /Sources/org-mode-folder/org-macros-master/org-macros.setup
 \end{verbatim}
-これが以下のように表示される．
-\begin{itemize}
-\item \textcolor{blue}{ 青くなるかな？}
-\item \textbf{\textcolor{blue}{ ボールドで青くなるかな？}}
-\item
-\item \textbf{}
-\item
-\item \textbf{}
-\end{itemize}
-\item 上記以外にも多くのマクロが含まれており，そちらも人によっては有用かもしれない．
-\item なお，org-modeのマクロ自体に関しては，org-modeのマニュアルの \textbf{12.5 Macro replacement} を参考にしていただきたい．
-\end{itemize}
+
+を追加してマクロのパッケージを使用する場合（\href{../html_export}{Emacsのorg-modeで論文を書く（その5：htmlへのexportの際のフォントの色の変更，ハイライトなど）（12月19日追記）}を参照のこと）に，adaptive-wrapが効かなくなる．
+
+\includegraphics[width=.9\linewidth]{./static/img/Before_adaptive.jpg}
+
+\includegraphics[width=.9\linewidth]{./static/img/After_adaptive.jpg}
+
+
+
+（[[../org-mode\(_{\text{paper}}\)\(_{\text{2}}\)][Emacsのorg-modeで論文を書く（その2：BibDeskによる論文収集と整理）]
 \end{enumerate}
 \end{document}

@@ -57,3 +57,12 @@ mktextfm IPAexGothic/OT
 mktextfm IPAexGothic/OT
 mktextfm IPAexGothic/OT
 mktextfm IPAexGothic/OT
+mktextfm IPAexMincho/OT
+mktextfm IPAexMincho/OT
+mktextfm IPAexGothic/OT
+mktextfm IPAexGothic/I/OT
+mktextfm IPAexMincho/OT
+mktextfm IPAexMincho/BI/OT
+mktextfm IPAexMincho/OT
+mktextfm IPAexMincho/I/OT
+mktextfm IPAexMincho/OT

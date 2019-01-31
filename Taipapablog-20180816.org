@@ -98,7 +98,7 @@
     - preludeのdefaultの設定は，ほぼ満足すべきものだが，ひとつだけ，prelude-auto-saveが邪魔である．これは，他のbufferに移動したり，他のアプリを使用したりするたびに自動で保存される機能であるが，非常に鬱陶しい．M-x customize からprelude-auto-saveを検索し，offにする．custom.elに書き込まれる．
     - 個人の設定は，~/.emacs.d/personal/init.elに書き込む．これは，org-modeを使って設定するのが良い．まずorg-modeについての記事を書いたあとにinit.orgについて書く予定．
 
-** Emacsの設定（その2）設定ファイル（init.el）をorg-modeで管理する :emacs:init_org:init_el:
+** COMMENT Emacsの設定（その2）設定ファイル（init.el）をorg-modeで管理する :emacs:init_org:init_el:
    :PROPERTIES:
    :EXPORT_FILE_NAME: init_org
    :EXPORT_DATE: 2018-08-17
@@ -2238,3 +2238,60 @@
     - 以降は，hogefuga.org文書を保存するたびに，現在見ている場所に戻った状態で最新のhtmlに更新されるようになる．便利である．
 
    以上はOSX上のSafariを使用している場合であるが，他のブラウザーでも少し変更するだけで同じことができるはずである．
+
+** Emacsの長い行を折り返して見やすくするが実際の行は変えない．adaptive-wrap --- Correct indentation for wrapped lines :emacs:org_mode:adaptive:wrap:indentation:
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: auto_html_export
+   :EXPORT_DATE: 2019-01-27
+   :EXPORT_HUGO_AUTO_SET_LASTMOD: t
+   :EXPORT_HUGO_DRAFT: false
+   :EXPORT_AUTHOR: "taipapa"
+   :EXPORT_HUGO_TYPE: post
+   :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/Femme.jpg") (caption . "Femme piquée par un serpent"))
+   :END:
+
+Emacsで長い行を書いていると，デフォルトの状態ではどんどん横に伸びていく．後で読み返そうと思うと横にスクロールしないといけなくて，非常に不便である．M-qでauro-fillをやればよいと言われそうだが，そうすると改行されてしまい，これまた不便である．そこで，なんとかならないかと探してみると，ちゃんとそういうモノがあったので，まとめておく．
+
+{{{toc(2)}}}
+
+*** adaptive-wrap
+    - 参照1：[[https://elpa.gnu.org/packages/adaptive-wrap.html][adaptive-wrap]]　ご本家
+    - 参照2：[[https://emacs.stackexchange.com/questions/14589/correct-indentation-for-wrapped-lines][Correct indentation for wrapped lines]]
+    - 参照3：[[http://alainmathematics.blogspot.com/2013/07/emacs.html][Emacsの折り返しの挙動]]
+    - 参照4：[[https://www.reddit.com/r/emacs/comments/1kw7ip/emacs_settings_loading_issue/][.emacs settings loading issue]]　
+
+    長い行をワープロのようにword-wrapしてくれるパッケージである．Emacsのバッファ上では折り返されているように見えるが，実際は長い横1行のままである．
+
+**** インストールと設定
+     例によって，use-packagを用いて以下のように，init.orgに書けばよい．
+     #+begin_src lisp
+       ,#+begin_src emacs-lisp
+       (use-package adaptive-wrap
+         :ensure t
+         :config
+         (setq-default adaptive-wrap-extra-indent 1)
+         (add-hook 'visual-line-mode-hook #'adaptive-wrap-prefix-mode)
+         (global-visual-line-mode +1)
+         (add-hook 'org-mode-hook 'visual-line-mode)  ;; For org macros
+         )
+       ,#+end_src
+     #+end_src
+
+     なお，最後の行を入れておかないと，org-mode fileに
+
+     #+begin_src lisp
+       ,#+setupfile: /Sources/org-mode-folder/org-macros-master/org-macros.setup
+     #+end_src
+
+     を追加してマクロのパッケージを使用する場合（[[../html_export][Emacsのorg-modeで論文を書く（その5：htmlへのexportの際のフォントの色の変更，ハイライトなど）（12月19日追記）]]を参照のこと）に，adaptive-wrapが効かなくなる．
+
+**** 実際の使用例
+     adaptive-wrapをインストールしていない場合が上図，インストールして設定すれば下図のように見える．あくまで，Emacsの画面上でword-wrapしているように見えるだけで，実際のファイルではなが～い横１行のままの状態が維持されている．
+
+         #+attr_html: :width 100% :target _self
+          [[./static/img/Before_adaptive.jpg]]
+
+         #+attr_html: :width 100% :target _self
+          [[./static/img/After_adaptive.jpg]]
+
+これも一度使い始めると，無くてはならないモノとなるパッケージである．
