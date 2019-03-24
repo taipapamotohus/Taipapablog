@@ -47,7 +47,7 @@ head(Melanoma)
 summary(Melanoma)
 ```
 
-```text
+```shell
   time status                    event invasion ici      epicel       ulcer
 1   10      2       death.other.causes  level.1   2     present     present
 2   30      2       death.other.causes  level.0   0 not present not present
@@ -96,7 +96,7 @@ Results_cmprsk <- with(Melanoma, cuminc(time, event, group = sex, cencode = "cen
 Results_cmprsk
 ```
 
-```text
+```shell
 Tests:
                               stat        pv df
 death.malignant.melanoma 5.8140209 0.0158989  1
@@ -138,7 +138,7 @@ CompRskAnalysis <- prodlim(Hist(time, status, cens.code=0) ~ sex, data = Melanom
 summary(CompRskAnalysis)
 ```
 
-```text
+```shell
 
 
 ----------> Cause:  1
@@ -188,7 +188,7 @@ CompRskAnalysis2 <- prodlim(Hist(time/365.25, event, cens.code="censored") ~ sex
 summary(CompRskAnalysis2)
 ```
 
-```text
+```shell
 
 
 ----------> Cause:  death.malignant.melanoma
