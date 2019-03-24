@@ -2,7 +2,7 @@
 title = "How to plot survival curve of competing risk analysis with censoring mark and number at risk (at risk table)"
 author = ["taipapa"]
 date = 2019-03-20
-lastmod = 2019-03-24T13:38:30+09:00
+lastmod = 2019-03-24T16:04:14+09:00
 tags = ["R", "competing", "survival", "curve", "prodlim", "censored", "number", "at", "risk"]
 type = "post"
 draft = false
@@ -238,7 +238,7 @@ sex=Male :
 plot(CompRskAnalysis2)
 ```
 
-{{< figure src="/img/DefaultPlot.png" width="75%" target="_self" >}}
+{{< figure src="/ox-hugo/DefaultPlot.png" >}}
 
 
 ## Plot survival curve of competing risk analysis with prodlim (modified) {#plot-survival-curve-of-competing-risk-analysis-with-prodlim--modified}
@@ -270,6 +270,6 @@ plot(CompRskAnalysis2,
 text(7.5,0.85,adj=0,paste("Gray's test: p-value=", round(Results_cmprsk$Tests[1,2],3)), cex = 1.4)
 ```
 
-{{< figure src="/img/ModifiedPlot.png" width="75%" target="_self" >}}
+{{< figure src="/ox-hugo/ModifiedPlot.png" >}}
 
 今回は，学会発表用のグラフ作成に必要であった．忘れないうちにまとめておく．以前は，at risk tableを別途作成してグラフに合体させるという荒業を行っていたが，これで非常に楽になった．

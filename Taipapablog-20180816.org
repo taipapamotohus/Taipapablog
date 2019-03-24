@@ -2317,7 +2317,7 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
 {{{toc(2)}}}
 
 *** Prepare dataset "Melanoma" from "riskRegression" package
-   #+BEGIN_SRC R :results output :exports both :session
+   #+BEGIN_SRC R :session *R* :exports both :results output
      library(riskRegression)
      data(Melanoma)
      head(Melanoma)
@@ -2327,7 +2327,7 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
 
 *** Competing risk analysis with cuminc of "cmprsk" package
     - cuminc is used to investigate whether a statistically significant difference is present between the groups (see "Tests:" below).
-   #+begin_src R :results output :exports both :session
+   #+BEGIN_SRC R :session *R* :exports both :results output
      library(cmprsk)
      Results_cmprsk <- with(Melanoma, cuminc(time, event, group = sex, cencode = "censored"))
      Results_cmprsk
@@ -2335,24 +2335,24 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
 
 *** Competing risk analysis with prodlim
 **** Days
-    #+begin_src R :results output :exports both :session
+    #+BEGIN_SRC R :session *R* :exports both :results output
       CompRskAnalysis <- prodlim(Hist(time, status, cens.code=0) ~ sex, data = Melanoma)
       summary(CompRskAnalysis)
     #+end_src
 **** Years
-    #+begin_src R :results output :exports both :session
+    #+BEGIN_SRC R :session *R* :exports both :results output
       CompRskAnalysis2 <- prodlim(Hist(time/365.25, event, cens.code="censored") ~ sex, data = Melanoma)
       summary(CompRskAnalysis2)
     #+end_src
 
 *** Plot survival curve of competing risk analysis with prodlim (default)
-   #+begin_src R  exports both :results output graphics :file DefalutPlot.png :width 600 :height 600 :session
+   #+BEGIN_SRC R :session *R* :results output graphics :file DefaultPlot.png :exports both
      # Default plot
      plot(CompRskAnalysis2)
    #+end_src
 
-   #+attr_html: :width 75% :target _self
-   [[/img/DefaultPlot.png]]
+   # #+attr_html: :width 75% :target _self
+   # [[/img/DefaultPlot.png]]
 
 *** Plot survival curve of competing risk analysis with prodlim (modified)
     - adjust legend
@@ -2361,7 +2361,7 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
     - add statistical significance from results of cuminc described above
     - etc
 
-   #+begin_src R :file ModifiedPlot.png :width 600 :height 600 :session  :results graphics
+   #+BEGIN_SRC R :session *R* :results output graphics :file ModifiedPlot.png :exports both
      # Plot with modification
      plot(CompRskAnalysis2,
           cause = "death.malignant.melanoma",
@@ -2382,7 +2382,7 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
      text(7.5,0.85,adj=0,paste("Gray's test: p-value=", round(Results_cmprsk$Tests[1,2],3)), cex = 1.4)
    #+end_src
 
-   #+attr_html: :width 75% :target _self
-   [[/img/ModifiedPlot.png]]
+   # #+attr_html: :width 75% :target _self
+   # [[/img/ModifiedPlot.png]]
 
 今回は，学会発表用のグラフ作成に必要であった．忘れないうちにまとめておく．以前は，at risk tableを別途作成してグラフに合体させるという荒業を行っていたが，これで非常に楽になった．
