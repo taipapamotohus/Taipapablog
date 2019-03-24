@@ -2379,7 +2379,7 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
           atrisk.col="black",
           xlab="Time to primary outcome (years)"
           )
-     text(7.5,0.85,adj=0,paste("Gray's test: p-value=", round(Results_cmprsk$Tests[1,2],3)), cex = 1.2)
+     text(6.5,0.85,adj=0,paste("Gray's test: p-value=", round(Results_cmprsk$Tests[1,2],3)), cex = 1.2)
    #+end_src
 
    # #+attr_html: :width 75% :target _self

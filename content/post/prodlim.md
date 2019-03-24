@@ -2,7 +2,7 @@
 title = "How to plot survival curve of competing risk analysis with censoring mark and number at risk (at risk table)"
 author = ["taipapa"]
 date = 2019-03-20
-lastmod = 2019-03-24T21:53:15+09:00
+lastmod = 2019-03-24T21:58:18+09:00
 tags = ["R", "competing", "survival", "curve", "prodlim", "censored", "number", "at", "risk"]
 type = "post"
 draft = false
@@ -267,7 +267,7 @@ plot(CompRskAnalysis2,
      atrisk.col="black",
      xlab="Time to primary outcome (years)"
      )
-text(7.5,0.85,adj=0,paste("Gray's test: p-value=", round(Results_cmprsk$Tests[1,2],3)), cex = 1.2)
+text(6.5,0.85,adj=0,paste("Gray's test: p-value=", round(Results_cmprsk$Tests[1,2],3)), cex = 1.2)
 ```
 
 {{< figure src="/ox-hugo/ModifiedPlot.png" >}}
