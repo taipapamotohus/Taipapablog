@@ -2379,10 +2379,68 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
           atrisk.col="black",
           xlab="Time to primary outcome (years)"
           )
-     text(7.5,0.85,adj=0,paste("Gray's test: p-value=", round(Results_cmprsk$Tests[1,2],3)), cex = 1.4)
+     text(7.5,0.85,adj=0,paste("Gray's test: p-value=", round(Results_cmprsk$Tests[1,2],3)), cex = 1.2)
    #+end_src
 
    # #+attr_html: :width 75% :target _self
    # [[/img/ModifiedPlot.png]]
 
 今回は，学会発表用のグラフ作成に必要であった．忘れないうちにまとめておく．以前は，at risk tableを別途作成してグラフに合体させるという荒業を行っていたが，これで非常に楽になった．
+** COMMENT How to automatically embed R plot in blog created by Hugo via ox-hugo :R:plot:embed:Hugo:ox:hugo:blog:emacs:org_mode:
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: EmbeddingRplot
+   :EXPORT_DATE: 2019-03-24
+   :EXPORT_HUGO_AUTO_SET_LASTMOD: t
+   :EXPORT_HUGO_DRAFT: false
+   :EXPORT_AUTHOR: "taipapa"
+   :EXPORT_HUGO_TYPE: post
+   :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/Wikiki-2.jpg") (caption . "Wikiki"))
+   :END:
+
+本サイトは，ox-hugoで書いてHugo用のMarkdownをexportすることにより作成しているが，前回の記事（[[../prodlim][How to plot survival curve of competing risk analysis with censoring mark and number at risk (at risk table)]]）を書いている際に，Rでplotしたgraphを記事の中に自動ではめ込むよう設定するのに苦労したので，これも忘れないうちにまとめておく．
+
+{{{toc(2)}}}
+
+*** References
+    - [[https://gohugo.io][HUGO]]  \\
+      Hugo is one of the most popular open-source static site generators. With its amazing speed and flexibility, Hugo makes building websites fun again. Hugoのsetupについてはネットに山のように情報があるので，そちらを参考（手抜き）(^^;;;
+    - [[https://ox-hugo.scripter.co][ox-hugo]]  \\
+      ox-hugo is an Org exporter backend that exports Org to Hugo-compatible Markdown (Blackfriday) and also generates the front-matter (in TOML or YAML format).
+
+       要するに，Markdownを直接書くのではなく，org-modeで書いてしまおうというもので，私のようなorg-mode maniacにピッタリのパッケージである．ox-hugoのsetupについてもネットに山のように情報があるので，そちらを参考（手抜き）(^^;;;
+
+*** Hugo sectionの構成
+    そもそも，まず，ox-hugoを書くためのディレクトリ・ファイルの構成を把握する必要があった．本サイトは，/hogehoge/hogeblog/hogefugablog/hogefugablog.orgに書き込んでおり，directory/file構成は以下の通りである．なお，themeは *academic* を使用している．また，ox-hugoのdirectoryは今回の作業により新たに作成されたものであり，当初はなかった．
+    #+begin_src shell
+      $ tree -L 2
+      .
+      ├── config.toml
+      ├── content
+      │   ├── home
+      │   ├── post
+      │   └── privacy.md
+      ├── data
+      │   └── 6F
+      ├── hogefugablog.org
+      ├── layouts
+      │   ├── js
+      │   ├── partials
+      │   └── search
+      ├── static
+      │   ├── css
+      │   ├── files
+      │   ├── img
+      │   └── ox-hugo
+      └── themes
+      └── academic
+    #+end_src
+
+    - [[https://ox-hugo.scripter.co/doc/image-links/#source-path-does-not-contain-static][Source path does not contain /static/]]    \\
+      このサイトのTable 2: Where files get copied to if their path does not contain static/ が本サイトに当てはまる．これが分かるまでに時間を要した．本サイトは，/hogehoge/hogeblog/hogefugablog/hogefugablog.orgに書き込んでいる．この環境で，postの中にorg-babelを使ってRのcode blockを評価すると，Rによるplotは，
+       #+begin_src lisp
+         [[/hogehoge/hogeblog/hogefugablog/foo.png]]
+       #+end_src
+      に作成される．これは，
+    - [[http://blogs.neuwirth.priv.at/software/2012/03/28/r-and-emacs-with-org-mode/][Software tips, tricks, and hacks]]  \\
+      山のようにあるネット上の情報のうち，結局最も役に立ったのは以下のものであった．このサイトに有る"Using org mode with R"というサンプルが分かりやすい．
+    -

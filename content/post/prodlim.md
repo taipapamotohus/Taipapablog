@@ -2,7 +2,7 @@
 title = "How to plot survival curve of competing risk analysis with censoring mark and number at risk (at risk table)"
 author = ["taipapa"]
 date = 2019-03-20
-lastmod = 2019-03-24T16:04:14+09:00
+lastmod = 2019-03-24T21:53:15+09:00
 tags = ["R", "competing", "survival", "curve", "prodlim", "censored", "number", "at", "risk"]
 type = "post"
 draft = false
@@ -47,7 +47,7 @@ head(Melanoma)
 summary(Melanoma)
 ```
 
-```shell
+```text
   time status                    event invasion ici      epicel       ulcer
 1   10      2       death.other.causes  level.1   2     present     present
 2   30      2       death.other.causes  level.0   0 not present not present
@@ -96,7 +96,7 @@ Results_cmprsk <- with(Melanoma, cuminc(time, event, group = sex, cencode = "cen
 Results_cmprsk
 ```
 
-```shell
+```text
 Tests:
                               stat        pv df
 death.malignant.melanoma 5.8140209 0.0158989  1
@@ -138,7 +138,7 @@ CompRskAnalysis <- prodlim(Hist(time, status, cens.code=0) ~ sex, data = Melanom
 summary(CompRskAnalysis)
 ```
 
-```shell
+```text
 
 
 ----------> Cause:  1
@@ -188,7 +188,7 @@ CompRskAnalysis2 <- prodlim(Hist(time/365.25, event, cens.code="censored") ~ sex
 summary(CompRskAnalysis2)
 ```
 
-```shell
+```text
 
 
 ----------> Cause:  death.malignant.melanoma
@@ -267,7 +267,7 @@ plot(CompRskAnalysis2,
      atrisk.col="black",
      xlab="Time to primary outcome (years)"
      )
-text(7.5,0.85,adj=0,paste("Gray's test: p-value=", round(Results_cmprsk$Tests[1,2],3)), cex = 1.4)
+text(7.5,0.85,adj=0,paste("Gray's test: p-value=", round(Results_cmprsk$Tests[1,2],3)), cex = 1.2)
 ```
 
 {{< figure src="/ox-hugo/ModifiedPlot.png" >}}
