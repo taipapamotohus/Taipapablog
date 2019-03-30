@@ -2401,7 +2401,7 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
 
 {{{toc(2)}}}
 
-*** org-babel setup
+*** Org-babel setup
     org-babelとは，う～～～ん，なにもの？　ものすごく端折って言うと，Code blockを評価して結果を表示するorg-modeの拡張，といったところだろうか．．．実例を見たほうが早いと思う．今回，org-babelによる R code の評価について書こうとして，ふと，ブログを見直してみると，なんとorg-babelの設定をまとめた記事を投稿してない .....(^^;;;
 
     ということで，org-babelの設定を改めて記しておく．例によって，init.orgに以下のように書き込んでおけばよい．
@@ -2427,7 +2427,15 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
       ,#+end_src
     #+end_src
 
-*** org-babel evaluation of R code block
+*** How to use org-babel
+    以下のサイトを参考にした．
+
+    *Ref 1:* Official manual [[https://orgmode.org/manual/Working-with-Source-Code.html#Working-with-Source-Code][14 Working with Source Code]]
+
+    *Ref 2:* [[http://misohena.jp/blog/2017-10-26-how-to-use-code-block-of-emacs-org-mode.html][org-modeのコードブロック(Babel)の使い方]]   \\
+    このサイトが分かりやすい．特に， *ヘッダー引数* と *言語毎の書き方* の *R* の項は必読．
+
+*** Org-babel evaluation of R code block
 
     [[http://blogs.neuwirth.priv.at/software/2012/03/28/r-and-emacs-with-org-mode/][R and Emacs with org mode]]   \\
     org-babelによるR codeの評価とhtmlへのgraph plotの自動埋め込みは，このサイトが分かりやすい．ここに有る”Using org mode with R”というサンプルを参考に，以下のようなorgファイルを/Data/hogehoge/hogefugaに作成する．

@@ -2,7 +2,7 @@
 title = "How to automatically embed R plot into html exported by org-mode with org-babel"
 author = ["taipapa"]
 date = 2019-03-25
-lastmod = 2019-03-29T23:21:18+09:00
+lastmod = 2019-03-30T11:50:27+09:00
 tags = ["org-babel", "emacs", "export", "R", "plot", "graph", "org-mode"]
 type = "post"
 draft = false
@@ -19,14 +19,15 @@ weight = 1
 
 <div class="heading">Table of Contents</div>
 
-- [org-babel setup](#org-babel-setup)
-- [org-babel evaluation of R code block](#org-babel-evaluation-of-r-code-block)
+- [Org-babel setup](#org-babel-setup)
+- [How to use org-babel](#how-to-use-org-babel)
+- [Org-babel evaluation of R code block](#org-babel-evaluation-of-r-code-block)
 
 </div>
 <!--endtoc-->
 
 
-## org-babel setup {#org-babel-setup}
+## Org-babel setup {#org-babel-setup}
 
 org-babelとは，う～～～ん，なにもの？　ものすごく端折って言うと，Code blockを評価して結果を表示するorg-modeの拡張，といったところだろうか．．．実例を見たほうが早いと思う．今回，org-babelによる R code の評価について書こうとして，ふと，ブログを見直してみると，なんとorg-babelの設定をまとめた記事を投稿してない .....(^^;;;
 
@@ -55,7 +56,17 @@ org-babelとは，う～～～ん，なにもの？　ものすごく端折�
 ```
 
 
-## org-babel evaluation of R code block {#org-babel-evaluation-of-r-code-block}
+## How to use org-babel {#how-to-use-org-babel}
+
+以下のサイトを参考にした．
+
+**Ref 1:** Official manual [14 Working with Source Code](https://orgmode.org/manual/Working-with-Source-Code.html#Working-with-Source-Code)
+
+**Ref 2:** [org-modeのコードブロック(Babel)の使い方](http://misohena.jp/blog/2017-10-26-how-to-use-code-block-of-emacs-org-mode.html)   <br />
+このサイトが分かりやすい．特に， **ヘッダー引数** と **言語毎の書き方** の **R** の項は必読．
+
+
+## Org-babel evaluation of R code block {#org-babel-evaluation-of-r-code-block}
 
 [R and Emacs with org mode](http://blogs.neuwirth.priv.at/software/2012/03/28/r-and-emacs-with-org-mode/)   <br />
 org-babelによるR codeの評価とhtmlへのgraph plotの自動埋め込みは，このサイトが分かりやすい．ここに有る”Using org mode with R”というサンプルを参考に，以下のようなorgファイルを/Data/hogehoge/hogefugaに作成する．
