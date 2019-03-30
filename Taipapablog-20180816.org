@@ -2386,7 +2386,7 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
    # [[/img/ModifiedPlot.png]]
 
 今回は，学会発表用のグラフ作成に必要であった．忘れないうちにまとめておく．以前は，at risk tableを別途作成してグラフに合体させるという荒業を行っていたが，これで非常に楽になった．
-** How to automatically embed R plot into html exported by org-mode with org-babel :org_babel:emacs:export:R:plot:graph:org_mode:
+** COMMENT How to automatically embed R plot into html exported by org-mode with org-babel :org_babel:emacs:export:R:plot:graph:org_mode:
    :PROPERTIES:
    :EXPORT_FILE_NAME: ExportRplot
    :EXPORT_DATE: 2019-03-25
@@ -2470,7 +2470,7 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
 
 
 
-** COMMENT How to automatically embed R plot in blog created by Hugo via ox-hugo :R:plot:embed:Hugo:ox:hugo:blog:emacs:org_mode:
+** How to automatically embed R plot in blog created by Hugo via ox-hugo :R:plot:embed:Hugo:ox:hugo:blog:emacs:org_mode:
    :PROPERTIES:
    :EXPORT_FILE_NAME: EmbedRplotInBlog
    :EXPORT_DATE: 2019-03-25
@@ -2481,27 +2481,23 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
    :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/Hôtel_de_Ville_de_Bruxelles.jpg") (caption . "Hôtel de Ville de Bruxelles"))
    :END:
 
-（承前）前回（[[../ExportRplot][How to automatically embed R plot into html exported by org-mode with org-babel]]）は
-
-本サイトは，ox-hugoで書いてHugo用のMarkdownをexportすることにより作成しているが，前回の記事（[[../prodlim][How to plot survival curve of competing risk analysis with censoring mark and number at risk (at risk table)]]）を書いている際に，Rでplotしたgraphを記事の中に自動ではめ込むよう設定するのに苦労したので，これも忘れないうちにまとめておく．
+（承前）前回（[[../ExportRplot][How to automatically embed R plot into html exported by org-mode with org-babel]]）はorg-babelを設定して，Rで描いたグラフを自動でhtmlやpdfに挿入するところまでまとめた．繰り返しになるが，本サイトは，ox-hugoで書いてHugo用のMarkdownをexportすることにより作成している．前々回の記事（[[../prodlim][How to plot survival curve of competing risk analysis with censoring mark and number at risk (at risk table)]]）を書いている際に，Rでplotしたgraphをブログ記事の中に自動ではめ込むよう設定するのに苦労した．前回でorg-babelの設定は終わっているので，今回は，Hugoやox-hugoの設定に関してまとめ，ブログ記事へのR plotの自動挿入ができるようにする．
 
 {{{toc(2)}}}
 
 *** References
     - [[https://gohugo.io][HUGO]]  \\
-      Hugo is one of the most popular open-source static site generators. With its amazing speed and flexibility, Hugo makes building websites fun again. Hugoのsetupについてはネットに山のように情報があるので，そちらを参考（手抜き）(^^;;;
+      Hugo is one of the most popular open-source static site generators. With its amazing speed and flexibility, Hugo makes building websites fun again. Hugoのsetupについてはネットに山のように情報があるので，そちらを参照（手抜き）(^^;;;
     - [[https://ox-hugo.scripter.co][ox-hugo]]  \\
       ox-hugo is an Org exporter backend that exports Org to Hugo-compatible Markdown (Blackfriday) and also generates the front-matter (in TOML or YAML format).
 
-       要するに，Markdownを直接書くのではなく，org-modeで書いてしまおうというもので，私のようなorg-mode maniacにピッタリのパッケージである．ox-hugoのsetupについてもネットに山のように情報があるので，そちらを参考（手抜き）(^^;;;
+       要するに，Markdownを直接書くのではなく，org-modeで書いてしまおうというもので，私のようなorg-mode maniacにピッタリのパッケージである．ox-hugoのsetupについてもネットに山のように情報があるので，そちらを参照（手抜き）(^^;;;
 
 *** Configuration of Hugo section
-    そもそも，まず，ox-hugoを書くためのディレクトリ・ファイルの構成を把握する必要があった．
-
     *Ref:* [[https://sfus.net/blog/2018/12/org-mode-with-ox-hugo/][Org-mode で記事を書いて Hugo 向け markdown を ox-hugo で自動生成する話]]
 
-    本サイトは，/hogehoge/hogeblog/hogefugablog/hogefugablog.orgに書き込んでおり，directory/file構成は以下の通りである．上記参考サイトと同じく，Hugo の content/ と同じ階層に hogefugablog.org ファイルを置いている．なお，themeは *academic* を使用している．また，ox-hugoのdirectoryは今回の作業により新たに作成されたものであり，当初はなかった．
-    #+begin_src shell
+    そもそも，まず，Hugoのディレクトリ・ファイルの構成を把握する必要があった．本サイトは，/hogehoge/hogeblog/hogefugablog/hogefugablog.org に書き込んでおり，directory/file構成は以下の通りである．上記参考サイトと同じく，/hogehoge/hogeblog/hogefugablog/，つまり，Hugo の content/ と同じ階層に hogefugablog.org ファイルを置いている．なお，themeは [[https://themes.gohugo.io/academic/][*academic*]] を使用している．また，ox-hugoのdirectoryは今回の作業により新たに作成されたものであり，当初はなかった．
+    #+begin_src shell export both
       $ tree -L 2
       .
       ├── config.toml
@@ -2522,35 +2518,73 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
       │   ├── img
       │   └── ox-hugo
       └── themes
-      └── academic
+          └── academic
     #+end_src
 
-*** Setup of HUGO_SECTION & HUGO_BASE_DIR
+*** Setup of HUGO_SECTION & HUGO_BASE_DIR in ox-hugo
     *Ref:* [[https://ox-hugo.scripter.co/doc/usage/#before-you-export][Before you export]]
 
-    - 本サイトでは，HUGO_SECTIONは特に設定しておらず，C-h v org-hugo-default-section-directoryの値は default valueであるpostsになっている．
+    本サイトでは，HUGO_SECTIONは特に設定しておらず，C-h v org-hugo-default-section-directoryの値は default valueであるpostsになっている．
 
-    - また，hogefugablog.orgの文頭に以下のように記述して，HUGO_BASE_DIRを設定している．
-      #+begin_src lisp
+    また，hogefugablog.orgの文頭に以下のように記述して，HUGO_BASE_DIRを設定している．
+    #+begin_src lisp
       ,#+HUGO_BASE_DIR: ./
-      #+end_src
-
-    #+begin_src R :session *R* :results output graphics :file test1.png :exports both
-      ## boxplot(islands)
     #+end_src
 
-    #+begin_src R :session *R* :results output graphics :file test2.png :exports both
-      ##  library("ggplot2")
-      ## ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length, color = Species)) +
-      ## geom_point()
-    #+END_SRC
+    ここまでで，ox-hugoからのexportの準備が整った．
+
+*** References to files outside the static directory
+    *Ref:* [[https://ox-hugo.scripter.co/doc/image-links/#references-to-files-outside-the-static-directory][References to files outside the static directory]]
+
+    Hugoのstatic directory以外の場所にあるファイルへのreferenceを作成し，かつ，そのファイルが *org-hugo-external-file-extensions-allowed-for-copying* のリストに挙げられている拡張子を有している場合は，そのファイルはox-hugoによりstatic directoryにコピーされる．ちなみに，C-h v org-hugo-external-file-extensions-allowed-for-copyingとすると，以下のような値を得る．
+
+    #+begin_src lisp
+      org-hugo-external-file-extensions-allowed-for-copying is a variable defined in ‘ox-hugo.el’.
+      Its value is
+      ("jpg" "jpeg" "tiff" "png" "svg" "gif" "pdf" "odt" "doc" "ppt" "xls" "docx" "pptx" "xlsx")
+    #+end_src
 
     [[https://ox-hugo.scripter.co/doc/image-links/#source-path-does-not-contain-static][Source path does not contain =/static/=]]    \\
-    このサイトのTable 2: Where files get copied to if their path does not contain static/ が本サイトに当てはまる．これが分かるまでに時間を要した．本サイトは，/hogehoge/hogeblog/hogefugablog/hogefugablog.orgに書き込んでいる．この環境で，postの中にorg-babelを使ってRのcode blockを評価すると，Rによるplotは，
+    このサイトの *Table 2: Where files get copied to if their path does not contain static/* が本サイトに当てはまる．これが分かるまでに時間を要した．本サイトは，/hogehoge/hogeblog/hogefugablog/hogefugablog.orgに書き込んでいる．この環境で，postの中にorg-babelを使ってRのcode blockを評価すると，Rにより作成されるplot（foo.png）は，
        #+begin_src lisp
-         [[/hogehoge/hogeblog/hogefugablog/foo.png]]
+         /hogehoge/hogeblog/hogefugablog/foo.png
        #+end_src
-      に作成される．これは，
-    - [[http://blogs.neuwirth.priv.at/software/2012/03/28/r-and-emacs-with-org-mode/][Software tips, tricks, and hacks]]  \\
-      山のようにあるネット上の情報のうち，結局最も役に立ったのは以下のものであった．このサイトに有る"Using org mode with R"というサンプルが分かりやすい．
-    -
+      に作成される．そして，このファイルは，最終的に，
+       #+begin_src lisp
+         /hogehoge/hogeblog/hogefugablog/static/ox-hugo/foo.png
+       #+end_src
+    にコピーされ，ブログ記事に挿入されるということになる．なお，ox-hugo directoryはこの時に自動的に作成される．
+
+    つまり，前回の記事（[[../ExportRplot][How to automatically embed R plot into html exported by org-mode with org-babel]]）のように，R plotのcode blockを含むorg ファイルを作成し，それをexportして，R plotが自動で組み込まれるようなら，そのorg-babelのcode blockをそのままox-hugoで書いたブログ記事のorg ファイルにコピペすれば，あとはox-hugoが良きにはからってくれるはずである．
+
+    実は，できたグラフの画像を自分でいろいろな場所にコピーしては失敗していた．Hugoのroot directory，つまり，/hogehoge/hogeblog/hogefugablog/でRを動かして，できたグラフ画像に対して何もせずに放置しておけば，ox-hugoが全て面倒を見てくれるということに気がつかず，余計なことをしていたわけである．
+
+    まとめとして，前回記事のcode blockをこの記事に挿入して試してみる．
+
+    #+begin_src lisp
+        ,#+begin_src R :session *R* :results output graphics :file test1.png :exports both
+        boxplot(islands)
+        ,#+end_src
+    #+end_src
+
+    #+begin_src R :session *R* :results output graphics :file test1.png :exports results
+      boxplot(islands)
+    #+end_src
+
+    #+begin_src lisp
+        ,#+begin_src R :session *R* :results output graphics :file test2.png :exports both
+        library("ggplot2")
+        ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length, color = Species)) +
+        geom_point()
+        ,#+END_SRC
+    #+end_src
+
+    #+begin_src R :session *R* :results output graphics :file test2.png :exports results
+      library("ggplot2")
+      ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length, color = Species)) +
+          geom_point()
+    #+END_SRC
+
+    ちゃんとグラフが自動的に挿入されている．
+
+    org-babelとRの組み合わせは強力で，ox-hugoも便利と改めて痛感．
