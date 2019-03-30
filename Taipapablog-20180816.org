@@ -2481,6 +2481,8 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
    :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/Hôtel_de_Ville_de_Bruxelles.jpg") (caption . "Hôtel de Ville de Bruxelles"))
    :END:
 
+（承前）前回（[[../ExportRplot][How to automatically embed R plot into html exported by org-mode with org-babel]]）は
+
 本サイトは，ox-hugoで書いてHugo用のMarkdownをexportすることにより作成しているが，前回の記事（[[../prodlim][How to plot survival curve of competing risk analysis with censoring mark and number at risk (at risk table)]]）を書いている際に，Rでplotしたgraphを記事の中に自動ではめ込むよう設定するのに苦労したので，これも忘れないうちにまとめておく．
 
 {{{toc(2)}}}

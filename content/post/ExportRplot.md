@@ -2,7 +2,7 @@
 title = "How to automatically embed R plot into html exported by org-mode with org-babel"
 author = ["taipapa"]
 date = 2019-03-25
-lastmod = 2019-03-30T11:50:27+09:00
+lastmod = 2019-03-30T12:01:01+09:00
 tags = ["org-babel", "emacs", "export", "R", "plot", "graph", "org-mode"]
 type = "post"
 draft = false
