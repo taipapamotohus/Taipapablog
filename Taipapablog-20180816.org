@@ -2478,7 +2478,7 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
    :EXPORT_HUGO_DRAFT: false
    :EXPORT_AUTHOR: "taipapa"
    :EXPORT_HUGO_TYPE: post
-   :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/Hôtel_de_Ville_de_Bruxelles.jpg") (caption . "Hôtel de Ville de Bruxelles"))
+   :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/Hotel_de_Ville_de_Bruxelles.jpg") (caption . "Hôtel de Ville de Bruxelles"))
    :END:
 
 （承前）前回（[[../ExportRplot][How to automatically embed R plot into html exported by org-mode with org-babel]]）はorg-babelを設定して，Rで描いたグラフを自動でhtmlやpdfに挿入するところまでまとめた．繰り返しになるが，本サイトは，ox-hugoで書いてHugo用のMarkdownをexportすることにより作成している．前々回の記事（[[../prodlim][How to plot survival curve of competing risk analysis with censoring mark and number at risk (at risk table)]]）を書いている際に，Rでplotしたgraphをブログ記事の中に自動ではめ込むよう設定するのに苦労した．前回でorg-babelの設定は終わっているので，今回は，Hugoやox-hugoの設定に関してまとめ，ブログ記事へのR plotの自動挿入ができるようにする．

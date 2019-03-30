@@ -2,13 +2,13 @@
 title = "How to automatically embed R plot in blog created by Hugo via ox-hugo"
 author = ["taipapa"]
 date = 2019-03-25
-lastmod = 2019-03-30T21:48:08+09:00
+lastmod = 2019-03-30T21:54:40+09:00
 tags = ["R", "plot", "embed", "Hugo", "ox", "hugo", "blog", "emacs", "org-mode"]
 type = "post"
 draft = false
 weight = 1
 [header]
-  image = "headers/Hôtel_de_Ville_de_Bruxelles.jpg"
+  image = "headers/Hotel_de_Ville_de_Bruxelles.jpg"
   caption = "Hôtel de Ville de Bruxelles"
 +++
 
