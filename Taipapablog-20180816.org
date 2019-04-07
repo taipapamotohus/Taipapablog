@@ -2470,7 +2470,7 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
 
 
 
-** How to automatically embed R plot in blog created by Hugo via ox-hugo :R:plot:embed:Hugo:ox:hugo:blog:emacs:org_mode:
+** COMMENT How to autkoomatically embed R plot in blog created by Hugo via ox-hugo :R:plot:embed:Hugo:ox:hugo:blog:emacs:org_mode:
    :PROPERTIES:
    :EXPORT_FILE_NAME: EmbedRplotInBlog
    :EXPORT_DATE: 2019-03-25
@@ -2588,3 +2588,287 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
     ちゃんとグラフが自動的に挿入されている．
 
     org-babelとRの組み合わせは強力で，ox-hugoも便利と改めて痛感．
+
+** How to add different segment, annotation and color to each facet in ggplot :R:ggplot2:facet:segment:annotation:colour:patchwork:
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: Different-segment-to-each-facet-in-ggplot
+   :EXPORT_DATE: 2019-04-06
+   :EXPORT_HUGO_AUTO_SET_LASTMOD: t
+   :EXPORT_HUGO_DRAFT: false
+   :EXPORT_AUTHOR: "taipapa"
+   :EXPORT_HUGO_TYPE: post
+   :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/CasaRomana.jpg") (caption . "Casa Romana dell'Ara Coeli"))
+   :END:
+
+今回もRネタである．論文の図を作成していて，ggplot2のfacetを使用して作成した図の中のfacet毎に異なる有意差を示す群を線分で結んで，その上にasteriskを色を変えてつけようとしたところ，結構苦労したので忘れないうちにまとめておく．annotate()というのもあるが，これだとすべてのfacetに同じ内容が入ってしまう．今回の目的であるfacetによって異なる内容の注釈を入れるためには，geom_segmentやgeom_textを使う．
+
+{{{toc(2)}}}
+
+*** References
+    - [[http://mukkujohn.hatenablog.com/entry/2016/09/29/212901][ggplot2を使って、注釈を入れる-2]]
+    - [[https://buzzrbeeline.blog/2018/11/06/adding-different-annotation-to-each-facet-in-ggplot/][Adding different annotation to each facet in ggplot]]
+    - [[https://stackoverflow.com/questions/24578352/add-a-segment-only-to-one-facet-using-ggplot2][Add a segment only to one facet using ggplot2]]
+
+*** Data Preparation
+    まず，架空のデータを作成する．Drug1とDrug2を投与して１日後と７日後の物質Xの血中濃度変化を対照，つまり投与前と比較するという実験において，Drug1では差がなく，Drug2では差があるという結果にする．
+
+    #+begin_src R :session *R* :results output code  :exports both
+      set.seed(100)
+      data.df1 <- data.frame(Control = rnorm(20, mean = 5, sd = 1),
+                             Day1 = rnorm(20, mean = 5, sd = 1.5),
+                             Day7 = rnorm(20, mean = 5, sd = 2))
+      library(reshape)
+      data_melt.df1 <- melt(data.df1)
+
+      data.df2 <- data.frame(Control = rnorm(20, mean = 5, sd = 1.8),
+                             Day1 = rnorm(20, mean = 10, sd = 5),
+                             Day7 = rnorm(20, mean = 20, sd = 7))
+      data_melt.df2 <- melt(data.df2)
+
+      data_melt.df <- cbind.data.frame(data_melt.df1, data_melt.df2$value)
+      colnames(data_melt.df) <- c("Day","Drug1","Drug2") # chage column name of dataframe
+      head(data_melt.df)
+    #+end_src
+
+    これで解析用のデータが出来上がった．一応，差を確認してみる．
+
+*** COMMENT Boxplot with beeswarm
+    まず，Drug1とDrug2の物質Xの濃度変化についてboxplotを描く．ついでにbeeswarmを用いて個々のデータも重ねてプロットしておく．
+
+    #+begin_src R :session *R* :results output graphics :file Drug1.png :exports both
+      library(beeswarm)
+      # Drug1
+      boxplot(data_melt.df$Drug1 ~ data_melt.df$Day, xlab = "", main = "Drug1", xaxt="n", cex.axis=1.5, ylab="Relative value", cex.lab = 1.5, pch=16, cex = 1.5)
+      axis(1,at=c(1,2,3),formatC(c("Control", "Day1", "Day7")), cex.axis=1.5)
+      beeswarm(data_melt.df$Drug1 ~ data_melt.df$Day, pch = 16, ad = TRUE, cex=1.5, col=c("black", "green","blue"))
+    #+end_src
+    どうみても，コントロールとDrug1の間には差がない．そのように作ったので当たり前である．
+
+    #+begin_src R :session *R* :results output graphics :file Drug2.png :exports both
+      # Drug2
+      boxplot(data_melt.df$Drug2 ~ data_melt.df$Day, xlab = "", main = "Drug2", xaxt="n", cex.axis=1.5, ylab="Relative value", cex.lab = 1.5, pch=16, cex = 1.5)
+      axis(1,at=c(1,2,3),formatC(c("Control", "Day1", "Day7")), cex.axis=1.5)
+      beeswarm(data_melt.df$Drug2 ~ data_melt.df$Day, pch = 16, ad = TRUE, cex=1.5, col=c("black", "green","blue"))
+    #+end_src
+    ひと目見て，コントロールとDrug2の間に差があるようにみえる．これまた，そのように作ったので当たり前である．
+
+*** Tukey multiple comparison
+    Tukeyの多重比較試験を行う．２つの方法で確認しておく．
+**** TukeyHSD
+      #+begin_src R :session *R* :results output code :exports both
+        TukeyHSD(aov(data_melt.df$Drug1~data_melt.df$Day))
+      #+end_src
+
+      #+begin_src R :session *R* :results output code :exports both
+        TukeyHSD(aov(data_melt.df$Drug2~data_melt.df$Day))
+      #+end_src
+
+**** [[http://aoki2.si.gunma-u.ac.jp/R/tukey.html][テューキーの方法による多重比較]]
+
+      #+begin_src R :session *R* :results output code :exports both
+        source("http://aoki2.si.gunma-u.ac.jp/R/src/tukey.R", encoding="euc-jp")
+        tukey(data_melt.df$Drug1, data_melt.df$Day)
+      #+end_src
+
+      #+begin_src R :session *R* :results output code :exports both
+        tukey(data_melt.df$Drug2, data_melt.df$Day)
+      #+end_src
+
+      以上で，Drug1では物質Xの濃度はコントロールと差がないこと，Drug2ではコントロール，Day1，Day7の間に有意差が認められることが確認された．そのようにデータを作ったので当たり前である．．．(^^;;;;;
+
+*** Boxplot by ggplot2
+    ようやくここから上記のデータを使って，ggplot2でboxplotを描いてみる．まずはmeltを用いてwide formatからlong formatへのデータの整形を行う．
+
+    #+begin_src R :session *R* :results output code :exports both
+      DataM <- melt(data_melt.df, id = "Day")
+      head(DataM)
+    #+end_src
+
+**** Calculate mean and SE
+     平均とSEも求めておく．
+
+     #+begin_src R :session *R* :results output code :exports both
+      library(plyr)
+      DataM_summary <- ddply(DataM, .(variable, Day), summarise, N = length(value), mean = mean(value), sd = sd(value), se = sd(value)/sqrt(length(value)))
+      DataM_summary
+     #+end_src
+    ついで，ggplot2のggplotでboxplotを描く．個々のデータをgeom_jitter，あるいは，geom_pointを用いて重ねてプロットしておく．どちらの方法でも下記のように同じ図になる．
+
+**** geom_jitter
+
+    #+begin_src R :session *R* :results output graphics :file Boxplot1.png :exports both
+      library(ggplot2)
+      TestBoxPlot <- ggplot(DataM, aes(x = Day, y = value, colour = Day, fill = Day)) +
+          geom_boxplot(alpha = 0.40) +
+          facet_wrap(~variable, ncol = 3, scales="fixed") +
+          coord_cartesian(ylim = c(0,38)) +
+          theme_bw() +
+          theme(axis.text.x  = element_text(size=14), axis.text.y = element_text(size=14), strip.text.x = element_text(size =16)) +
+          theme(axis.title.x = element_text(size=14), axis.title.y = element_text(size=16), plot.title=element_text(size=0)) +
+          xlab("") +
+          ylab("Relative value to control") +
+          theme(legend.position = "none") +   # delete legend
+          geom_jitter(shape=16, size=2, position=position_jitter(0.1))  # plot individual point with jittering
+
+      TestBoxPlot
+    #+end_src
+
+**** geom_point
+
+    #+begin_src R :session *R* :results output graphics :file Boxplot2.png :exports both
+      TestBoxPlot2 <- ggplot(DataM, aes(x = Day, y = value, colour = Day, fill = Day)) +
+          geom_boxplot(alpha = 0.40) +
+          facet_wrap(~variable, ncol = 3, scales="fixed") +
+          coord_cartesian(ylim = c(0,38)) +
+          theme_bw() +
+          theme(axis.text.x  = element_text(size=14), axis.text.y = element_text(size=14), strip.text.x = element_text(size =16)) +
+          theme(axis.title.x = element_text(size=14), axis.title.y = element_text(size=16), plot.title=element_text(size=0)) +
+          xlab("") +
+          ylab("Relative value to control") +
+          theme(legend.position = "none") +   # delete legend
+          geom_point(aes(fill = Day), size = 2, shape = 16, position = position_jitterdodge())  # plot individual point with jittering
+
+      TestBoxPlot2
+    #+end_src
+
+**** Add mean bar
+     *Ref:* [[https://stackoverflow.com/questions/45617136/combine-ggplot-facet-wrap-with-geom-segment-to-draw-mean-line-in-scatterplot][combine ggplot facet_wrap with geom_segment to draw mean line in scatterplot]]   \\
+     平均値のバーを書き込む．これはgeom_segmentを使うが，すべてのfacetに書き込むので，単純である．
+
+     #+begin_src R :session *R* :results output graphics :file Boxplot1mean.png :exports both
+       TestBoxPlot3 <- TestBoxPlot +
+           geom_segment(data = DataM_summary, aes(x=as.numeric(as.factor(Day)) - 0.5,
+                                                  xend=as.numeric(as.factor(Day)) + 0.5,
+                                                  yend=mean,
+                                                  y=mean,
+                                                  colour=Day,
+                                                  alpha=0.7),
+                        size = 1.5, linetype = 1)
+
+       TestBoxPlot3
+     #+end_src
+
+*** Add segment and asterisk to Drug2 facet of boxplot
+
+**** Dataframe for annotation
+     ここからが本番である．上記で作成したグラフを見ながら，どこからどこに線を引けばよいのか，どこにasteriskを置けばよいのか大体の見当をつけたうえで，注釈用のデータフレームを別途作成する．これは手作業でやらざるを得ない．できたグラフを見て微調整をしていく．
+
+     #+begin_src R :session *R* :results output code :exports both
+       anno <- data.frame(
+           x=c(0.9, 0.9, 3.1, 1.1, 1.1, 1.9, 2.1, 2.1, 2.9),
+           y=c(10.5, 37, 37, 10.5, 26, 26, 23.5, 34, 34),
+           xend=c(0.9, 3.1, 3.1, 1.1, 1.9, 1.9, 2.1, 2.9, 2.9),
+           yend=c(37, 37, 32.5, 26, 26, 23.5, 34, 34, 32.5),
+           variable="Drug2",
+           xstar = c(1.5, 2, 2.5, NA, NA, NA, NA, NA, NA),
+           ystar = c(27, 38, 35, NA, NA, NA, NA, NA, NA),
+           lab = c("**", "***", "***", NA, NA, NA, NA, NA, NA),
+           ast.color = c("red", "blue", "green", NA, NA, NA, NA, NA, NA))
+
+       anno
+     #+end_src
+
+     x, y, xend, yendは各線分の始点と終点で，xstar, ystarは注釈，今回はasteriskの位置を示す．labはasteriskそのものを指示し，colorはasteriskの色を指定している．
+
+**** Add segment with geom_segment and asterisk with geom_text (black)
+     geom_segmentで線を引いて，geom_textでasteriskをつける．まずは黒色でやってみる． *inherit.aes=FALSE* をgeom_text()とgeom_segment()の内部に追加してggplot()内のfill=Dayを無視させる．
+
+     #+begin_src R :session *R* :results output graphics :file Boxplot1mean_anno.png :exports both
+       TestBoxPlot3 +
+           geom_text(data = anno, aes(x = xstar, y = ystar, label = lab, colour = NULL), size = 7, family = "Times New Roman", inherit.aes = FALSE) +
+           geom_segment(data = anno, aes(x = x,  y = y, xend=xend, yend=yend), inherit.aes = FALSE)
+     #+end_src
+
+**** Add segment with geom_segment and asterisk with geom_text (color)
+     asteriskに色をつける．データフレーム annoに書き込んだ色データを明示的に指示して利用する．
+
+    #+begin_src R :session *R* :results output graphics :file Boxplot1mean_anno_color.png :exports both
+      TestBoxPlot3 +
+          geom_text(data = anno, aes(x = xstar, y = ystar, label = lab), colour = anno$ast.color, size = 7, family = "Times New Roman", inherit.aes = FALSE) +
+          geom_segment(data = anno, aes(x = x,  y = y, xend=xend, yend=yend), inherit.aes = FALSE)
+    #+end_src
+
+    問題はここである．どうしても， *colour = anno$ast.color* とデータフレームと変数を明示的に指示しないと色がおかしくなるか，エラーになってしまう．もっとうまくggplotにデータを読ませる方法をどなたかご教示いただければ幸甚である．
+
+*** Barplot by ggplot2
+    次にbarplotを描いて同じことをやってみる．エラーバーは慣例通りSEにする．
+
+**** Barplot
+     #+begin_src R :session *R* :results output graphics :file Barplot1.png :exports both
+       TestBarPlot <- ggplot(DataM_summary, aes(x = Day, y = mean, colour = Day, fill=Day)) +
+           geom_errorbar(aes(ymin = mean, ymax = mean + se), width = 0.2) +
+           geom_bar(position=position_dodge(), stat="identity", alpha=1/2, width=0.5) +
+           facet_wrap(~variable, scales = "fixed", ncol=3) +
+           coord_cartesian(ylim = c(0,30)) +
+           theme_bw() +
+           theme(axis.text.x  = element_text(size=14), axis.text.y = element_text(size=14), strip.text.x = element_text(size =16)) +
+           theme(axis.title.x = element_text(size=14), axis.title.y = element_text(size=16), plot.title=element_text(size=0)) +
+           xlab("") +
+           ylab("Relative value to control") +
+           theme(legend.position = "none")   # delete legend
+
+       TestBarPlot
+     #+end_src
+
+*** Add segment and asterisk to Drug2 facet of barplot
+**** Dataframe for annotation
+     #+begin_src R :session *R* :results output code :exports both
+       anno2 <- data.frame(
+           x=c(0.9, 0.9, 3.1, 1.1, 1.1, 1.9, 2.1, 2.1, 2.9),
+           y=c(6.5, 29, 29, 6.5, 17, 17, 12.5, 25, 25),
+           xend=c(0.9, 3.1, 3.1, 1.1, 1.9, 1.9, 2.1, 2.9, 2.9),
+           yend=c(29, 29, 22.5, 17, 17, 12.5, 25, 25, 22.5),
+           variable="Drug2",
+           xstar = c(1.5, 2, 2.5, NA, NA, NA, NA, NA, NA),
+           ystar = c(17.5, 29.5, 25.5, NA, NA, NA, NA, NA, NA),
+           lab = c("**", "***", "***", NA, NA, NA, NA, NA, NA),
+           ast.color = c("red", "blue", "green", NA, NA, NA, NA, NA, NA))
+
+       anno2
+     #+end_src
+**** Add segment with geom_segment and asterisk with geom_text (color)
+     #+begin_src R :session *R* :results output graphics :file Barplot1_anno_color.png :exports both
+       TestBarPlot +
+           geom_text(data = anno2, aes(x = xstar, y = ystar, label = lab), colour = anno$ast.color, size = 7, family = "Times New Roman", inherit.aes = FALSE) +
+           geom_segment(data = anno2, aes(x = x,  y = y, xend=xend, yend=yend), inherit.aes = FALSE)
+     #+end_src
+
+    barplotでも全く同様のグラフを作成することができた．
+
+    なお，通常のグラフをpdfで出力して，それをOmniGraffleなどのお絵かきソフトに持っていき，手作業で線やasteriskを描いて，再びpdfで出力する，という荒業も使えないことはない．しかし，ggplotの中で完結できるので，余分で面倒な手作業が不要になった．まぁ，上記の作業も面倒ではあるが，再現性があり，他の人にも渡せるというところが重要であると思う．
+
+*** Combine boxplot and barplot into the same graphic
+    *Ref1:* [[https://github.com/thomasp85/patchwork][patchwork]]   \\
+    *Ref2:* [[https://qiita.com/nozma/items/4512623bea296ccb74ba][patchworkを使って複数のggplotを組み合わせる]]
+
+    patchworkを使えば，上記の２種のグラフを簡単に一つの図にできる．比較しやすいようにbarplotのy軸のスケールをboxplotと同じに修正しておく．
+
+    #+begin_src R :session *R* :results output graphics :file Combined.png :width 640 :exports both
+      # Boxplot
+      P1 <- TestBoxPlot3 +
+          geom_text(data = anno, aes(x = xstar, y = ystar, label = lab), colour = anno$ast.color, size = 7, family = "Times New Roman", inherit.aes = FALSE) +
+          geom_segment(data = anno, aes(x = x,  y = y, xend=xend, yend=yend), inherit.aes = FALSE)
+
+      # Barplot
+      TestBarPlot2 <- ggplot(DataM_summary, aes(x = Day, y = mean, colour = Day, fill=Day)) +
+          geom_errorbar(aes(ymin = mean, ymax = mean + se), width = 0.2) +
+          geom_bar(position=position_dodge(), stat="identity", alpha=1/2, width=0.5) +
+          facet_wrap(~variable, scales = "fixed", ncol=3) +
+          coord_cartesian(ylim = c(0,38)) +
+          theme_bw() +
+          theme(axis.text.x  = element_text(size=14), axis.text.y = element_text(size=14), strip.text.x = element_text(size =16)) +
+          theme(axis.title.x = element_text(size=14), axis.title.y = element_text(size=16), plot.title=element_text(size=0)) +
+          xlab("") +
+          ylab("Relative value to control") +
+          theme(legend.position = "none")   # delete legend
+      P2 <- TestBarPlot2 +
+          geom_text(data = anno2, aes(x = xstar, y = ystar, label = lab), colour = anno$ast.color, size = 7, family = "Times New Roman", inherit.aes = FALSE) +
+          geom_segment(data = anno2, aes(x = x,  y = y, xend=xend, yend=yend), inherit.aes = FALSE)
+
+      library(patchwork)
+      P1 + P2
+    #+end_src
+
+    このpatchworkは足し算だけで２つの図の合体ができてしまうすぐれもの．ちゃんと位置合わせなども自動的にしてくれる．素晴らしい．
+
+    しかし，こうして並べて比べてみると，barplotが如何に情報量の少ないグラフであるかが一目瞭然である．
