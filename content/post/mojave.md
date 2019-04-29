@@ -2,7 +2,7 @@
 title = "Upgrade to Mojave and upgrade to Emacs 26.2 by homebrew"
 author = ["taipapa"]
 date = 2019-04-29
-lastmod = 2019-04-30T01:00:57+09:00
+lastmod = 2019-04-30T01:10:11+09:00
 tags = ["Mojave", "upgrade", "emacs", "26-2", "homebrew"]
 type = "post"
 draft = false
@@ -12,14 +12,14 @@ weight = 1
   caption = "Vancouver"
 +++
 
-世はゴールデンウィークまっただ中である．完全な10連休ではないが，それなりに長い休みとなるので，この機会に，ようやく **mojave** にupgradeすることにした．ついでにEmacsも26.1から 26.2にupgradeした．今回は，このupgradeの際に遭遇したトラブルについてまとめる．
+世はゴールデンウィークまっただ中である．完全な10連休ではないが，それなりに長い休みとなるので，この機会に，ようやく Sierraから **Mojave** にupgradeすることにした．ついでにEmacsも26.1から 26.2にupgradeした．今回は，このupgradeの際に遭遇したトラブルについてまとめる．
 
 <div class="ox-hugo-toc toc">
 <div></div>
 
 <div class="heading">Table of Contents</div>
 
-- [Upgrade to Mojave](#upgrade-to-mojave)
+- [Upgrade to Mojave from Sierra](#upgrade-to-mojave-from-sierra)
 - [Upgrade to Xcode 10.2.1](#upgrade-to-xcode-10-dot-2-dot-1)
 - [Upgrade to Emacs 26.2 from 26.1](#upgrade-to-emacs-26-dot-2-from-26-dot-1)
 - [LaTeX](#latex)
@@ -29,7 +29,7 @@ weight = 1
 <!--endtoc-->
 
 
-## Upgrade to Mojave {#upgrade-to-mojave}
+## Upgrade to Mojave from Sierra {#upgrade-to-mojave-from-sierra}
 
 **Ref:** [macOS Mojave にアップグレードする方法](https://support.apple.com/ja-jp/HT201475)
 
