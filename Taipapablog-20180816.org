@@ -3024,7 +3024,7 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
        #+begin_src sh
          $ brew install poppler
        #+end_src
-     - たとえば，latexで生成したhogehoge.pdfのフォントの埋め込みを調べるためには，pdffontsを以下のように使う．*emb* の項目で埋め込みの有無がわかる．
+     - たとえば，latexで生成したhogehoge.pdfのフォントの埋め込みを調べるためには，pdffontsを以下のように使う． *emb* の項目で埋め込みの有無がわかる．
 
          #+begin_src sh
            $ pdffonts hogehoge.pdf

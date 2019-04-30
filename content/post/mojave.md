@@ -2,7 +2,7 @@
 title = "Upgrade to Mojave and upgrade to Emacs 26.2 by homebrew"
 author = ["taipapa"]
 date = 2019-04-29
-lastmod = 2019-04-30T23:36:52+09:00
+lastmod = 2019-04-30T23:38:39+09:00
 tags = ["Mojave", "upgrade", "emacs", "26-2", "homebrew"]
 type = "post"
 draft = false
@@ -131,7 +131,7 @@ mojaveにupgradeしてから，latexmkによるcompileやorg-modeからのlatex 
     ```sh
     $ brew install poppler
     ```
--   たとえば，latexで生成したhogehoge.pdfのフォントの埋め込みを調べるためには，pdffontsを以下のように使う．\*emb\* の項目で埋め込みの有無がわかる．
+-   たとえば，latexで生成したhogehoge.pdfのフォントの埋め込みを調べるためには，pdffontsを以下のように使う． **emb** の項目で埋め込みの有無がわかる．
 
     ```sh
     $ pdffonts hogehoge.pdf
