@@ -3017,5 +3017,28 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
      *ヒラギノフォントの埋め込み* についても上述の記事に書いたように，既に，[[https://github.com/munepi/bibunsho7-patch/releases][bibunsho7-patch]]を適応済みなので，問題ないと考えた．
 
     mojaveにupgradeしてから，latexmkによるcompileやorg-modeからのlatex exportなどを試してみたが，pdfの生成に特に問題なく，また，pdfへのヒラギノフォントの埋め込みも問題なくできていた．
+
+**** pdfにフォントが埋め込まれているかどうかを確認する方法
+     - *Ref:*[[https://qiita.com/Aqua_ix/items/d277fb7e4667d6616c1e][ PDFのフォント埋め込み]]
+     - 以下のようにhomebrewでpopplerをインストールすれば，その中の *pdffonts* というコマンドを使って確認することができる．このpopplerは以前の記事（[[../pdf-tools][Emacsでpdfを読む (pdf-tools)]]）で既にインストールしているが，もう一度書いておく．
+       #+begin_src sh
+         $ brew install poppler
+       #+end_src
+     - たとえば，latexで生成したhogehoge.pdfのフォントの埋め込みを調べるためには，pdffontsを以下のように使う．*emb* の項目で埋め込みの有無がわかる．
+
+         #+begin_src sh
+           $ pdffonts hogehoge.pdf
+           name                                 type              encoding         emb sub
+           ------------------------------------ ----------------- ---------------- --- ---
+           KQKHHV+LMSans10-Bold                 Type 1C           Custom           yes yes
+           JQHYHW+LMRoman17-Regular             Type 1C           Custom           yes yes
+           FENZQQ+HiraMinProN-W3-Identity-H     CID Type 0C       Identity-H       yes yes
+           ZHPQAJ+LMRoman12-Regular             Type 1C           Custom           yes yes
+           BMLTDB+HiraKakuProN-W6-Identity-H    CID Type 0C       Identity-H       yes yes
+           NOWECW+LMRoman12-Regular             Type 1C           Custom           yes yes
+           SIHLPZ+LMRoman8-Regular              Type 1C           Custom           yes yes
+         #+end_src
+     - 確かに，すべてのフォントは *emb = yes* になっており，埋め込まれているのが確認できた．
+
 *** 感想
     ネットでは，いろいろ問題ありとの情報が多く様子見をしていたのだが，待ってる間に色々と解決した部分も多いのか，ほとんど大きなトラブルもなくアップグレードできた．なお， *Time Machine* によるバックアップも問題なくできている．「案ずるより産むが易し」であった．

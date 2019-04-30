@@ -2,7 +2,7 @@
 title = "Upgrade to Mojave and upgrade to Emacs 26.2 by homebrew"
 author = ["taipapa"]
 date = 2019-04-29
-lastmod = 2019-04-30T01:10:11+09:00
+lastmod = 2019-04-30T23:36:52+09:00
 tags = ["Mojave", "upgrade", "emacs", "26-2", "homebrew"]
 type = "post"
 draft = false
@@ -23,6 +23,7 @@ weight = 1
 - [Upgrade to Xcode 10.2.1](#upgrade-to-xcode-10-dot-2-dot-1)
 - [Upgrade to Emacs 26.2 from 26.1](#upgrade-to-emacs-26-dot-2-from-26-dot-1)
 - [LaTeX](#latex)
+    - [pdfにフォントが埋め込まれているかどうかを確認する方法](#pdfにフォントが埋め込まれているかどうかを確認する方法)
 - [感想](#感想)
 
 </div>
@@ -120,6 +121,31 @@ $ sudo tlmgr update --self --all
 **ヒラギノフォントの埋め込み** についても上述の記事に書いたように，既に，[bibunsho7-patch](https://github.com/munepi/bibunsho7-patch/releases)を適応済みなので，問題ないと考えた．
 
 mojaveにupgradeしてから，latexmkによるcompileやorg-modeからのlatex exportなどを試してみたが，pdfの生成に特に問題なく，また，pdfへのヒラギノフォントの埋め込みも問題なくできていた．
+
+
+### pdfにフォントが埋め込まれているかどうかを確認する方法 {#pdfにフォントが埋め込まれているかどうかを確認する方法}
+
+-   **Ref:**[ PDFのフォント埋め込み](https://qiita.com/Aqua%5Fix/items/d277fb7e4667d6616c1e)
+-   以下のようにhomebrewでpopplerをインストールすれば，その中の **pdffonts** というコマンドを使って確認することができる．このpopplerは以前の記事（[Emacsでpdfを読む (pdf-tools)](../pdf-tools)）で既にインストールしているが，もう一度書いておく．
+
+    ```sh
+    $ brew install poppler
+    ```
+-   たとえば，latexで生成したhogehoge.pdfのフォントの埋め込みを調べるためには，pdffontsを以下のように使う．\*emb\* の項目で埋め込みの有無がわかる．
+
+    ```sh
+    $ pdffonts hogehoge.pdf
+    name                                 type              encoding         emb sub
+    ------------------------------------ ----------------- ---------------- --- ---
+    KQKHHV+LMSans10-Bold                 Type 1C           Custom           yes yes
+    JQHYHW+LMRoman17-Regular             Type 1C           Custom           yes yes
+    FENZQQ+HiraMinProN-W3-Identity-H     CID Type 0C       Identity-H       yes yes
+    ZHPQAJ+LMRoman12-Regular             Type 1C           Custom           yes yes
+    BMLTDB+HiraKakuProN-W6-Identity-H    CID Type 0C       Identity-H       yes yes
+    NOWECW+LMRoman12-Regular             Type 1C           Custom           yes yes
+    SIHLPZ+LMRoman8-Regular              Type 1C           Custom           yes yes
+    ```
+-   確かに，すべてのフォントは **emb = yes** になっており，埋め込まれているのが確認できた．
 
 
 ## 感想 {#感想}
