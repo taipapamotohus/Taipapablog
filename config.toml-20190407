@@ -188,13 +188,7 @@ enableGitInfo = false
   #                "/css/monokai.css" # Needs pygmentsUseClasses to be true  https://mikan.github.io/2017/11/03/centering-figures-in-hugo/
   #                , "/css/monokai.css"
   #              ]
-  
-  # custom_css = ["emacs.css"]
-  # custom_css = ["override.css"]
-  custom_css = ["academic_scrollbar.css"]
-
-# http://seankross.com/notes/css-for-code/ に基づいて，https://github.com/lcolladotor/hugo-academic/blob/1e2380802dea7a5f8711df796be12a16a86a9aca/layouts/partials/css/academic.css をコピペした．
-  # しかし，http://seankross.com/notes/css-for-code/　をみて，考え直し，デフォルトの /Data/MyBlog/Taipapablog/themes/academic/layouts/partials/css/academic.css を /Data/MyBlog/Taipapablog/static/css/academic_scrollbar.css にコピーして，http://seankross.com/notes/css-for-code/ の修正を加えて，それを記入した．
+  custom_css = ["emacs.css"] 
   custom_js  = []
 
   # Publication types.

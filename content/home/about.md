@@ -19,8 +19,8 @@ Emacsのorg-modeやLaTeX絡みの話が多くなりそう．．．
 
 ## **環境** {#環境}
 
-MacBook Pro late 2016, Sierra
+MacBook Pro late 2016, Mojave
 
-GNU Emacs 26.1, TeX Live 2018 (MacTeX-2018)
+GNU Emacs 26.2, TeX Live 2018 (MacTeX-2018)
 
 ---

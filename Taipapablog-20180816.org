@@ -2923,7 +2923,7 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
 
     *Ref:* [[https://taipapamotohus.com/post/swiper_migemo/#最近開いたディレクトリを開く][最近開いたディレクトリを開く]]
 
-** Upgrade to Mojave and upgrade to Emacs 26.2 by homebrew :Mojave:upgrade:emacs:26_2:homebrew:
+** COMMENT Upgrade to Mojave and upgrade to Emacs 26.2 by homebrew :Mojave:upgrade:emacs:26_2:homebrew:
    :PROPERTIES:
    :EXPORT_FILE_NAME: mojave
    :EXPORT_DATE: 2019-04-29
