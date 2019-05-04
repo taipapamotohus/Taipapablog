@@ -1,0 +1,21 @@
+--- /Data/hogeblog/fugablog/themes/academic/layouts/partials/css/academic.css	2018-08-16 00:55:10.000000000 +0900
++++ /Data/hogeblog/fugablog/static/css/academic_scrollbar.css	2019-05-02 00:05:10.000000000 +0900
+@@ -178,9 +178,16 @@
+   border-color: rgb(248, 248, 248);
+ }
+ 
++/* pre code { */
++/*   white-space: pre; /\* Override Bootstrap to preserve line breaks in code. *\/ */
++/*   overflow-x: auto; */
++/* } */
++
++/* See http://seankross.com/notes/css-for-code/  */
+ pre code {
+-  white-space: pre; /* Override Bootstrap to preserve line breaks in code. */
+-  overflow-x: auto;
++    overflow: auto;
++    word-wrap: normal;
++    white-space: pre;
+ }
+ 
+ hr {

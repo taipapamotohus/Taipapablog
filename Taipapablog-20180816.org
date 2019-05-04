@@ -3042,3 +3042,113 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
 
 *** 感想
     ネットでは，いろいろ問題ありとの情報が多く様子見をしていたのだが，待ってる間に色々と解決した部分も多いのか，ほとんど大きなトラブルもなくアップグレードできた．なお， *Time Machine* によるバックアップも問題なくできている．「案ずるより産むが易し」であった．
+
+** How to add horizontal scrollbar for codeblock in academic theme of hugo :hugo:blog:codeblock:horizontal:scrollbar:academic:theme:
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: horizontal_scrollbar
+   :EXPORT_DATE: 2019-05-02
+   :EXPORT_HUGO_AUTO_SET_LASTMOD: t
+   :EXPORT_HUGO_DRAFT: false
+   :EXPORT_AUTHOR: "taipapa"
+   :EXPORT_HUGO_TYPE: post
+   :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/Roma.jpg") (caption . "Roma Termini"))
+   :END:
+いやー，めでたい．ついに，TexLive 2019がreleaseされた．それにしても，TeXってこんなに人気があったのだ．世の中がみんなお祝いしてる，凄いぞ，TeX．．．．と思ったら，全然違った．．．これでまた年齢計算が複雑になる．システム担当者は大変である．まぁ，西暦を使用すればいいだけの話ではあるが．．．．．というわけで，今回はTeXの話，ではなくて，ブログのCodeBlockの長い行がwrapされるのは２行と間違うことがあるので，scrollbarをつけましょうという話である．
+
+#+toc: headlines 2
+
+*** Wrap or scroll?
+    以前の記事でも触れたように（[[../embedrplotinblog][How to automatically embed R plot in blog created by Hugo via ox-hugo]]），このサイトは，ox-hugoというorg-modeのパッケージで書いて，Hugoという静的サイトジェネレーター（themeはacademic）で作っているのだが，code blockの長い行がwrapされて，つまり，折り畳まれて表示されるようになっていた．Rのcodeで示してみると，こんな感じである．
+
+   #+attr_html: :width 100% :target _self
+   [[/Data/MyBlog/Taipapablog/static/img/wrap.jpg]]
+
+   これは３行のcodeであるが，はっきり言って見にくい．．．．．　
+
+   行番号を入れるという方法もあるが，それよりもscrollbarをつけて横にスライドさせる方が分かりやすい．つまり，こうである．
+
+#+BEGIN_SRC R
+boxplot(data_melt.df$Drug1 ~ data_melt.df$Day, xlab = "", main = "Drug1", xaxt="n", cex.axis=1.5, ylab="Relative value", cex.lab = 1.5, pch=16, cex = 1.5)
+axis(1,at=c(1,2,3),formatC(c("Control", "Day1", "Day7")), cex.axis=1.5)
+beeswarm(data_melt.df$Drug1 ~ data_melt.df$Day, pch = 16, ad = TRUE, cex=1.5, col=c("black", "green","blue"))
+#+END_SRC
+
+   これなら，確実に１行を把握できる．
+
+   ここ（[[http://seankross.com/notes/css-for-code/][Fix How Your Blog’s Code is Displayed on Mobile]]）を見るともっと分かりやすく書いてある．
+
+*** How to add horizontal scrollbar
+**** Ref
+    -  [[http://seankross.com/notes/css-for-code/][Fix How Your Blog’s Code is Displayed on Mobile]]
+    -  [[https://github.com/gcushen/hugo-academic/issues/467][Prevent wrapping in code blocks #467]]
+    -  [[https://github.com/ShanEllis/ShanEllis.github.io/pull/1/commits/35c0f3064d3ec2d7b6e35790448994bdb1233f79][added horizontal scrolling for code #1]]
+
+    上記のサイトを参考に以下のようにscrollbarをセットアップすることにした．
+
+**** academic theme version
+      まず，Hugoのthemeであるacademic のversionを以下のように調べてみると，
+    #+begin_src bash :exports both :results output
+      less themes/academic/data/academic.toml
+    #+end_src
+
+    ふ，古い．latest versionは，4.2である．2018年8月に導入してから8ヶ月ほどで2.4から4.2までreleaseされており，開発スピードが並ではない．それは喜ぶべきことなのだが，問題は，私が全くそれについて行けてないことである．（ToT)
+
+    最新版ではdirectory構造もかなり変わっている．horizontal scrollbarをつけるのを機会に全部をupgradeしようとしてみたが，なかなかうまくいかない．[[https://sourcethemes.com/academic/docs/customization/#customize-style-css][Customize style (CSS)]] に書いてあるとおりにしようとしても，古いversionでは相当するdirectoryそのものが存在しない．
+
+**** cssの変更
+     というわけで，academic themeのupgradeはサクッと諦めて姑息策を取ることにした． [[https://github.com/gcushen/hugo-academic/issues/467][Prevent wrapping in code blocks #467]] を参考にして，\\
+     */Data/hogeblog/fugablog/themes/academic/layouts/partials/css/academic.css*
+     を \\
+     */Data/hogeblog/fugablog/static/css/academic_scrollbar.css*  \\
+     として保存した．変更箇所は以下の通り
+     #+begin_src sh
+       --- /Data/hogeblog/fugablog/themes/academic/layouts/partials/css/academic.css	2018-08-16 00:55:10.000000000 +0900
+       +++ /Data/hogeblog/fugablog/static/css/academic_scrollbar.css	2019-05-02 00:05:10.000000000 +0900
+       @@ -178,9 +178,16 @@
+       border-color: rgb(248, 248, 248);
+        }
+
+       +/* pre code { */
+       +/*   white-space: pre; /\* Override Bootstrap to preserve line breaks in code. *\/ */
+       +/*   overflow-x: auto; */
+       +/* } */
+       +
+       +/* See http://seankross.com/notes/css-for-code/  */
+        pre code {
+       -  white-space: pre; /* Override Bootstrap to preserve line breaks in code. */
+       -  overflow-x: auto;
+       +    overflow: auto;
+       +    word-wrap: normal;
+       +    white-space: pre;
+        }
+
+        hr {
+     #+end_src
+
+     これで，ox-hugoでの
+
+     #+attr_html: :width 100% :target _self
+     [[/Data/MyBlog/Taipapablog/static/img/wrap2.jpg]]
+
+     は，以下のように表示されるようになる．
+     #+begin_src R
+       boxplot(data_melt.df$Drug1 ~ data_melt.df$Day, xlab = "", main = "Drug1", xaxt="n", cex.axis=1.5, ylab="Relative value", cex.lab = 1.5, pch=16, cex = 1.5)
+       axis(1,at=c(1,2,3),formatC(c("Control", "Day1", "Day7")), cex.axis=1.5)
+       beeswarm(data_melt.df$Drug1 ~ data_melt.df$Day, pch = 16, ad = TRUE, cex=1.5, col=c("black", "green","blue"))
+     #+end_src
+
+     -nをつけて行番号をつけると
+
+     #+attr_html: :width 100% :target _self
+     [[/Data/MyBlog/Taipapablog/static/img/wrap3.jpg]]
+
+     こうなる．
+
+     #+begin_src R -n
+       boxplot(data_melt.df$Drug1 ~ data_melt.df$Day, xlab = "", main = "Drug1", xaxt="n", cex.axis=1.5, ylab="Relative value", cex.lab = 1.5, pch=16, cex = 1.5)
+       axis(1,at=c(1,2,3),formatC(c("Control", "Day1", "Day7")), cex.axis=1.5)
+       beeswarm(data_melt.df$Drug1 ~ data_melt.df$Day, pch = 16, ad = TRUE, cex=1.5, col=c("black", "green","blue"))
+     #+end_src
+
+\\
+   なんとか，これで，code blockにhorizontal scrollbarをつけることができた．次に時間ができたときにacademic themeをupgradeして追いつこう．．．いつになることやら．．．(^^;;;;;;
