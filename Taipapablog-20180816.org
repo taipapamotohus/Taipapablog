@@ -67,7 +67,7 @@
     $ brew info emacs-mac
   #+end_src
 
-** Emacsの設定（その1）Preludeの導入（2018年10月9日修正，2019年6月1日追記） :emacs:prelude:
+** COMMENT Emacsの設定（その1）Preludeの導入（2018年10月9日修正，2019年6月1日追記） :emacs:prelude:
    :PROPERTIES:
    :EXPORT_FILE_NAME: Prelude_install
    :EXPORT_DATE: 2018-08-15
@@ -3170,6 +3170,8 @@ beeswarm(data_melt.df$Drug1 ~ data_melt.df$Day, pch = 16, ad = TRUE, cex=1.5, co
    :END:
 次世代grepで最速と言われる[[https://github.com/BurntSushi/ripgrep][ripgrep]]をバックエンドとするEmacs用検索ツールであるdeadgrepをインストールしてみた．
 
+#+toc: headlines 2
+
 *** Ref
     - [[https://github.com/Wilfred/deadgrep][deadgrep: use ripgrep from Emacs]] ご本家
     - [[https://solist.work/blog/posts/deadgrep/][複雑になった時使うツール]] とても勉強になるサイト，こちらを読めば本サイトは読まなくても良いような．．．
@@ -3199,3 +3201,49 @@ beeswarm(data_melt.df$Drug1 ~ data_melt.df$Day, pch = 16, ad = TRUE, cex=1.5, co
 一番上のSearch termの行のchangeにカーソルを持っていってReturnすると，Minibufferで検索語を変更できる．その下にあるSearch type, Case, Context, Directory, Filesも同様に条件を変更できる．とくに，Directoryは適切なものを選ばないと巨大なデータを検索することになってしまうので注意が必要である．
 
 個人的には，swiperでほぼ事足りているのだが，大きなプロジェクト内の複数のファイルを一気に検索する必要がある人には非常に有益なツールだと思う．
+
+** COMMENT Gleanings (display-line-numbers, Whitespace-mode, thunderbird, etc) :line_number:whitespace:thunderbird:emacs:
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: gleanings
+   :EXPORT_DATE: 2019-06-01
+   :EXPORT_HUGO_AUTO_SET_LASTMOD: t
+   :EXPORT_HUGO_DRAFT: false
+   :EXPORT_AUTHOR: "taipapa"
+   :EXPORT_HUGO_TYPE: post
+   :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/Galata.jpg") (caption . "Galata Kulesi"))
+   :END:
+前回久しぶりに記事を投稿したが，しばらく更新していない間に，いくつか細かな環境修正が必要であったので，まとめておく．
+
+*** display-line-numbers
+    - 参照1：[[http://garaemon.hatenadiary.jp/entry/2018/07/08/181003][emacs 26で入ったdisplay-line-numbersを利用する]]
+    - 参照2：[[https://www.emacswiki.org/emacs/LineNumbers][LineNumbers]]
+    - 参照3：[[https://blog.piyo.tech/posts/2019-01-24-emacs-display-line-numbers/][Emacs26のdisplay-line-numbers-modeがlinum-modeよりちょっと速くて快適になりそう]]
+    - 参照4：[[https://qiita.com/mamo3gr/items/1c6862cba09d5876e52c][Emacsの行番号表示にモヤモヤした話]]
+    emacs 26から入った行番号を表示させる機能．設定は以下の通り．
+      #+begin_src lisp
+        ,#+begin_src emacs-lisp
+        (global-display-line-numbers-mode)
+        ,#+end_src
+      #+end_src
+    これでもう行番号を表示していても重くならない．表示領域を確保するための設定も不要である．実際の表示状況は下の画像のとおりである．nlinum-modeの設定は削除した．
+
+        #+attr_html: :width 100% :target _self
+         [[./static/img/display-line-number.jpg]]
+
+    行番号に必要な表示領域は自動的に確保される．3桁，4桁の番号になるに連れて表示領域が広くなるのが上の画像からわかるであろう．また，adaptive-wrapによって折り畳まれている行は行番号が空白になって1行であることがわかるようになっている（383行目）．
+
+*** Whitespace-mode
+    かなり前から，長い行の途中でフォントの色が赤くなってしまうようになった．つまり，下の画像のようになってしまう．
+
+       #+attr_html: :width 100% :target _self
+         [[./static/img/swiper-2a.jpg]]
+
+    何が原因かよくわからなかったのだが，redditの[[https://www.reddit.com/r/emacs/comments/butal1/how_do_i_stop_emacs_from_coloring_text_beyond_80/][How do I stop Emacs from coloring text beyond 80 columns differently]]を読んで，もしかしたら，whitespace-modeのせいかもしれないと思ってやってみたらドンピシャであった．．M-x customizeとして，Whitespace Styleをサーチして，(Face) Lines, only overlong partのチェックを外せばよい．下の画像の矢印で示した部分である．
+
+       #+attr_html: :width 100% :target _self
+         [[./static/img/whitespace.jpg]]
+
+    下に，設定変更後の上の画像と同じところを示すが，長い行もフォントの色が変わらなくなっている．
+
+       #+attr_html: :width 100% :target _self
+         [[./static/img/swiper-3.jpg]]

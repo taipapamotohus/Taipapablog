@@ -2,7 +2,7 @@
 title = "Deadgrep"
 author = ["taipapa"]
 date = 2019-06-01
-lastmod = 2019-06-01T15:02:44+09:00
+lastmod = 2019-06-01T17:39:03+09:00
 tags = ["deadgrep", "ripgrep", "search", "emacs"]
 type = "post"
 draft = false
@@ -13,6 +13,18 @@ weight = 1
 +++
 
 次世代grepで最速と言われる[ripgrep](https://github.com/BurntSushi/ripgrep)をバックエンドとするEmacs用検索ツールであるdeadgrepをインストールしてみた．
+
+<div class="ox-hugo-toc toc">
+<div></div>
+
+<div class="heading">Table of Contents</div>
+
+- [Ref](#ref)
+- [Install](#install)
+- [How to use](#how-to-use)
+
+</div>
+<!--endtoc-->
 
 
 ## Ref {#ref}
