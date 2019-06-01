@@ -1,8 +1,8 @@
 +++
-title = "Emacsの設定（その1）Preludeの導入（2018年10月9日修正）"
+title = "Emacsの設定（その1）Preludeの導入（2018年10月9日修正，2019年6月1日追記）"
 author = ["taipapa"]
 date = 2018-08-15
-lastmod = 2018-10-09T20:01:48+09:00
+lastmod = 2019-06-01T15:02:39+09:00
 tags = ["emacs", "prelude"]
 type = "post"
 draft = false
@@ -23,7 +23,7 @@ weight = 1
 
 ## Preludeのインストール {#preludeのインストール}
 
--   上記のGithubのFast Forwardに書いてあるように，macOSで既にgitとcurlとEmacsをインストールしていれば，下記のコマンドを打てば，Preludeがインストールされる．念のために，古い.emacs.dはどこかに退避させておく（名前を変えて保存されるようになって入るが心配性なもんで）．
+-   上記のGithubのFast Forwardに書いてあるように，macOSで既にgitとcurlとEmacsをインストールしていれば，下記のコマンドを打てば，Preludeがインストールされる．念のために，古い.emacs.dはどこかに退避させておく（名前を変えて保存されるようになってはいるが心配性なもんで）．
 
     ```shell
     $ curl -L https://git.io/epre | sh
@@ -40,4 +40,8 @@ weight = 1
 
     helmにすっかり慣らされてしまったのでこのあたりは外している．prelude-latexのコメントアウトを外すことにより，次回にEmacsを立ち上げるときに **auctex** がインストールされる．
 -   preludeのdefaultの設定は，ほぼ満足すべきものだが，ひとつだけ，prelude-auto-saveが邪魔である．これは，他のbufferに移動したり，他のアプリを使用したりするたびに自動で保存される機能であるが，非常に鬱陶しい．M-x customize からprelude-auto-saveを検索し，offにする．custom.elに書き込まれる．
+-   **super-save** について（ **2019年6月1日追記** ）：この記事を書いてからすぐに気がついたのだが，現在のpreludeはsuper-saveがdefaultで設定されるので，こちらもoffにしないと自動保存が行われてしまう．これは好みの問題だとは思うが，私は嫌いなのでoffにしている．遅まきながら追記しておく．設定の変更は上述のとおりで，M-x customize からsuper-saveを検索し，offにする．下図を参考にしていただきたい．
+
+    {{< figure src="/img/Super-save.jpg" width="100%" target="_self" >}}
+
 -   個人の設定は，~/.emacs.d/personal/init.elに書き込む．これは，org-modeを使って設定するのが良い．まずorg-modeについての記事を書いたあとにinit.orgについて書く予定．

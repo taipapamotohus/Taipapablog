@@ -67,7 +67,7 @@
     $ brew info emacs-mac
   #+end_src
 
-** COMMENT Emacsの設定（その1）Preludeの導入（2018年10月9日修正）        :emacs:prelude:
+** Emacsの設定（その1）Preludeの導入（2018年10月9日修正，2019年6月1日追記） :emacs:prelude:
    :PROPERTIES:
    :EXPORT_FILE_NAME: Prelude_install
    :EXPORT_DATE: 2018-08-15
@@ -82,7 +82,7 @@
     - Emacs初期設定集の一種．他にもいろいろあるようだが，これしか使ったことがないので．．．
     - [[https://github.com/bbatsov/prelude][Prelude]] Githubはこちら
 *** Preludeのインストール
-    - 上記のGithubのFast Forwardに書いてあるように，macOSで既にgitとcurlとEmacsをインストールしていれば，下記のコマンドを打てば，Preludeがインストールされる．念のために，古い.emacs.dはどこかに退避させておく（名前を変えて保存されるようになって入るが心配性なもんで）．
+    - 上記のGithubのFast Forwardに書いてあるように，macOSで既にgitとcurlとEmacsをインストールしていれば，下記のコマンドを打てば，Preludeがインストールされる．念のために，古い.emacs.dはどこかに退避させておく（名前を変えて保存されるようになってはいるが心配性なもんで）．
       #+begin_src shell
       $ curl -L https://git.io/epre | sh
       #+end_src
@@ -96,6 +96,11 @@
       #+end_src
       helmにすっかり慣らされてしまったのでこのあたりは外している．prelude-latexのコメントアウトを外すことにより，次回にEmacsを立ち上げるときに *auctex* がインストールされる．
     - preludeのdefaultの設定は，ほぼ満足すべきものだが，ひとつだけ，prelude-auto-saveが邪魔である．これは，他のbufferに移動したり，他のアプリを使用したりするたびに自動で保存される機能であるが，非常に鬱陶しい．M-x customize からprelude-auto-saveを検索し，offにする．custom.elに書き込まれる．
+    - *super-save* について（ *2019年6月1日追記* ）：この記事を書いてからすぐに気がついたのだが，現在のpreludeはsuper-saveがdefaultで設定されるので，こちらもoffにしないと自動保存が行われてしまう．これは好みの問題だとは思うが，私は嫌いなのでoffにしている．遅まきながら追記しておく．設定の変更は上述のとおりで，M-x customize からsuper-saveを検索し，offにする．下図を参考にしていただきたい．
+
+        #+attr_html: :width 100% :target _self
+         [[./static/img/Super-save.jpg]]
+
     - 個人の設定は，~/.emacs.d/personal/init.elに書き込む．これは，org-modeを使って設定するのが良い．まずorg-modeについての記事を書いたあとにinit.orgについて書く予定．
 
 ** COMMENT Emacsの設定（その2）設定ファイル（init.el）をorg-modeで管理する :emacs:init_org:init_el:
@@ -3043,7 +3048,7 @@ Rを用いて生存分析を行う際に， *Kaplan-Meier curve* に打ち切り
 *** 感想
     ネットでは，いろいろ問題ありとの情報が多く様子見をしていたのだが，待ってる間に色々と解決した部分も多いのか，ほとんど大きなトラブルもなくアップグレードできた．なお， *Time Machine* によるバックアップも問題なくできている．「案ずるより産むが易し」であった．
 
-** How to add horizontal scrollbar for codeblock in academic theme of hugo :hugo:blog:codeblock:horizontal:scrollbar:academic:theme:
+** COMMENT How to add horizontal scrollbar for codeblock in academic theme of hugo :hugo:blog:codeblock:horizontal:scrollbar:academic:theme:
    :PROPERTIES:
    :EXPORT_FILE_NAME: horizontal_scrollbar
    :EXPORT_DATE: 2019-05-02
@@ -3152,3 +3157,45 @@ beeswarm(data_melt.df$Drug1 ~ data_melt.df$Day, pch = 16, ad = TRUE, cex=1.5, co
 
 \\
    なんとか，これで，code blockにhorizontal scrollbarをつけることができた．次に時間ができたときにacademic themeをupgradeして追いつこう．．．いつになることやら．．．(^^;;;;;;
+
+** Deadgrep                                  :deadgrep:ripgrep:search:emacs:
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: deadgrep
+   :EXPORT_DATE: 2019-06-01
+   :EXPORT_HUGO_AUTO_SET_LASTMOD: t
+   :EXPORT_HUGO_DRAFT: false
+   :EXPORT_AUTHOR: "taipapa"
+   :EXPORT_HUGO_TYPE: post
+   :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/Orvieto.jpg") (caption . "Orvieto"))
+   :END:
+次世代grepで最速と言われる[[https://github.com/BurntSushi/ripgrep][ripgrep]]をバックエンドとするEmacs用検索ツールであるdeadgrepをインストールしてみた．
+
+*** Ref
+    - [[https://github.com/Wilfred/deadgrep][deadgrep: use ripgrep from Emacs]] ご本家
+    - [[https://solist.work/blog/posts/deadgrep/][複雑になった時使うツール]] とても勉強になるサイト，こちらを読めば本サイトは読まなくても良いような．．．
+
+*** Install
+    まず，バックエンドのripgrepをインストールする．brewを使えば簡単である．
+    #+begin_src sh
+      $ brew install ripgrep
+    #+end_src
+    ついで，以下のようにinit.orgに書き込んでMRLPAからdeadgrep.elをインストールする．f5にキーバインドしておく．
+      #+begin_src lisp
+        ,#+begin_src emacs-lisp
+        (use-package deadgrep
+          :ensure t
+          :config
+          (global-set-key (kbd "<f5>") #'deadgrep)
+          )
+        ,#+end_src
+      #+end_src
+
+*** How to use
+    使用方法の詳細はご本家に書いてあるが，f5を叩いて，検索キーワードを入れるだけである．下の画像は，このブログのあるdirectoryで，「検索」をキーワードとしてdeadgrepを走らせたところである．defaultでdirectory内を再帰的に検索する．キーワードは青くハイライトされており，左端の数字はその文書での行番号である． *o* を叩くと下のバッファに該当箇所にカーソルがある状態でその文書が開く． *C-c C-k* で検索を止めることができる．また，swiperとの併用も可能である．
+
+        #+attr_html: :width 100% :target _self
+         [[./static/img/deadgrep.jpg]]
+
+一番上のSearch termの行のchangeにカーソルを持っていってReturnすると，Minibufferで検索語を変更できる．その下にあるSearch type, Case, Context, Directory, Filesも同様に条件を変更できる．とくに，Directoryは適切なものを選ばないと巨大なデータを検索することになってしまうので注意が必要である．
+
+個人的には，swiperでほぼ事足りているのだが，大きなプロジェクト内の複数のファイルを一気に検索する必要がある人には非常に有益なツールだと思う．
