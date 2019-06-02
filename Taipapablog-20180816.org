@@ -3201,8 +3201,16 @@ beeswarm(data_melt.df$Drug1 ~ data_melt.df$Day, pch = 16, ad = TRUE, cex=1.5, co
 一番上のSearch termの行のchangeにカーソルを持っていってReturnすると，Minibufferで検索語を変更できる．その下にあるSearch type, Case, Context, Directory, Filesも同様に条件を変更できる．とくに，Directoryは適切なものを選ばないと巨大なデータを検索することになってしまうので注意が必要である．
 
 個人的には，swiperでほぼ事足りているのだが，大きなプロジェクト内の複数のファイルを一気に検索する必要がある人には非常に有益なツールだと思う．
+**** 2019年6月2日追記
+     上記のように自分にはあまり役に立たないようなことを書いたが，早速，deadgrepが役に立ったので追記しておく．hyperestraierで全文検索をしようとして，H@estfxpdftohtml というコマンドを使おうとしたのだが，うまくいかず，その原因を探るために，/usr/local/で，H@estfxpdftohtmlをSearch termとして，deadgrepを下の画像のように走らせてみたところ，下側のバッファにあるように，一発で原因が判明してしまった．要するに，xpdfが必要ということであった．なるほど，こういう風に使うのかと納得した．
 
-** COMMENT Gleanings (display-line-numbers, Whitespace-mode, thunderbird, etc) :line_number:whitespace:thunderbird:emacs:
+        #+attr_html: :width 100% :target _self
+         [[./static/img/deadgrep2.jpg]]
+
+なお，全文検索については，いずれ別の機会にまとめてみたい．
+
+
+** COMMENT Gleanings (display-line-numbers, whitespace-mode, accessibility, etc) :line_number:whitespace:thunderbird:emacs:
    :PROPERTIES:
    :EXPORT_FILE_NAME: gleanings
    :EXPORT_DATE: 2019-06-01
@@ -3214,12 +3222,15 @@ beeswarm(data_melt.df$Drug1 ~ data_melt.df$Day, pch = 16, ad = TRUE, cex=1.5, co
    :END:
 前回久しぶりに記事を投稿したが，しばらく更新していない間に，いくつか細かな環境修正が必要であったので，まとめておく．
 
+#+toc: headlines 2
+
 *** display-line-numbers
-    - 参照1：[[http://garaemon.hatenadiary.jp/entry/2018/07/08/181003][emacs 26で入ったdisplay-line-numbersを利用する]]
-    - 参照2：[[https://www.emacswiki.org/emacs/LineNumbers][LineNumbers]]
-    - 参照3：[[https://blog.piyo.tech/posts/2019-01-24-emacs-display-line-numbers/][Emacs26のdisplay-line-numbers-modeがlinum-modeよりちょっと速くて快適になりそう]]
-    - 参照4：[[https://qiita.com/mamo3gr/items/1c6862cba09d5876e52c][Emacsの行番号表示にモヤモヤした話]]
-    emacs 26から入った行番号を表示させる機能．設定は以下の通り．
+    emacs 26から入った行番号を表示させる機能．
+    - Ref 1: [[http://garaemon.hatenadiary.jp/entry/2018/07/08/181003][emacs 26で入ったdisplay-line-numbersを利用する]]
+    - Ref 2: [[https://www.emacswiki.org/emacs/LineNumbers][LineNumbers]]
+    - Ref 3: [[https://blog.piyo.tech/posts/2019-01-24-emacs-display-line-numbers/][Emacs26のdisplay-line-numbers-modeがlinum-modeよりちょっと速くて快適になりそう]]
+    - Ref 4: [[https://qiita.com/mamo3gr/items/1c6862cba09d5876e52c][Emacsの行番号表示にモヤモヤした話]]
+    設定は以下の通り．
       #+begin_src lisp
         ,#+begin_src emacs-lisp
         (global-display-line-numbers-mode)
@@ -3233,17 +3244,36 @@ beeswarm(data_melt.df$Drug1 ~ data_melt.df$Day, pch = 16, ad = TRUE, cex=1.5, co
     行番号に必要な表示領域は自動的に確保される．3桁，4桁の番号になるに連れて表示領域が広くなるのが上の画像からわかるであろう．また，adaptive-wrapによって折り畳まれている行は行番号が空白になって1行であることがわかるようになっている（383行目）．
 
 *** Whitespace-mode
-    かなり前から，長い行の途中でフォントの色が赤くなってしまうようになった．つまり，下の画像のようになってしまう．
+    かなり前から，Emacsの長い行の途中でフォントの色が赤くなってしまうようになった．つまり，下の画像のようになってしまう．短い行でもフォントが赤くなってるな．．．
 
        #+attr_html: :width 100% :target _self
          [[./static/img/swiper-2a.jpg]]
 
-    何が原因かよくわからなかったのだが，redditの[[https://www.reddit.com/r/emacs/comments/butal1/how_do_i_stop_emacs_from_coloring_text_beyond_80/][How do I stop Emacs from coloring text beyond 80 columns differently]]を読んで，もしかしたら，whitespace-modeのせいかもしれないと思ってやってみたらドンピシャであった．．M-x customizeとして，Whitespace Styleをサーチして，(Face) Lines, only overlong partのチェックを外せばよい．下の画像の矢印で示した部分である．
+    何が原因かよくわからなかったのだが，redditの[[https://www.reddit.com/r/emacs/comments/butal1/how_do_i_stop_emacs_from_coloring_text_beyond_80/][How do I stop Emacs from coloring text beyond 80 columns differently]]を読んで，もしかしたら，whitespace-modeのせいかもしれないと思ってやってみたらドンピシャであった．M-x customizeとして，Whitespace Styleをサーチして，(Face) Lines, only overlong partのチェックを外せばよい．下の画像の矢印で示した部分である．
 
        #+attr_html: :width 100% :target _self
          [[./static/img/whitespace.jpg]]
 
-    下に，設定変更後の上の画像と同じところを示すが，長い行もフォントの色が変わらなくなっている．
+    下に，設定変更後の上の画像と同じところを示すが，行の途中でフォントの色が変わらなくなっている．これで目がおかしくなりそうな画面からようやく離れることができた．😀
 
        #+attr_html: :width 100% :target _self
          [[./static/img/swiper-3.jpg]]
+
+*** iTermの権限の変更（mojaveで必要）
+    以前の記事（[[../auto_html_export][Emacsのorg-modeを保存すると自動的にhtmlにexportされブラウザーが更新されるようにする]]）の中で，directoryの内容が変更されると，自動でhtmlを再読込するwatch_safari.rbというスクリプトを紹介した．しかし，mojaveにupgradeしたあとは
+    #+begin_src sh
+      85:141: execution error: System Eventsでエラーが起きました: osascriptにはキー操作の送信は許可されません。 (1002)
+    #+end_src
+
+    というエラーを吐いて，自動更新しなくなってしまった．調べてみると，mojaveでユーザーのデータや個人情報を保護するための機能が強化された結果であった．
+    - Ref 1: [[https://minatokobe.com/wp/os-x/macos-mojave/post-51360.html][macOS Mojaveでのアプリケーションの権限、アクセシビリティとフルディスクアクセスの違いは何か？]]
+    - Ref 2: [[https://www.softantenna.com/wp/tips/macos-mojave-iterm2-full-disk-access/][macOS MojaveでiTerm2を利用する場合にフルディスクアクセスを許可する方法]]
+    - Ref 3: [[https://rcmdnk.com/blog/2019/04/29/computer-mac/][MacのターミナルやiTermでOperation not permittedが出る場合の対処法]]
+    - Ref 4: [[https://gitlab.com/gnachman/iterm2/wikis/Whyfulldiskaccess][Why Full Disk Access is Useful for iTerm2]]
+
+    AccessibilityとFull Disk Accessのいずれか，あるいは，両方を変更すればよい．試してみた結果，iTerm2にFull Disk Accessを許可しても自動更新しないが，Accessiblityで「アプリケーションにコンピュータの制御を許可」すれば自動更新することがわかった．「システム環境設定」>「セキュリティ＆プライバシー」の「プライバシー」タブに行き，下の画像にあるように，iTerm2にcheckを入れればよい．
+
+      #+attr_html: :width 80% :target _self
+         [[./static/img/Privacy.jpg]]
+
+    crontabが働き，~/Library/Safari folderへのアクセスができるように，iTerm2にFull Disk Accessも与えておいた．方法は，上記とほぼ同じで，「プライバシー」タブに行き，フルディスクアクセスを選択し，iTerm2にcheckを入れればよい．
