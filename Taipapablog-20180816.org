@@ -3158,7 +3158,7 @@ beeswarm(data_melt.df$Drug1 ~ data_melt.df$Day, pch = 16, ad = TRUE, cex=1.5, co
 \\
    なんとか，これで，code blockにhorizontal scrollbarをつけることができた．次に時間ができたときにacademic themeをupgradeして追いつこう．．．いつになることやら．．．(^^;;;;;;
 
-** Deadgrep                                  :deadgrep:ripgrep:search:emacs:
+** COMMENT Deadgrep                                  :deadgrep:ripgrep:search:emacs:
    :PROPERTIES:
    :EXPORT_FILE_NAME: deadgrep
    :EXPORT_DATE: 2019-06-01
@@ -3210,17 +3210,17 @@ beeswarm(data_melt.df$Drug1 ~ data_melt.df$Day, pch = 16, ad = TRUE, cex=1.5, co
 なお，全文検索については，いずれ別の機会にまとめてみたい．
 
 
-** COMMENT Gleanings (display-line-numbers, whitespace-mode, accessibility, etc) :line_number:whitespace:thunderbird:emacs:
+** Gleanings (display-line-numbers, whitespace-mode, accessibility of iTerm2, etc) :line_number:whitespace:thunderbird:emacs:iTerm2:accessibility:
    :PROPERTIES:
    :EXPORT_FILE_NAME: gleanings
-   :EXPORT_DATE: 2019-06-01
+   :EXPORT_DATE: 2019-06-02
    :EXPORT_HUGO_AUTO_SET_LASTMOD: t
    :EXPORT_HUGO_DRAFT: false
    :EXPORT_AUTHOR: "taipapa"
    :EXPORT_HUGO_TYPE: post
    :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/Galata.jpg") (caption . "Galata Kulesi"))
    :END:
-前回久しぶりに記事を投稿したが，しばらく更新していない間に，いくつか細かな環境修正が必要であったので，まとめておく．
+前回久しぶりに記事を投稿したが，しばらく更新していない間に，いくつか細かな環境修正が必要であったので，落ち穂拾いとしてまとめておく．
 
 #+toc: headlines 2
 
@@ -3230,7 +3230,7 @@ beeswarm(data_melt.df$Drug1 ~ data_melt.df$Day, pch = 16, ad = TRUE, cex=1.5, co
     - Ref 2: [[https://www.emacswiki.org/emacs/LineNumbers][LineNumbers]]
     - Ref 3: [[https://blog.piyo.tech/posts/2019-01-24-emacs-display-line-numbers/][Emacs26のdisplay-line-numbers-modeがlinum-modeよりちょっと速くて快適になりそう]]
     - Ref 4: [[https://qiita.com/mamo3gr/items/1c6862cba09d5876e52c][Emacsの行番号表示にモヤモヤした話]]
-    設定は以下の通り．
+    設定は，いつものように，init.orgに下記のとおりに書き込めばよい．
       #+begin_src lisp
         ,#+begin_src emacs-lisp
         (global-display-line-numbers-mode)
@@ -3259,7 +3259,7 @@ beeswarm(data_melt.df$Drug1 ~ data_melt.df$Day, pch = 16, ad = TRUE, cex=1.5, co
        #+attr_html: :width 100% :target _self
          [[./static/img/swiper-3.jpg]]
 
-*** iTermの権限の変更（mojaveで必要）
+*** iTerm2の権限の変更（mojaveで必要）
     以前の記事（[[../auto_html_export][Emacsのorg-modeを保存すると自動的にhtmlにexportされブラウザーが更新されるようにする]]）の中で，directoryの内容が変更されると，自動でhtmlを再読込するwatch_safari.rbというスクリプトを紹介した．しかし，mojaveにupgradeしたあとは
     #+begin_src sh
       85:141: execution error: System Eventsでエラーが起きました: osascriptにはキー操作の送信は許可されません。 (1002)
@@ -3277,3 +3277,14 @@ beeswarm(data_melt.df$Drug1 ~ data_melt.df$Day, pch = 16, ad = TRUE, cex=1.5, co
          [[./static/img/Privacy.jpg]]
 
     crontabが働き，~/Library/Safari folderへのアクセスができるように，iTerm2にFull Disk Accessも与えておいた．方法は，上記とほぼ同じで，「プライバシー」タブに行き，フルディスクアクセスを選択し，iTerm2にcheckを入れればよい．
+
+*** iTerm2のColor Schemeが効かない
+    いつのまにかiTerm2のcolor schemeを変えても反映されなくなってしまった．ネットを探ると，同じようなことで悩んでいる人が結構いるようで，すぐに解決法が見つかった．
+    - Ref: [[https://gitlab.com/gnachman/iterm2/issues/4844][Profile colors won't change]]
+
+    上記のサイトによれば，terminal windowがprofileと連絡を失ってしまったことが原因とのことで，iTerm2の Session > Edit Sessionで下の画像のようにdialogue boxがpop upするので，そこで，好きなcolor scheme (下の画像ではJapanesque) を選択し，右下のUse Selected Profileをクリックすればよい．
+
+      #+attr_html: :width 80% :target _self
+         [[./static/img/iTerm2.jpg]]
+
+    これでリンクが再確立される．
