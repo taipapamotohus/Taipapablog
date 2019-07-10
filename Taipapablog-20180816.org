@@ -3290,7 +3290,7 @@ beeswarm(data_melt.df$Drug1 ~ data_melt.df$Day, pch = 16, ad = TRUE, cex=1.5, co
     これでリンクが再確立される．
 
 
-** How to add annotation (ex. KEGG orthology) box to a plot in ggplot2 :R:ggplot2:annotation:box:vertical:line:plot:
+** COMMENT How to add annotation (ex. KEGG orthology) box to a plot in ggplot2 :R:ggplot2:annotation:box:vertical:line:plot:
    :PROPERTIES:
    :EXPORT_FILE_NAME: annotation
    :EXPORT_DATE: 2019-06-30
@@ -3478,3 +3478,64 @@ beeswarm(data_melt.df$Drug1 ~ data_melt.df$Day, pch = 16, ad = TRUE, cex=1.5, co
      #+end_src
 
      ようやく完成である．この方法は他のタイプのグラフにも使えると思う．もっと簡単な方法があれば良いのだが．．．
+
+** Symbol Overlay (Highlight symbols at cursor point with keymap-enabled overlays in Emacs) :emacs:highlight:symbol:replace:
+   :PROPERTIES:
+   :EXPORT_FILE_NAME: symbol-overlay
+   :EXPORT_DATE: 2019-07-10
+   :EXPORT_HUGO_AUTO_SET_LASTMOD: t
+   :EXPORT_HUGO_DRAFT: false
+   :EXPORT_AUTHOR: "taipapa"
+   :EXPORT_HUGO_TYPE: post
+   :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :header '((image . "headers/HagiaSophia.jpg") (caption . "Hagia Sophia"))
+   :END:
+
+今回は（も？），redditで拾ってきたネタ（[[https://www.reddit.com/r/emacs/comments/c95cm5/how_to_highlight_occurences_at_cursor_point_in/][How to highlight occurences at cursor point in Emacs]]）．カーソルの位置にあるシンボル（単語と思えば良い）をバッファ内ですべてハイライトしてくれるEmacsのパッケージを訊いているのだが，いくつか答えがあって，一番便利そうだったのが，今回紹介する *symbol-overlay* である．
+
+   {{{toc(2)}}}
+
+*** References
+    - [[https://github.com/wolray/symbol-overlay][symbol-overlay]] （ご本家）
+    - [[https://manuel-uberti.github.io/emacs/2019/02/14/avy/][Jump around]]
+    - [[https://qiita.com/blue0513/items/c0dc35a880170997c3f5][Emacsの補完と検索を超強化する]]
+
+*** Install
+    例によって，以下のようにinit.orgに書き込んでMELPAからsymbol-overlayをインストールする．
+    #+begin_src lisp
+      ,#+begin_src emacs-lisp
+      (use-package symbol-overlay             ; Highlight symbols
+        :ensure t
+        :config
+        (global-set-key (kbd "M-i") 'symbol-overlay-put)
+        (global-set-key (kbd "<f7>") 'symbol-overlay-mode)
+        (global-set-key (kbd "<f8>") 'symbol-overlay-remove-all)
+        )
+      ,#+end_src
+    #+end_src
+
+*** How to use
+    使用法はご本家に書いてあるが，まず，”M-i”を叩けば，カーソルが位置しているシンボル（単語と思えば良い）が色付きでハイライトされる．同時に，同一バッファ内での全ての同じ単語も同様にハイライトされる．カーソルを動かしてもハイライトされた状態はそのままである．続けて，別の単語にカーソルを持って行って，"M-i"とすれば，その単語が別の色でハイライトされる．勿論，バッファ内の同一の単語も全て同じ色でハイライトされる．しかも，最初にハイライトした単語は，カーソルが離れた後もハイライトされた状態を維持している．文章で書くとわかりにくいが，要するに下図のような状態になる．
+
+   #+attr_html: :width 80% :target _self
+    [[./static/img/symbol-overlay.jpg]]
+
+   さらに，各単語間は "n" で先に進み， "p" で逆戻りできる．別の色のハイライトの単語にカーソルを移動させれば，今度はその単語間で同様に移動できる．そのほかご本家サイトによれば，以下のようなキーバインドになっている．
+
+   #+begin_src lisp
+     "n" -> symbol-overlay-jump-next
+     "p" -> symbol-overlay-jump-prev
+     "w" -> symbol-overlay-save-symbol
+     "t" -> symbol-overlay-toggle-in-scope
+     "e" -> symbol-overlay-echo-mark
+     "d" -> symbol-overlay-jump-to-definition
+     "s" -> symbol-overlay-isearch-literally
+     "q" -> symbol-overlay-query-replace
+     "r" -> symbol-overlay-rename
+   #+end_src
+
+   なかでも特筆すべきは "r" のsymbol-overlay-renameで，ハイライトされた単語を一気に書き換えることができる．例えば下図のように "global-set-key" が赤くハイライトされている時，どれかの"global-set-key"にカーソルを置いて "r" を叩けば，minibufferにRenameが表示され，これを消去して新しい名前を書くと赤くハイライトされている単語は一気に新しい名前に変わる．この機能は場合によっては非常に便利である．
+
+      #+attr_html: :width 80% :target _self
+    [[./static/img/Rename.jpg]]
+
+こういうパッケージを教えてくれるので，redditは有難い．
