@@ -2,8 +2,8 @@
 title = "mojaveのライブ変換で快適日本語入力（カーソルの色も日英で変わるように設定）"
 author = ["taipapa"]
 date = 2019-07-11
-lastmod = 2019-07-12T19:49:45+09:00
-tags = ["macos", "mojave", "japanese", "input", "cursor", "color", "emacs"]
+lastmod = 2019-07-13T14:50:27+09:00
+tags = ["macos", "mojave", "japanese", "input", "emacs", "cursor", "color"]
 type = "post"
 draft = false
 weight = 1
@@ -12,7 +12,7 @@ weight = 1
   caption = "San Francisco"
 +++
 
-最初にmacosにライブ変換が登場した時に使用してみて，これは駄目だとすぐにGoogle imputに戻してしまった．今年の5月にmojaveにupgradeしたのち，ある日，ふと思い立って，ライブ変換を試してみたところ，ほとんどストレスを感じることなくスラスラと入力ができた．ほとんど変換のためにスペースキーを叩く必要がないことに驚いた．予測の精度が登場時よりはるかに改良されているのであろう．エンドユーザーにはありがたいことである．早速乗り換えてしまった．
+最初にmacosにライブ変換が登場した時に使用してみて，これは駄目だとすぐにGoogle inputmethodに戻してしまった．今年の5月にmojaveにupgradeしたのち，ある日，ふと思い立って，ライブ変換を試してみたところ，ほとんどストレスを感じることなくスラスラと入力ができた．ほとんど変換のためにスペースキーを叩く必要がないことに驚いた．予測の精度が登場時よりはるかに改良されているのであろう．エンドユーザーにはありがたいことである．早速乗り換えてしまった．
 
 <div class="ox-hugo-toc toc">
 <div></div>
@@ -29,7 +29,7 @@ weight = 1
 ## How to set up {#how-to-set-up}
 
 -   まず画面トップの右端の方の日本語入力のライブ変換にチェックを入れてオンにする．
--   ついで，カーソルの色の設定をする．これは以前の記事（[Emacsの設定（その3）ようやくinit.orgの記述: 日本語の設定，inline-patchの設定など](../japanese_setup)）の設定をほんの少し変えるだけのことである．comment outしていた部分を外して，google inputmethodの方をcomment outする．具体的には，init.orgに以下のように書き込めば良い．
+-   ついで，Emacsのカーソルの色の設定をする．これは以前の記事（[Emacsの設定（その3）ようやくinit.orgの記述: 日本語の設定，inline-patchの設定など](../japanese_setup)）の設定をほんの少し変えるだけのことである．comment outしていた部分を外して，google inputmethodの方をcomment outする．具体的には，init.orgに以下のように書き込めば良い．
 
 ```lisp
 #+BEGIN_SRC emacs-lisp
