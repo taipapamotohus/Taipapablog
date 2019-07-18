@@ -1,8 +1,8 @@
 +++
-title = "Emacsでpdfを読む (pdf-tools)"
+title = "Emacsでpdfを読む (pdf-tools) (2019.07.17追記)"
 author = ["taipapa"]
-date = 2019-01-01
-lastmod = 2019-01-04T21:27:24+09:00
+date = 2019-07-17
+lastmod = 2019-07-18T20:05:23+09:00
 tags = ["emacs", "pdf", "pdf-tools", "org-mode"]
 type = "post"
 draft = false
@@ -20,7 +20,9 @@ Emacsでpdf文書を読もうとするとdefaultではDocViewで読む�
 <div class="heading">Table of Contents</div>
 
 - [PDF Tools](#pdf-tools)
-    - [インストールと設定](#インストールと設定)
+    - [インストール](#インストール)
+    - [追記（2019年7月17日）](#追記-2019年7月17日)
+    - [設定](#設定)
     - [使用法](#使用法)
 - [org-pdfview](#org-pdfview)
     - [インストールと設定](#インストールと設定)
@@ -44,10 +46,10 @@ Emacsでpdf文書を読もうとするとdefaultではDocViewで読む�
 
 ご本家のイントロに書いてあるが，DocViewのようにghostscriptで予めrenderしておくのではなく，on demandでページを作成し，メモリーに貯めておく仕組みになっている．このrenderingは，popplerという名前の特別なライブラリーによって行われるが，これはepdfinfoと呼ばれるserver programの中で走っている．こいつの仕事はEmacsからの要求を連続して読んで適切な結果，すなわち，PDFのページのPNG imageを作成することである．
 
-　　「実際のところ，PDFファイルを表示するのはPDF toolsの仕事の一部に過ぎない．popplerは文書に関する全ての情報を提供でき，かつ，それを修飾もできるので，遥かにたくさんのことができる」とイントロの最後で大見得を切って，何ができるかを示す[動画](https://www.dailymotion.com/video/x2bc1is?forcedQuality%3Dhd720)を紹介している．
+　　「実際のところ，PDFファイルを表示するのはPDF toolsの仕事の一部に過ぎない．popplerは文書に関する全ての情報を提供でき，かつ，それを修飾もできるので，遥かにたくさんのことができる」とイントロの最後で大見得を切って，何ができるかを示す[動画](https://www.dailymotion.com/video/x2bc1is?forcedQuality=hd720)を紹介している．
 
 
-### インストールと設定 {#インストールと設定}
+### インストール {#インストール}
 
 OSXは公式にはサポートされていないが，コンパイルできたと報告されている，と書いてあり，実際，以下のように出来た．まず，homebrewでpopplerをインストールする．もし，まだ，automakeを入れていなければそれもhomebrewでインストールする．
 
@@ -55,7 +57,56 @@ OSXは公式にはサポートされていないが，コンパイル�
 $ brew install poppler automake
 ```
 
-ついで，pkg-configをexportでいじるようなことが書いてあるが，特にそれはせずともよかった．ただし，pdf-toolsのインストールの際にコンパイルエラーが出た．どういうわけか， **pdf-tools          20180428.1527** ではだめだったが，幸い， **pdf-tools          20181221.1913** が出たので，参考4：[pdf-tools on macos](https://www.reddit.com/r/emacs/comments/6x9gtb/pdftools%5Fon%5Fmacos/)を頼りに，これにアップデートしたところ，あとは問題なくインストールできた．例によって，use-packagを用いて以下のように，init.orgに書けばよい．
+ついで，pkg-configをexportでいじるようなことが書いてあるが，特にそれはせずともよかった．ただし，pdf-toolsのインストールの際にコンパイルエラーが出た．どういうわけか， **pdf-tools          20180428.1527** ではだめだったが，幸い， **pdf-tools          20181221.1913** が出たので，参考4：[pdf-tools on macos](https://www.reddit.com/r/emacs/comments/6x9gtb/pdftools%5Fon%5Fmacos/)を頼りに，これにアップデートしたところ，あとは問題なくインストールできた．
+
+
+### 追記（2019年7月17日） {#追記-2019年7月17日}
+
+その後何度かpdf-toolをコンパイルすることがあったが，「libffiがどこにあるか分からん」というようなエラーメッセージが出て，「pkg-configでなんとかせい」と怒られるようになった．つまり，ご本家に書いてある通りになったわけである．そこで，libffiのpkgconfigを探して，それをPKG\_CONFIG\_PATHに含めるようにした．
+
+```sh
+$ mdfind -name pkgconfig | grep libffi
+/usr/local/Cellar/libffi/3.2.1/lib/pkgconfig
+$ export PKG_CONFIG_PATH=/usr/local/Cellar/libffi/3.2.1/lib/pkgconfig
+$ /Applications/Emacs.app/Contents/MacOS/Emacs --debug-init
+```
+
+これで下記のように設定していると，以下のようにpdf-toolが無事にコンパイルされる．
+
+```lisp
+/Users/taipapa/.emacs.d/elpa/pdf-tools-20190413.2018/build/server/autobuild -i /Users/taipapa/.emacs.d/elpa/pdf-tools-20190413.2018/
+---------------------------
+Installing packages
+---------------------------
+Skipping package installation (already installed)
+
+---------------------------
+Configuring and compiling
+---------------------------
+./configure -q --bindir=/Users/taipapa/.emacs.d/elpa/pdf-tools-20190413.2018/ && make -s
+
+Is case-sensitive searching enabled ?     yes
+Is modifying text annotations enabled ?   yes
+Is modifying markup annotations enabled ? yes
+
+
+---------------------------
+Installing
+---------------------------
+make -s install
+/usr/local/bin/gmkdir -p '/Users/taipapa/.emacs.d/elpa/pdf-tools-20190413.2018'
+/usr/local/bin/ginstall -c epdfinfo '/Users/taipapa/.emacs.d/elpa/pdf-tools-20190413.2018'
+make[1]: Nothing to be done for `install-data-am'.
+
+===========================
+Build succeeded. :O)
+===========================
+```
+
+
+### 設定 {#設定}
+
+例によって，use-packagを用いて以下のように，init.orgに書けばよい．
 
 ```lisp
 #+begin_src emacs-lisp

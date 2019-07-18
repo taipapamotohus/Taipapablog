@@ -2018,10 +2018,10 @@
     広い領域の表示が必要となれば，"C-x n w"とやると，1つ前の画像の状態に戻る．そして，もう一度"C-x n w"とやると，最初の状態に戻る．なんということはないのであるが，便利である．
 
 
-** COMMENT Emacsでpdfを読む (pdf-tools)               :emacs:pdf:pdf_tools:org_mode:
+** Emacsでpdfを読む (pdf-tools) (2019.07.17追記) :emacs:pdf:pdf_tools:org_mode:
    :PROPERTIES:
    :EXPORT_FILE_NAME: pdf-tools
-   :EXPORT_DATE: 2019-01-01
+   :EXPORT_DATE: 2019-07-17
    :EXPORT_HUGO_AUTO_SET_LASTMOD: t
    :EXPORT_HUGO_DRAFT: false
    :EXPORT_AUTHOR: "taipapa"
@@ -2048,12 +2048,54 @@
 
     　　「実際のところ，PDFファイルを表示するのはPDF toolsの仕事の一部に過ぎない．popplerは文書に関する全ての情報を提供でき，かつ，それを修飾もできるので，遥かにたくさんのことができる」とイントロの最後で大見得を切って，何ができるかを示す[[https://www.dailymotion.com/video/x2bc1is?forcedQuality%3Dhd720][動画]]を紹介している．
 
-**** インストールと設定
+**** インストール
      OSXは公式にはサポートされていないが，コンパイルできたと報告されている，と書いてあり，実際，以下のように出来た．まず，homebrewでpopplerをインストールする．もし，まだ，automakeを入れていなければそれもhomebrewでインストールする．
      #+begin_src sh
        $ brew install poppler automake
      #+end_src
-     ついで，pkg-configをexportでいじるようなことが書いてあるが，特にそれはせずともよかった．ただし，pdf-toolsのインストールの際にコンパイルエラーが出た．どういうわけか， *pdf-tools          20180428.1527* ではだめだったが，幸い， *pdf-tools          20181221.1913* が出たので，参考4：[[https://www.reddit.com/r/emacs/comments/6x9gtb/pdftools_on_macos/][pdf-tools on macos]]を頼りに，これにアップデートしたところ，あとは問題なくインストールできた．例によって，use-packagを用いて以下のように，init.orgに書けばよい．
+     ついで，pkg-configをexportでいじるようなことが書いてあるが，特にそれはせずともよかった．ただし，pdf-toolsのインストールの際にコンパイルエラーが出た．どういうわけか， *pdf-tools          20180428.1527* ではだめだったが，幸い， *pdf-tools          20181221.1913* が出たので，参考4：[[https://www.reddit.com/r/emacs/comments/6x9gtb/pdftools_on_macos/][pdf-tools on macos]]を頼りに，これにアップデートしたところ，あとは問題なくインストールできた．
+
+**** 追記（2019年7月17日）
+     その後何度かpdf-toolをコンパイルすることがあったが，「libffiがどこにあるか分からん」というようなエラーメッセージが出て，「pkg-configでなんとかせい」と怒られるようになった．つまり，ご本家に書いてある通りになったわけである．そこで，libffiのpkgconfigを探して，それをPKG_CONFIG_PATHに含めるようにした．
+     #+begin_src sh
+       $ mdfind -name pkgconfig | grep libffi
+       /usr/local/Cellar/libffi/3.2.1/lib/pkgconfig
+       $ export PKG_CONFIG_PATH=/usr/local/Cellar/libffi/3.2.1/lib/pkgconfig
+       $ /Applications/Emacs.app/Contents/MacOS/Emacs --debug-init
+     #+end_src
+     これで下記のように設定していると，以下のようにpdf-toolが無事にコンパイルされる．
+     #+begin_src lisp
+       /Users/taipapa/.emacs.d/elpa/pdf-tools-20190413.2018/build/server/autobuild -i /Users/taipapa/.emacs.d/elpa/pdf-tools-20190413.2018/
+       ---------------------------
+       Installing packages
+       ---------------------------
+       Skipping package installation (already installed)
+
+       ---------------------------
+       Configuring and compiling
+       ---------------------------
+       ./configure -q --bindir=/Users/taipapa/.emacs.d/elpa/pdf-tools-20190413.2018/ && make -s
+
+       Is case-sensitive searching enabled ?     yes
+       Is modifying text annotations enabled ?   yes
+       Is modifying markup annotations enabled ? yes
+
+
+       ---------------------------
+       Installing
+       ---------------------------
+       make -s install
+       /usr/local/bin/gmkdir -p '/Users/taipapa/.emacs.d/elpa/pdf-tools-20190413.2018'
+       /usr/local/bin/ginstall -c epdfinfo '/Users/taipapa/.emacs.d/elpa/pdf-tools-20190413.2018'
+       make[1]: Nothing to be done for `install-data-am'.
+
+       ===========================
+       Build succeeded. :O)
+       ===========================
+     #+end_src
+
+**** 設定
+     例によって，use-packagを用いて以下のように，init.orgに書けばよい．
      #+begin_src lisp
        ,#+begin_src emacs-lisp
        (use-package pdf-tools
@@ -3540,7 +3582,7 @@ beeswarm(data_melt.df$Drug1 ~ data_melt.df$Day, pch = 16, ad = TRUE, cex=1.5, co
 
 こういうパッケージを教えてくれるので，redditは有難い．
 
-** mojaveのライブ変換で快適日本語入力（カーソルの色も日英で変わるように設定） :macos:mojave:japanese:input:emacs:cursor:color:
+** COMMENT mojaveのライブ変換で快適日本語入力（カーソルの色も日英で変わるように設定） :macos:mojave:japanese:input:emacs:cursor:color:
    :PROPERTIES:
    :EXPORT_FILE_NAME: Live
    :EXPORT_DATE: 2019-07-11
