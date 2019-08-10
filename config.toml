@@ -155,7 +155,7 @@ enableGitInfo = false
   #   For more info on the highlighting options, see:
   #   https://sourcethemes.com/academic/docs/writing-markdown-latex/#highlighting-options
   highlight = true              
-  highlight_languages = ["go", "lisp", "ocaml", "shell", "tex", "r", "emacs-lisp"]
+  highlight_languages = ["go", "lisp", "ocaml", "sh", "tex", "r", "emacs-lisp"]
   # highlight_style = "monokai"
   highlight_style = "zenburn"
   # highlight_style = "monokai"

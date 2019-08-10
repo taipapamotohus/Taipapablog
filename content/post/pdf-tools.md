@@ -2,7 +2,7 @@
 title = "Emacsでpdfを読む (pdf-tools) (2019.07.17追記)"
 author = ["taipapa"]
 date = 2019-07-17
-lastmod = 2019-07-18T20:05:23+09:00
+lastmod = 2019-07-24T21:57:23+09:00
 tags = ["emacs", "pdf", "pdf-tools", "org-mode"]
 type = "post"
 draft = false

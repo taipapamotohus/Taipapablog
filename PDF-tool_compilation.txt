@@ -1,0 +1,39 @@
+Kohkichi-no-iMac:FullTextSearch kohkichi$ mdfind -name pkgconfig | grep zlib
+Kohkichi-no-iMac:FullTextSearch kohkichi$ mdfind -name pkgconfig | grep libffi
+/usr/local/Cellar/libffi/3.2.1/lib/pkgconfig
+Kohkichi-no-iMac:FullTextSearch kohkichi$ export PKG_CONFIG_PATH=/usr/local/Cellar/libffi/3.2.1/lib/pkgconfig
+Kohkichi-no-iMac:FullTextSearch kohkichi$ /Applications/Emacs.app/Contents/MacOS/Emacs --debug-init
+
+
+-*- mode: compilation; default-directory: "~/.emacs.d/elpa/pdf-tools-20190413.2018/build/server/" -*-
+Comint started at Wed Jul 17 09:43:38
+
+/Users/kohkichi/.emacs.d/elpa/pdf-tools-20190413.2018/build/server/autobuild -i /Users/kohkichi/.emacs.d/elpa/pdf-tools-20190413.2018/
+---------------------------
+    Installing packages
+---------------------------
+Skipping package installation (already installed)
+
+---------------------------
+ Configuring and compiling
+---------------------------
+./configure -q --bindir=/Users/kohkichi/.emacs.d/elpa/pdf-tools-20190413.2018/ && make -s
+
+Is case-sensitive searching enabled ?     yes
+Is modifying text annotations enabled ?   yes
+Is modifying markup annotations enabled ? yes
+
+
+---------------------------
+       Installing
+---------------------------
+make -s install
+ /usr/local/bin/gmkdir -p '/Users/kohkichi/.emacs.d/elpa/pdf-tools-20190413.2018'
+  /usr/local/bin/ginstall -c epdfinfo '/Users/kohkichi/.emacs.d/elpa/pdf-tools-20190413.2018'
+make[1]: Nothing to be done for `install-data-am'.
+
+===========================
+   Build succeeded. :O)
+===========================
+
+Comint finished at Wed Jul 17 09:43:43
