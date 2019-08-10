@@ -2,7 +2,7 @@
 title = "Full text search of PDF archives with hyperestraier on maos (mojave) — Hyper Estraierでpdfの全文検索を行う"
 author = ["taipapa"]
 date = 2019-07-24
-lastmod = 2019-08-10T22:11:47+09:00
+lastmod = 2019-08-10T22:18:03+09:00
 tags = ["macos", "mojave", "full-text-search", "hyperestraier", "pdf"]
 type = "post"
 draft = false
@@ -384,7 +384,7 @@ $ less /Library/WebServer/Documents/index.html.en
 
 つまり，この  /Library/WebServer/Documents ディレクトリの配下が， <http://localhost> のroot直下となる．pdfを含むディレクトリ，あるいはそのシンボリックリンクを/Library/WebServer/Documents ディレクトリの配下に置けば全文検索を行うcgi scriptの対象とできるわけである．
 
-しかし，そうなると，前述の/Library/WebServer/CGI-Executables/に於いても同じであるが，全ての作業をrootとして行わなければならなくなり，何をするにもsudoしないといけないのが面倒であるし，secirity上でも問題であろう．そこで，UserDir ディレクティブを使って 各ユーザがホームディレクトリにSites directoryを作成し，ウェブサイトを構築できるように設定する．要するに，先ほど作成した/Users/taipapa/Sites/pdf/以下のディレクトリで全文検索ができるように設定するということである．
+しかし，そうなると，前述の/Library/WebServer/CGI-Executables/に於いても同じであるが，全ての作業をrootとして行わなければならなくなり，何をするにもsudoしないといけないのが面倒であるし，security上でも問題であろう．そこで，UserDir ディレクティブを使って 各ユーザがホームディレクトリにSites directoryを作成し，ウェブサイトを構築できるように設定する．要するに，先ほど作成した/Users/taipapa/Sites/pdf/以下のディレクトリで全文検索ができるように設定するということである．
 
 
 ### ユーザ毎のウェブディレクトリ {#ユーザ毎のウェブディレクトリ}
