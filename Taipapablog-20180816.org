@@ -3756,9 +3756,9 @@ beeswarm(data_melt.df$Drug1 ~ data_melt.df$Day, pch = 16, ad = TRUE, cex=1.5, co
       さて，pdfは，大抵の場合，いくつかのディレクトリに分けて置いてあるであろう．それを全て1箇所に集約して全文検索ができるようにするために，シンボリックリンクを使用する．具体的には，pdfのあるディレクトリが，/Data/hogehoge, /Data/fugaguga, /Data/misc とすると，以下のようにする．
       #+begin_src sh
         $ cd /Users/taipapa/Sites/pdf/PDFs
-        $ sudo ln -s /Data/hogehoge .
-        $ sudo ln -s /Data/fugafuga .
-        $ sudo ln -s /Data/misc .
+        $ ln -s /Data/hogehoge .
+        $ ln -s /Data/fugafuga .
+        $ ln -s /Data/misc .
       #+end_src
 
 **** 全文検索用のindexの作成

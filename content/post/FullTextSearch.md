@@ -2,7 +2,7 @@
 title = "Full text search of PDF archives with hyperestraier on maos (mojave) — Hyper Estraierでpdfの全文検索を行う"
 author = ["taipapa"]
 date = 2019-07-24
-lastmod = 2019-08-10T22:18:03+09:00
+lastmod = 2019-08-14T14:54:20+09:00
 tags = ["macos", "mojave", "full-text-search", "hyperestraier", "pdf"]
 type = "post"
 draft = false
@@ -175,9 +175,9 @@ $ mkdir PDFs
 
 ```sh
 $ cd /Users/taipapa/Sites/pdf/PDFs
-$ sudo ln -s /Data/hogehoge .
-$ sudo ln -s /Data/fugafuga .
-$ sudo ln -s /Data/misc .
+$ ln -s /Data/hogehoge .
+$ ln -s /Data/fugafuga .
+$ ln -s /Data/misc .
 ```
 
 
